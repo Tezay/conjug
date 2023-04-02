@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, session #test
+from flask import Flask, render_template, url_for, request, session
 import random
 import csvReader
 
