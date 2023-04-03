@@ -5,16 +5,9 @@ import csvReader
 app = Flask(__name__)
 app.secret_key = '4e074c033785b0ec6cc2ce3a7b4efc1a2796090ac4de3f9eb123af0adafb7387'
 
+
 @app.route("/", methods=['GET', 'POST'])
 def index():
-
-    session["time"] = "temps"
-    session["pronouns"] = "pronoms"
-    session["verb"] = 'verbe'
-
-    return render_template("index.html", time=session["time"], pronouns=session["pronouns"], verb=session["verb"])
-@app.route("/exercice", methods=['GET', 'POST'])
-def exercice():
 
     listPronouns = ["yo", "tú", "él", "nosotros", "vosotros", "ellos"]
 
@@ -29,43 +22,53 @@ def exercice():
     }
 
     reponseUser=""
+    
+    verif = request.form.get("temps[]")
 
-    if request.method == "POST":
-        if request.form.get("temps[]") == None:
-            pass
+    if verif == "Futuro" or verif == "Conditional" or verif == "Presente de indicativo" or verif == "Presente de subjonctivo" or verif == "Pretérito imperfecto de indicativo" or verif == "Pretérito indefinido" or verif == "Prétero imperfecto de subjonctivo":
+
+        session["listActiveTimes"] = request.form.getlist("temps[]")
+
+        session["time"] = random.choice(session["listActiveTimes"])
+        
+        session["pronouns"] = random.choice(listPronouns)
+
+        session["verb"] = csvReader.verbChoice()
+        
+        
+    if request.form.get("reponse") != None and len(request.form.get("reponse")) >= 0 and session["verb"] != "verbe":
+
+        reponse = request.form.getlist("reponse")
+
+        termination = str(session["verb"][-2:])
+
+        correspondanceTermination = ["ar", "er", "ir"]
+
+        correction = correspondanceTime[session["time"]]()[listPronouns.index(session['pronouns'])][correspondanceTermination.index(termination)]
+
+        if (reponse[0] == session["verb"][:-2] + correction and session["time"] != "Futuro" and session["time"] != "Conditional") or ((session["time"] == "Futuro" or session["time"] == "Conditional") and reponse[0]  == session["verb"] + correction):
+        
+            reponseUser = "✅ Bonne réponse !"
+
+        elif (session["time"] == "Futuro" or session["time"] == "Conditional") and reponse[0]  != session["verb"] + correction:
+        
+            reponseUser = "❌ La réponse était: " + str(session["verb"] + correction)
 
         else:
-            session["listActiveTimes"] = request.form.getlist("temps[]")
-            session["time"] = random.choice(session["listActiveTimes"])
-            session["pronouns"] = random.choice(listPronouns)
-            session["verb"] = csvReader.verbChoice()
+        
+            reponseUser = "❌ La réponse était: " + str(session["verb"][:-2] + correction)
 
-        if request.form.get("reponse") == None:
-            pass
-
-        else:
-            reponse = request.form.getlist("reponse")
-            termination = str(session["verb"][-2:])
-            correspondanceTermination = ["ar", "er", "ir"]
-
-            correction = correspondanceTime[session["time"]]()[listPronouns.index(session['pronouns'])][correspondanceTermination.index(termination)]
-            print(session["verb"][:-2] + correction)
-            print(reponse)
-            if (reponse[0] == session["verb"][:-2] + correction and session["time"] != "Futuro" and session["time"] != "Conditional") or ((session["time"] == "Futuro" or session["time"] == "Conditional") and reponse[0]  == session["verb"] + correction):
-                reponseUser = "✅ Bonne réponse !"
-
-            elif (session["time"] == "Futuro" or session["time"] == "Conditional") and reponse[0]  != session["verb"] + correction:
-                reponseUser = "❌ La réponse était: " + str(session["verb"] + correction)
-
-            else:
-                reponseUser = "❌ La réponse était: " + str(session["verb"][:-2] + correction)
-
-            session["time"] = random.choice(session["listActiveTimes"])
-            session["pronouns"] = random.choice(listPronouns)
-            session["verb"] = csvReader.verbChoice()
+        session["time"] = random.choice(session["listActiveTimes"])
+        session["pronouns"] = random.choice(listPronouns)
+        session["verb"] = csvReader.verbChoice()
+        
+    elif verif == None:
+        session["time"] = "temps"
+        session["pronouns"] = "pronoms"
+        session["verb"] = 'verbe'
 
 
-    return render_template("index.html", time=session["time"], pronouns=session["pronouns"], verb=session["verb"], reponseUser= reponseUser, listActiveTimes = session["listActiveTimes"] )
+    return render_template("index.html", time = session["time"], pronouns = session["pronouns"], verb = session["verb"], reponseUser = reponseUser )
 
 if __name__ == "__main__":
     app.run(debug=True)
