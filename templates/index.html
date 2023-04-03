@@ -22,7 +22,7 @@
   <div class="main">
 
   <div class="times">
-    <form id="initialisation" action="{{url_for('exercice')}}" method="post">
+    <form id="initialisation" action="{{url_for('index')}}" method="post" name="form1">
       <h2>Sélectionner les temps à réviser</h2>
 
       <input type="checkbox" name="temps[]" value="Futuro" id="1">
@@ -52,14 +52,14 @@
 
   <div class="exercice">
     <h2>Conjuguer le verbe suivant au temps indiqué</h2>
-    <form id="actualisation" action="{{url_for('exercice')}}" method="post">
+    <form id="actualisation" action="{{url_for('index')}}" method="post" name="form2">
       <input type="hidden" id="reponse-correcte">
       <label for="reponse">
         <div class="displayPerson">
           <p>{{pronouns}}</p>
         </div>
         <div class="displayVerb">
-          <p>{{verb}}</p>
+          <p id=verbe>{{verb}}</p>
         </div>
         <div class="displayTime">
           <p>{{time}}</p>
