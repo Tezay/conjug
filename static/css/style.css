@@ -130,7 +130,6 @@ button:hover {
   	border-width: 0px;
   	border-style: solid;
 	border-radius: 8px;
-	display: none;
 	background-color: white;
 	box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
 }
@@ -190,7 +189,6 @@ input[type="text"] {
   	border-width: 0px;
   	border-style: solid;
 	border-radius: 8px;
-	display: none;
 	background-color: white;
 	box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
 	color:#713124;
