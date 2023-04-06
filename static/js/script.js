@@ -1,5 +1,10 @@
 var form = document.getElementById("initialisation");
 var form2 = document.getElementById("actualisation");
+var button1 = document.getElementById("a")
+var button2 = document.getElementById("i")
+var button3 = document.getElementById("o")
+var button4 = document.getElementById("u")
+var button5 = document.getElementById("n")
 
 form.addEventListener("submit", function(e){
 
@@ -12,8 +17,8 @@ form.addEventListener("submit", function(e){
   var checkBox7 = document.getElementById("7");
     
   if (checkBox1.checked == false && checkBox2.checked == false && checkBox3.checked == false && checkBox4.checked == false && checkBox5.checked == false && checkBox6.checked == false && checkBox7.checked == false){
-    e.preventDefault;
-    alert("Veuillez choisir un/des temp(s) et le(s) validés");
+    e.preventDefault();
+    alert("Choisir et valider un ou plusieurs temps");
     return false;
   } else {
     return true;
@@ -23,18 +28,59 @@ form.addEventListener("submit", function(e){
  
 form2.addEventListener("submit", function(e){
     
-  var zoneDeTexte = document.getElementById("reponse").value;
-  var verb = document.getElementByID("verbe");
+  var zoneDeTexte = document.getElementById("reponse");
+  var verb = document.getElementById("verbe").textContent;
 
-  if(zoneDeTexte == ''){
-    e.preventDefault;
+  if(zoneDeTexte.value == '' || zoneDeTexte.value == null){
+    e.preventDefault();
     alert("Entrer un verbe conjugué");
     return false;
-  } else if(verb != "verbe") {
-    e.preventDefault;
-    alert("Veuillez choisir un/des temp(s) et le(s) validés");
+  } else if(verb == "verbe") {
+    alert("Choisir et valider un ou plusieurs temps");
     return false;  
   } else {
     return true;
   }
+  
 });
+
+button1.addEventListener("onclick", function(e){
+    
+  var zoneDeTexte = document.getElementById("reponse");
+  
+  zoneDeTexte = zoneDeTexte.valu + "á";
+  
+});
+
+button2.addEventListener("onclick", function(e){
+    
+  var zoneDeTexte = document.getElementById("reponse");
+  
+  zoneDeTexte = zoneDeTexte.valu + "í";
+  
+});
+
+button3.addEventListener("onclick", function(e){
+    
+  var zoneDeTexte = document.getElementById("reponse");
+  
+  zoneDeTexte = zoneDeTexte.valu + "ó";
+  
+});
+
+button4.addEventListener("onclick", function(e){
+    
+  var zoneDeTexte = document.getElementById("reponse");
+  
+  zoneDeTexte = zoneDeTexte.valu + "ú";
+  
+});
+
+button5.addEventListener("onclick", function(e){
+    
+  var zoneDeTexte = document.getElementById("reponse");
+  
+  zoneDeTexte = zoneDeTexte.valu + "ñ";
+  
+});
+  
