@@ -4,7 +4,7 @@ import csv
 
 def verbChoice():
     
-    with open('times irregular/infinitif.csv', newline='') as csvfile:
+    with open('timesIrregular/infinitif.csv', newline='', encoding='utf8', errors='ignore') as csvfile:
         reader = csv.reader(csvfile)
         rows = [row for row in reader]
         random_verbe = random.choice(rows)[0]
@@ -13,7 +13,7 @@ def verbChoice():
 
 def Presente_de_indicativo():
     
-    with open('times irregular/Presente de indicativo.csv', newline='') as csvfile:
+    with open('timesIrregular/Presente de indicativo.csv', newline='', encoding='utf8', errors='ignore') as csvfile:
         reader = csv.reader(csvfile, delimiter=';')
         rows = [row for row in reader]
                 
@@ -22,7 +22,7 @@ def Presente_de_indicativo():
 
 def Presente_de_subjonctivo():
     
-    with open('times irregular/Presente de subjonctivo.csv', newline='') as csvfile:
+    with open('timesIrregular/Presente de subjonctivo.csv', newline='', encoding='utf8', errors='ignore') as csvfile:
         reader = csv.reader(csvfile, delimiter=';')
         rows = [row for row in reader]
                 
@@ -31,7 +31,7 @@ def Presente_de_subjonctivo():
     
 def Preterito_imperfecto_de_indicativo():
     
-    with open('times irregular/Pretérito imperfecto de indicativo.csv', newline='') as csvfile:
+    with open('timesIrregular/Pretérito imperfecto de indicativo.csv', newline='', encoding='utf8', errors='ignore') as csvfile:
         reader = csv.reader(csvfile, delimiter=';')
         rows = [row for row in reader]
         
@@ -40,7 +40,7 @@ def Preterito_imperfecto_de_indicativo():
 
 def Preterito_indefinido():
     
-    with open('times irregular/Pretérito indefinido.csv', newline='') as csvfile:
+    with open('timesIrregular/Pretérito indefinido.csv', newline='', encoding='utf8', errors='ignore') as csvfile:
         reader = csv.reader(csvfile, delimiter=';')
         rows = [row for row in reader]
                 
@@ -49,7 +49,7 @@ def Preterito_indefinido():
 
 def Pretero_imperfecto_de_subjonctivo():
     
-    with open('times irregular/Prétero imperfecto de subjonctivo.csv', newline='') as csvfile:
+    with open('timesIrregular/Prétero imperfecto de subjonctivo.csv', newline='', encoding='utf8', errors='ignore') as csvfile:
         reader = csv.reader(csvfile, delimiter=';')
         rows = [row for row in reader]
         
@@ -57,7 +57,7 @@ def Pretero_imperfecto_de_subjonctivo():
 
 def Futuro():
     
-    with open('times irregular/Futuro.csv', newline='') as csvfile:
+    with open('timesIrregular/Futuro.csv', newline='', encoding='utf8', errors='ignore') as csvfile:
         reader = csv.reader(csvfile, delimiter=';')
         rows = [row for row in reader]
         
@@ -66,7 +66,7 @@ def Futuro():
 
 def Conditional():
     
-    with open('times irregular/Conditional.csv', newline='') as csvfile:
+    with open('timesIrregular/Conditional.csv', newline='', encoding='utf8', errors='ignore') as csvfile:
         reader = csv.reader(csvfile, delimiter=';')
         rows = [row for row in reader]
         

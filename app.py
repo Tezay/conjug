@@ -21,7 +21,7 @@ def index():
         "Pretérito indefinido": csvReader.Preterito_indefinido,
         "Prétero imperfecto de subjonctivo": csvReader.Pretero_imperfecto_de_subjonctivo,
     }
-    
+
     correspondanceTimeIrregular = {
         "Conditional": csvReaderIrregular.Conditional,
         "Futuro": csvReaderIrregular.Futuro,
@@ -33,10 +33,10 @@ def index():
     }
 
     reponseUser=""
-    
+
     if 'time' in session:
-        print(session["time"])
-        
+        pass
+
     else:
         session["time"] = "temps"
         session["pronouns"] = "pronoms"
@@ -44,71 +44,111 @@ def index():
 
     verif = request.form.get("temps[]")
 
-    if verif == "Futuro" or verif == "Conditional" or verif == "Presente de indicativo" or verif == "Presente de subjonctivo" or verif == "Pretérito imperfecto de indicativo" or verif == "Pretérito indefinido" or verif == "Prétero imperfecto de subjonctivo":
-        
-        print("banane")
+    if verif == "Futuro" or verif == "Conditional" or verif == "Presente de indicativo" or verif == "Presente de subjonctivo" or verif == "Pretérito imperfecto de indicativo" or verif == "Pretérito indefinido" or verif == "Prétero imperfecto de subjonctivo" :
+
         session["listActiveTimes"] = request.form.getlist("temps[]")
 
         session["time"] = random.choice(session["listActiveTimes"])
-        
+
         session["pronouns"] = random.choice(listPronouns)
-        
-        if request.form.get("irregulier") == "irregulier":
-            
+
+
+    if request.values.get("irreguliers") == "irregulier":
+
+        session["verb"] = csvReaderIrregular.verbChoice()
+        session["irregular"] = 6
+
+    elif request.values.get("tous") == "tous":
+
+        aleatoire = random.randint(0,1)
+        if aleatoire == 0:
             session["verb"] = csvReaderIrregular.verbChoice()
             session["irregular"] = 6
-        
+            session["tous"] = 7
+
         else:
-    
             session["verb"] = csvReader.verbChoice()
             session["irregular"] = 8
+            session["tous"] = 7
+
+    elif request.values.get("reguliers") == "regulier":
+
+        session["verb"] = csvReader.verbChoice()
+        session["irregular"] = 8
+
 
     if request.form.get("reponse") != None and len(request.form.get("reponse")) >= 0 and session["verb"] != "verbe":
-        
+
         reponse = request.form.getlist("reponse")
+        reponseVerb = reponse[0].lower()
 
         if session["irregular"] == 6:
-            
+
             correspondanceVerb = ["dar", "decir", "estar", "haber", "hacer", "ir", "poder", "poner", "querer", "saber", "salir", "ser", "tener", "venir", "ver"]
-            
+
             correction = correspondanceTimeIrregular[session["time"]]()[listPronouns.index(session['pronouns'])][correspondanceVerb.index(session["verb"])]
-            
-            if reponse[0] == correction:
+
+            if reponseVerb == correction:
                 reponseUser = "✅ Bonne réponse !"
-                
+
             else:
-                
-               reponseUser = "❌ La réponse était: " + str(correction) 
-               
+
+               reponseUser = "❌ La réponse était: " + str(correction)
+
             session["verb"] = csvReaderIrregular.verbChoice()
-            
+
         else:
-            
+
             termination = str(session["verb"][-2:])
-    
+
             correspondanceTermination = ["ar", "er", "ir"]
-    
+
             correction = correspondanceTime[session["time"]]()[listPronouns.index(session['pronouns'])][correspondanceTermination.index(termination)]
-    
-            if (reponse[0] == session["verb"][:-2] + correction and session["time"] != "Futuro" and session["time"] != "Conditional") or ((session["time"] == "Futuro" or session["time"] == "Conditional") and reponse[0]  == session["verb"] + correction):
-            
+
+            if (reponseVerb == session["verb"][:-2] + correction and session["time"] != "Futuro" and session["time"] != "Conditional") or ((session["time"] == "Futuro" or session["time"] == "Conditional") and reponseVerb == session["verb"] + correction):
+
                 reponseUser = "✅ Bonne réponse !"
-    
-            elif (session["time"] == "Futuro" or session["time"] == "Conditional") and reponse[0]  != session["verb"] + correction:
-            
+
+            elif (session["time"] == "Futuro" or session["time"] == "Conditional") and reponseVerb != session["verb"] + correction:
+
                 reponseUser = "❌ La réponse était: " + str(session["verb"] + correction)
-    
+
             else:
-            
+
                 reponseUser = "❌ La réponse était: " + str(session["verb"][:-2] + correction)
-                
+
             session["verb"] = csvReader.verbChoice()
+
+        if "tous" in session and session["tous"] == 7:
+
+            aleatoire = random.randint(0, 1)
+            if aleatoire == 0:
+                session["verb"] = csvReaderIrregular.verbChoice()
+                session["irregular"] = 6
+
+            else:
+                session["verb"] = csvReader.verbChoice()
+                session["irregular"] = 8
 
         session["time"] = random.choice(session["listActiveTimes"])
         session["pronouns"] = random.choice(listPronouns)
 
 
-    return render_template("index.html", time = session["time"], pronouns = session["pronouns"], verb = session["verb"], reponseUser = reponseUser )
+    return render_template("home.html", time = session["time"], pronouns = session["pronouns"], verb = session["verb"], reponseUser = reponseUser )
+
+
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+    pass
+
+@app.route("/logout", methods=['GET', 'POST'])
+def logout():
+    pass
+
+@app.route("/newAccount", methods=['GET', 'POST'])
+def newAccount():
+    pass
+
 
 if __name__ == "__main__":
     app.run(debug=True)
