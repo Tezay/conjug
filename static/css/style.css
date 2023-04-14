@@ -1,5 +1,5 @@
 html {
-  font-size:16px;
+  font-size:18px;
 }
 body {
     margin: 0;
@@ -256,7 +256,7 @@ input[type="text"] {
   display: flex;
   justify-content: center;
   margin-top: 5px;
-  margin-left: 170px;
+  margin-left: 160px;
 }
 
 
