@@ -1,10 +1,13 @@
 var form = document.getElementById("initialisation");
 var form2 = document.getElementById("actualisation");
-var button1 = document.getElementById("a")
-var button2 = document.getElementById("i")
-var button3 = document.getElementById("o")
-var button4 = document.getElementById("u")
-var button5 = document.getElementById("n")
+var form3 = document.getElementById("radio");
+
+var button1 = document.getElementById("a");
+var button2 = document.getElementById("i");
+var button3 = document.getElementById("o");
+var button4 = document.getElementById("u");
+var button5 = document.getElementById("n");
+
 
 form.addEventListener("submit", function(e){
 
@@ -15,16 +18,29 @@ form.addEventListener("submit", function(e){
   var checkBox5 = document.getElementById("5");
   var checkBox6 = document.getElementById("6");
   var checkBox7 = document.getElementById("7");
+  var tous = document.getElementById("tous");
+  var irregulier = document.getElementById("irreguliers");
+  var regulier = document.getElementById("reguliers");
     
   if (checkBox1.checked == false && checkBox2.checked == false && checkBox3.checked == false && checkBox4.checked == false && checkBox5.checked == false && checkBox6.checked == false && checkBox7.checked == false){
     e.preventDefault();
     alert("Choisir et valider un ou plusieurs temps");
     return false;
-  } else {
+  } else if (tous.checked == true){
+    form3.submit();
     return true;
+  } else if (irregulier.checked == true) {
+    form3.submit();
+  } else if (regulier.checked == true){
+    form3.submit();
+  }  else {
+    e.preventDefault();
+    alert("Choisir les verbes réguliers, irréguliers ou tous");
+    return false;
   }
 
 });
+
  
 form2.addEventListener("submit", function(e){
     
@@ -40,47 +56,18 @@ form2.addEventListener("submit", function(e){
     return false;  
   } else {
     return true;
+
   }
   
 });
 
-button1.addEventListener("onclick", function(e){
-    
-  var zoneDeTexte = document.getElementById("reponse");
+function insertCharacter(lettre){
   
-  zoneDeTexte = zoneDeTexte.valu + "á";
+  document.getElementById("reponse").value += lettre;
   
-});
+};
 
-button2.addEventListener("onclick", function(e){
-    
-  var zoneDeTexte = document.getElementById("reponse");
-  
-  zoneDeTexte = zoneDeTexte.valu + "í";
-  
-});
 
-button3.addEventListener("onclick", function(e){
-    
-  var zoneDeTexte = document.getElementById("reponse");
-  
-  zoneDeTexte = zoneDeTexte.valu + "ó";
-  
-});
 
-button4.addEventListener("onclick", function(e){
-    
-  var zoneDeTexte = document.getElementById("reponse");
-  
-  zoneDeTexte = zoneDeTexte.valu + "ú";
-  
-});
 
-button5.addEventListener("onclick", function(e){
-    
-  var zoneDeTexte = document.getElementById("reponse");
-  
-  zoneDeTexte = zoneDeTexte.valu + "ñ";
-  
-});
   
