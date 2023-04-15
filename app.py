@@ -34,14 +34,15 @@ def index():
 
     reponseUser=""
 
-    if 'time' in session:
-        pass
-
-    else:
+    if not('time' in session):
+        print("banane")
         session["time"] = "temps"
         session["pronouns"] = "pronoms"
         session["verb"] = 'verbe'
-        session["banane1"] = None
+
+    if not("banane" in session):
+
+        session["banane"] = None
         session["banane2"] = None
         session["banane3"] = None
         session["banane4"] = None
@@ -164,7 +165,7 @@ def index():
         session["pronouns"] = random.choice(listPronouns)
 
 
-    return render_template("home.html", time = session["time"], pronouns = session["pronouns"], verb = session["verb"], reponseUser = reponseUser , banane = session["banane"], banane2 = session["banane2"], banane3 = session["banane3"], banane4 = session["banane4"], banane5 = session["banane5"], banane6 = session["banane6"], banane7 = session["banane7"], kiwi = session["kiwi"], kiwi2 = session["kiwi2"], kiwi3 = session["kiwi3"] )
+    return render_template("home.html", time = session["time"], pronouns = session["pronouns"], verb = session["verb"], reponseUser = reponseUser , banane = session["banane"], banane2 = session["banane2"], banane3 = session["banane3"], banane4 = session["banane4"], banane5 = session["banane5"], banane6 = session["banane6"], banane7 = session["banane7"], kiwi = session["kiwi"], kiwi2 = session["kiwi2"], kiwi3 = session["kiwi3"])
 
 
 @app.route("/login", methods=['GET', 'POST'])
