@@ -165,7 +165,7 @@ def index():
         session["pronouns"] = random.choice(listPronouns)
 
 
-    return render_template("home2.html", time = session["time"], pronouns = session["pronouns"], verb = session["verb"], reponseUser = reponseUser , banane = banane, banane2 = banane2, banane3 = banane3, banane4 = banane4, banane5 = banane5, banane6 = banane6, banane7 = banane7, kiwi = kiwi, kiwi2 = kiwi2, kiwi3 = kiwi3 )
+    return render_template("home.html", time = session["time"], pronouns = session["pronouns"], verb = session["verb"], reponseUser = reponseUser , banane = banane, banane2 = banane2, banane3 = banane3, banane4 = banane4, banane5 = banane5, banane6 = banane6, banane7 = banane7, kiwi = kiwi, kiwi2 = kiwi2, kiwi3 = kiwi3 )
 
 
 @app.route("/login", methods=['GET', 'POST'])
