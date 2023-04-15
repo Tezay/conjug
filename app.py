@@ -32,6 +32,18 @@ def index():
         "Prétero imperfecto de subjonctivo": csvReaderIrregular.Pretero_imperfecto_de_subjonctivo,
     }
 
+    banane = None
+    banane2 = None
+    banane3 = None
+    banane4 = None
+    banane5 = None
+    banane6 = None
+    banane7 = None
+
+    kiwi = None
+    kiwi2 = None
+    kiwi3 = None
+
     reponseUser=""
 
     if 'time' in session:
@@ -47,20 +59,38 @@ def index():
     if verif == "Futuro" or verif == "Conditional" or verif == "Presente de indicativo" or verif == "Presente de subjonctivo" or verif == "Pretérito imperfecto de indicativo" or verif == "Pretérito indefinido" or verif == "Prétero imperfecto de subjonctivo" :
 
         session["listActiveTimes"] = request.form.getlist("temps[]")
-
+        print(session["listActiveTimes"])
         session["time"] = random.choice(session["listActiveTimes"])
+
+        for val in session["listActiveTimes"]:
+            if val == "Futuro":
+                banane = "checked"
+            if val == "Conditional":
+                banane2 = "checked"
+            if val == "Presente de indicativo":
+                banane3 = "checked"
+            if val == "Presente de subjonctivo":
+                banane4 = "checked"
+            if val == "Pretérito imperfecto de indicativo":
+                banane5 = "checked"
+            if val == "Pretérito indefinido":
+                banane6 = "checked"
+            if val == "Prétero imperfecto de subjonctivo":
+                banane7 = "checked"
 
         session["pronouns"] = random.choice(listPronouns)
 
     print(request.form.get("drone"))
     if request.form.get("drone") == "irreguliers":
 
+        kiwi3 = "checked"
         session["verb"] = csvReaderIrregular.verbChoice()
         session["irregular"] = 6
 
     elif request.form.get("drone") == "tous":
 
         aleatoire = random.randint(0,1)
+        kiwi2 = "checked"
         if aleatoire == 0:
             session["verb"] = csvReaderIrregular.verbChoice()
             session["irregular"] = 6
@@ -73,6 +103,7 @@ def index():
 
     elif request.form.get("drone") == "reguliers":
 
+        kiwi = "checked"
         session["verb"] = csvReader.verbChoice()
         session["irregular"] = 8
 
@@ -134,7 +165,7 @@ def index():
         session["pronouns"] = random.choice(listPronouns)
 
 
-    return render_template("home.html", time = session["time"], pronouns = session["pronouns"], verb = session["verb"], reponseUser = reponseUser )
+    return render_template("home2.html", time = session["time"], pronouns = session["pronouns"], verb = session["verb"], reponseUser = reponseUser , banane = banane, banane2 = banane2, banane3 = banane3, banane4 = banane4, banane5 = banane5, banane6 = banane6, banane7 = banane7, kiwi = kiwi, kiwi2 = kiwi2, kiwi3 = kiwi3 )
 
 
 @app.route("/login", methods=['GET', 'POST'])
