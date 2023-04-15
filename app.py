@@ -34,7 +34,6 @@ def index():
 
     reponseUser=""
 
-    
     if 'time' in session:
         pass
 
@@ -45,7 +44,6 @@ def index():
 
     verif = request.form.get("temps[]")
 
-    
     if verif == "Futuro" or verif == "Conditional" or verif == "Presente de indicativo" or verif == "Presente de subjonctivo" or verif == "Pretérito imperfecto de indicativo" or verif == "Pretérito indefinido" or verif == "Prétero imperfecto de subjonctivo" :
 
         session["listActiveTimes"] = request.form.getlist("temps[]")
@@ -53,9 +51,14 @@ def index():
         session["time"] = random.choice(session["listActiveTimes"])
 
         session["pronouns"] = random.choice(listPronouns)
-        
 
-    if request.form.get("drone") == "tous":
+    print(request.form.get("drone"))
+    if request.form.get("drone") == "irreguliers":
+
+        session["verb"] = csvReaderIrregular.verbChoice()
+        session["irregular"] = 6
+
+    elif request.form.get("drone") == "tous":
 
         aleatoire = random.randint(0,1)
         if aleatoire == 0:
@@ -68,12 +71,7 @@ def index():
             session["irregular"] = 8
             session["tous"] = 7
 
-    if request.form.get("drone") == "irregulier":
-
-        session["verb"] = csvReaderIrregular.verbChoice()
-        session["irregular"] = 6
-        
-    elif request.form.get("drone") == "regulier":
+    elif request.form.get("drone") == "reguliers":
 
         session["verb"] = csvReader.verbChoice()
         session["irregular"] = 8
