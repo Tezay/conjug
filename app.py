@@ -59,35 +59,49 @@ def index():
     if verif == "Futuro" or verif == "Conditional" or verif == "Presente de indicativo" or verif == "Presente de subjonctivo" or verif == "Pretérito imperfecto de indicativo" or verif == "Pretérito indefinido" or verif == "Prétero imperfecto de subjonctivo" :
 
         session["listActiveTimes"] = request.form.getlist("temps[]")
-        print(session["listActiveTimes"])
         session["time"] = random.choice(session["listActiveTimes"])
+        session["pronouns"] = random.choice(listPronouns)
 
         for val in session["listActiveTimes"]:
             if val == "Futuro":
                 session["banane"] = "checked"
+            else:
+                session["banane"] = None
             if val == "Conditional":
                 session["banane2"] = "checked"
+            else:
+                session["banane2"] = None
             if val == "Presente de indicativo":
                 session["banane3"] = "checked"
+            else:
+                session["banane3"] = None
             if val == "Presente de subjonctivo":
                 session["banane4"] = "checked"
+            else:
+                session["banane4"] = None
             if val == "Pretérito imperfecto de indicativo":
                 session["banane5"] = "checked"
+            else:
+                session["banane5"] = None
             if val == "Pretérito indefinido":
                 session["banane6"] = "checked"
+            else:
+                session["banane6"] = None
             if val == "Prétero imperfecto de subjonctivo":
                 session["banane7"] = "checked"
+            else:
+                session["banane7"] = None
 
-        session["pronouns"] = random.choice(listPronouns)
 
-    print(request.form.get("drone"))
     if request.form.get("drone") == "irreguliers":
 
         session["kiwi"] = "checked"
         session["verb"] = csvReaderIrregular.verbChoice()
         session["irregular"] = 6
+    else:
+        session["kiwi"] = None
 
-    elif request.form.get("drone") == "tous":
+    if request.form.get("drone") == "tous":
 
         aleatoire = random.randint(0,1)
         session["kiwi2"] = "checked"
@@ -100,12 +114,16 @@ def index():
             session["verb"] = csvReader.verbChoice()
             session["irregular"] = 8
             session["tous"] = 7
+    else:
+        session["kiwi2"] = None
 
-    elif request.form.get("drone") == "reguliers":
+    if request.form.get("drone") == "reguliers":
 
         session["kiwi3"] = "checked"
         session["verb"] = csvReader.verbChoice()
         session["irregular"] = 8
+    else:
+        session["kiwi3"] = None
 
 
     if request.form.get("reponse") != None and len(request.form.get("reponse")) >= 0 and session["verb"] != "verbe":
