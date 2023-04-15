@@ -152,13 +152,13 @@ body {
   cursor: pointer;
   border-radius: 24px;
   font-size:16px;
-  background-color: #e1550e;
+  background-color: #f97316;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
   transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .times button:hover {
-  background-color: #ed611b;
+  background-color: #fca055;
   box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.3);
 }
 
@@ -225,13 +225,13 @@ input[type="text"] {
   cursor: pointer;
   border-radius: 24px;
   font-size:16px;
-  background-color: #e1550e;
+  background-color: #f97316;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
   transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .exercice button[type="submit"]:hover {
-  background-color: #ed611b;
+  background-color: #fca055;
   box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.3);
 }
 
@@ -244,12 +244,16 @@ input[type="text"] {
   cursor: pointer;
   border-radius: 24px;
   font-size:16px;
-  background-color: #ec7927;
+  background-color: #fdba74;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
   transition: background-color 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   justify-content: center;
   margin-top: 2px;
+}
+
+.exercice .special-characters button:hover {
+	background-color: #fdc68b;
 }
 
 .exercice .special-characters {
