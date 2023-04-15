@@ -4,7 +4,7 @@ import csv
 
 def verbChoice():
     
-    with open('timesIrregular/infinitif.csv', newline='', encoding='utf8', errors='ignore') as csvfile:
+    with open('timesIrregular/Infinitif.csv', newline='', encoding='utf8', errors='ignore') as csvfile:
         reader = csv.reader(csvfile)
         rows = [row for row in reader]
         random_verbe = random.choice(rows)[0]
