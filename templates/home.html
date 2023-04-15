@@ -19,7 +19,7 @@
         <nav class="navbar">
           <div class="navbar-left">
             <a href="#">
-              <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo conjug.fr">
+              <img src="img/logo.png" alt="Logo conjug.fr">
               <span class="navbar-title">conjug.fr</span>
             </a>
           </div>
@@ -39,25 +39,25 @@
           <form id="initialisation" action="{{url_for('index')}}" method="post" name="form1">
             <h2>Sélectionner les temps à réviser</h2>
       
-            <input type="checkbox" name="temps[]" value="Futuro" id="1">
+            <input type="checkbox" name="temps[]" value="Futuro" id="1" {{banane}}>
             <label for="futuro">Futuro</label><br>
       
-            <input type="checkbox" name="temps[]" value="Conditional" id="2">
+            <input type="checkbox" name="temps[]" value="Conditional" id="2" {{banane2}}>
             <label for="conditional">Condicional</label><br>
       
-            <input type="checkbox" name="temps[]" value="Presente de indicativo" id="3">
+            <input type="checkbox" name="temps[]" value="Presente de indicativo" id="3" {{banane3}}>
             <label for="presente-indicativo">Presente de indicativo</label><br>
       
-            <input type="checkbox" name="temps[]" value="Presente de subjonctivo" id="4">
+            <input type="checkbox" name="temps[]" value="Presente de subjonctivo" id="4" {{banane4}}>
             <label for="presente-subjonctivo">Presente de subjuntivo</label><br>
       
-            <input type="checkbox" name="temps[]" value="Pretérito imperfecto de indicativo" id="5">
+            <input type="checkbox" name="temps[]" value="Pretérito imperfecto de indicativo" id="5" {{banane5}}>
             <label for="preterito-imperfecto-indicativo">Pretérito imperfecto de indicativo</label><br>
       
-            <input type="checkbox" name="temps[]" value="Pretérito indefinido" id="6">
+            <input type="checkbox" name="temps[]" value="Pretérito indefinido" id="6" {{banane6}}>
             <label for="preterito-indefinido">Pretérito indefinido</label><br>
       
-            <input type="checkbox" name="temps[]" value="Prétero imperfecto de subjonctivo" id="7">
+            <input type="checkbox" name="temps[]" value="Prétero imperfecto de subjonctivo" id="7" {{banane7}}>
             <label for="preterito-imperfecto-subjonctivo">Pretérito imperfecto de subjuntivo</label><br>
       
             <button type="submit" >Valider la sélection  ➡</button>
@@ -68,13 +68,13 @@
          <div class="switch">
             <h2>Séléctionner les verbes à conjuguer</h2>
             <div class="switch-toggle">
-              <input type="radio" name="drone" value="reguliers" id="reguliers">
+              <input type="radio" name="drone" value="reguliers" id="reguliers" {{kiwi}}>
               <label for="reguliers">Réguliers</label>
               
-              <input type="radio" name="drone" value="tous" id="tous">
+              <input type="radio" name="drone" value="tous" id="tous" {{kiwi2}}>
               <label for="tous">Tous</label>
               
-              <input type="radio" name="drone" value="irreguliers" id="irreguliers">
+              <input type="radio" name="drone" value="irreguliers" id="irreguliers" {{kiwi3}}>
               <label for="irreguliers">Irréguliers</label>
             </div>
          </div>
@@ -115,9 +115,7 @@
           </div>
 
           <div class="correction">
-            {% if reponseUser != "" %}
             <p>{{reponseUser}}</p>
-            {% endif %}
           </div>
 
         </div>
