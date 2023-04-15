@@ -126,7 +126,7 @@ body {
 
 .times {
 
-  margin: 30px;
+  margin: 20px;
   padding: 25px;
   border-radius: 16px;
   background-color: #fff;
@@ -173,8 +173,8 @@ body {
 /**Exercice**/
 
 .exercice {
-  width:95%;
-  margin: 30px auto;
+  
+  margin: 20px;
   padding: 20px;
   border-radius: 16px;;
   background-color: #fff;
@@ -269,17 +269,16 @@ input[type="text"] {
 
 
 .switch {
-  width:95%;
-  margin: 30px auto;
-  padding: 20px;
-  border-radius: 16px;;
+  margin: 20px;
+  padding: 20px 0px;
+  border-radius: 16px;
   background-color: #fff;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .switch-toggle {
   display: flex;
-  width: 350px;
+  width: 300px;
   height: 40px;
   background-color: #E5E9F0;
   color: #3B4252;
@@ -369,8 +368,58 @@ footer p {
 
 
 
-  @media screen and (max-width:600px){
+  @media screen and (max-width:1023px){
+    
+    html {
+      font-size:14px;
+    }
+    
+    
+    .github-button {
+      display: none;
+    }
+
+    .connexion-button {
+      padding: 10px 30px;
+    }
+    
+    .main {
+      display:flex;
+      margin: 0px;
+      flex-direction: column;
+    }
+
+    .times button {
+      margin-bottom: 0px;
+    }
+
+    .exercice label {
+      display: flex;
+      align-items: center;
+      font-size: 1.2rem;
+      margin-top: 10px;
+    }
+
+    .exercice form {
+      display: flex;
+      flex-direction: column;
+      align-items:first baseline;
+      margin: 0;
+    }
+
+    input[type="text"] {
+      margin-bottom: 15px;
+    }
+
+    .exercice button[type="submit"] {
+      margin-bottom: 5px;
+    }
+
+    .exercice .special-characters {
+      display: flex;
+      justify-content: center;
+      margin-top: 5px;
+      margin-left: 20px;
+    }
 
   }
- 
-  
