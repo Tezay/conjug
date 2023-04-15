@@ -19,7 +19,7 @@
         <nav class="navbar">
           <div class="navbar-left">
             <a href="#">
-              <img src="{{url_for('static', filename='img/logo.png')}}" alt="Logo conjug.fr">
+              <img src="img/logo.png" alt="Logo conjug.fr">
               <span class="navbar-title">conjug.fr</span>
             </a>
           </div>
@@ -61,26 +61,24 @@
             <label for="preterito-imperfecto-subjonctivo">Pretérito imperfecto de subjuntivo</label><br>
       
             <button type="submit" >Valider la sélection  ➡</button>
-          </form>
         </div>
-      
+
         <div class="right-div">
 
-        <div class="switch">
-          <h2>Séléctionner les verbes à conjuguer</h2>
-          <div class="switch-toggle">
-            <form id="radio" action="{{url_for('index')}}" method="post" name="form3"></form>
-              <input id="reguliers" type="radio" name="drone" value="regulier"/>
+         <div class="switch">
+            <h2>Séléctionner les verbes à conjuguer</h2>
+            <div class="switch-toggle">
+              <input type="radio" name="drone" value="reguliers" id="reguliers">
               <label for="reguliers">Réguliers</label>
-            
-              <input id="tous" type="radio" name="drone" value="tous"/>
+              
+              <input type="radio" name="drone" value="tous" id="tous">
               <label for="tous">Tous</label>
-            
-              <input id="irreguliers" type="radio" name="drone" value="irregulier"/>
+              
+              <input type="radio" name="drone" value="irreguliers" id="irreguliers">
               <label for="irreguliers">Irréguliers</label>
-            </form>
-          </div>
-        </div>
+            </div>
+         </div>
+          </form>
 
         <div class="exercice">
           <h2>Conjuguer le verbe suivant au temps indiqué</h2>
