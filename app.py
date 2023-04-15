@@ -95,11 +95,11 @@ def index():
 
     if request.form.get("drone") == "irreguliers":
 
-        session["kiwi"] = "checked"
+        session["kiwi3"] = "checked"
         session["verb"] = csvReaderIrregular.verbChoice()
         session["irregular"] = 6
     else:
-        session["kiwi"] = None
+        session["kiwi3"] = None
 
     if request.form.get("drone") == "tous":
 
@@ -119,11 +119,11 @@ def index():
 
     if request.form.get("drone") == "reguliers":
 
-        session["kiwi3"] = "checked"
+        session["kiwi"] = "checked"
         session["verb"] = csvReader.verbChoice()
         session["irregular"] = 8
     else:
-        session["kiwi3"] = None
+        session["kiwi"] = None
 
 
     if request.form.get("reponse") != None and len(request.form.get("reponse")) >= 0 and session["verb"] != "verbe":
