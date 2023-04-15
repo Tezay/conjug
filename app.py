@@ -62,35 +62,34 @@ def index():
         session["time"] = random.choice(session["listActiveTimes"])
         session["pronouns"] = random.choice(listPronouns)
 
-        for val in session["listActiveTimes"]:
-            if val == "Futuro":
-                session["banane"] = "checked"
-            else:
-                session["banane"] = None
-            if val == "Conditional":
-                session["banane2"] = "checked"
-            else:
-                session["banane2"] = None
-            if val == "Presente de indicativo":
-                session["banane3"] = "checked"
-            else:
-                session["banane3"] = None
-            if val == "Presente de subjonctivo":
-                session["banane4"] = "checked"
-            else:
-                session["banane4"] = None
-            if val == "Pretérito imperfecto de indicativo":
-                session["banane5"] = "checked"
-            else:
-                session["banane5"] = None
-            if val == "Pretérito indefinido":
-                session["banane6"] = "checked"
-            else:
-                session["banane6"] = None
-            if val == "Prétero imperfecto de subjonctivo":
-                session["banane7"] = "checked"
-            else:
-                session["banane7"] = None
+        if "Futuro" in session["listActiveTimes"]:
+            session["banane"] = "checked"
+        else:
+            session["banane"] = None
+        if "Conditional" in session["listActiveTimes"]:
+            session["banane2"] = "checked"
+        else:
+            session["banane2"] = None
+        if "Presente de indicativo" in session["listActiveTimes"]:
+            session["banane3"] = "checked"
+        else:
+            session["banane3"] = None
+        if "Presente de subjonctivo" in session["listActiveTimes"]:
+            session["banane4"] = "checked"
+        else:
+            session["banane4"] = None
+        if "Pretérito imperfecto de indicativo" in session["listActiveTimes"]:
+            session["banane5"] = "checked"
+        else:
+            session["banane5"] = None
+        if "Pretérito indefinido" in session["listActiveTimes"]:
+            session["banane6"] = "checked"
+        else:
+            session["banane6"] = None
+        if "Prétero imperfecto de subjonctivo" in session["listActiveTimes"]:
+            session["banane7"] = "checked"
+        else:
+            session["banane7"] = None
 
 
     if request.form.get("drone") == "irreguliers":
