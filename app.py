@@ -32,18 +32,6 @@ def index():
         "Prétero imperfecto de subjonctivo": csvReaderIrregular.Pretero_imperfecto_de_subjonctivo,
     }
 
-    session["banane1"] = None
-    session["banane2"] = None
-    session["banane3"] = None
-    session["banane4"] = None
-    session["banane5"] = None
-    session["banane6"] = None
-    session["banane7"] = None
-
-    session["kiwi"] = None
-    session["kiwi2"] = None
-    session["kiwi3"] = None
-
     reponseUser=""
 
     if 'time' in session:
@@ -53,6 +41,17 @@ def index():
         session["time"] = "temps"
         session["pronouns"] = "pronoms"
         session["verb"] = 'verbe'
+        session["banane1"] = None
+        session["banane2"] = None
+        session["banane3"] = None
+        session["banane4"] = None
+        session["banane5"] = None
+        session["banane6"] = None
+        session["banane7"] = None
+
+        session["kiwi"] = None
+        session["kiwi2"] = None
+        session["kiwi3"] = None
 
     verif = request.form.get("temps[]")
 
