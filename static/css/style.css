@@ -278,7 +278,7 @@ input[type="text"] {
 
 .switch-toggle {
   display: flex;
-  width: 300px;
+  width: 400px;
   height: 40px;
   background-color: #E5E9F0;
   color: #3B4252;
@@ -393,6 +393,10 @@ footer p {
       margin-bottom: 0px;
     }
 
+	.switch-toggle {
+  		width: 300px;
+	  
+	  
     .exercice label {
       display: flex;
       align-items: center;
