@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+  <link rel="shortcut icon" href="{{url_for('static', filename='img/logo.png')}}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@800&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script defer="defer" language="JavaScript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+  <title>conjug.fr</title>
+</head>
+
+<body>
+    <header class='sticky'>
+        <nav class="navbar">
+          <div class="navbar-left">
+            <a href="#">
+              <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo conjug.fr">
+              <span class="navbar-title">conjug.fr</span>
+            </a>
+          </div>
+          <div class="navbar-right">
+            <span class="flags">
+              <div class="spain"><a"><img src="{{ url_for('static', filename='img/flags/spainFlag.png') }}"></a></div>
+              <div class="spain"><a"><img src="{{ url_for('static', filename='img/flags/germanyFlag.png') }}"></a></div>
+              <div class="spain"><a"><img src="{{ url_for('static', filename='img/flags/italyFlag.png') }}"></a></div>
+              <div class="spain"><a"><img src="{{ url_for('static', filename='img/flags/franceFlag.png') }}"></a></div>
+              
+            </span>
+            <span class="interactionButtons">
+              <div class="github-button"><a href="https://github.com/Tezay/conjug" target="blank">GitHub</a></div>
+              <div class="connexion-button"><a>Connexion</a></div>
+            </span>
+          </div>
+        </nav>
+      </header>
+  
+  
+
+
+      <div class="main">
+
+        <div class="times">
+          <form id="initialisation" action="{{url_for('index')}}" method="post" name="form1">
+            <h2>Sélectionner les temps à réviser</h2>
+      
+            <input type="checkbox" name="temps[]" value="Futuro" id="1" {{banane}}>
+            <label for="futuro">Futuro</label><br>
+      
+            <input type="checkbox" name="temps[]" value="Conditional" id="2" {{banane2}}>
+            <label for="conditional">Condicional</label><br>
+      
+            <input type="checkbox" name="temps[]" value="Presente de indicativo" id="3" {{banane3}}>
+            <label for="presente-indicativo">Presente de indicativo</label><br>
+      
+            <input type="checkbox" name="temps[]" value="Presente de subjonctivo" id="4" {{banane4}}>
+            <label for="presente-subjonctivo">Presente de subjuntivo</label><br>
+      
+            <input type="checkbox" name="temps[]" value="Pretérito imperfecto de indicativo" id="5" {{banane5}}>
+            <label for="preterito-imperfecto-indicativo">Pretérito imperfecto de indicativo</label><br>
+      
+            <input type="checkbox" name="temps[]" value="Pretérito indefinido" id="6" {{banane6}}>
+            <label for="preterito-indefinido">Pretérito indefinido</label><br>
+      
+            <input type="checkbox" name="temps[]" value="Prétero imperfecto de subjonctivo" id="7" {{banane7}}>
+            <label for="preterito-imperfecto-subjonctivo">Pretérito imperfecto de subjuntivo</label><br>
+      
+            <button type="submit" >Valider la sélection  ➡</button>
+        </div>
+
+        <div class="right-div">
+
+         <div class="switch">
+            <h2>Séléctionner les verbes à conjuguer</h2>
+            <div class="switch-toggle">
+              <input type="radio" name="drone" value="reguliers" id="reguliers" {{kiwi}}>
+              <label for="reguliers">Réguliers</label>
+              
+              <input type="radio" name="drone" value="tous" id="tous" {{kiwi2}}>
+              <label for="tous">Tous</label>
+              
+              <input type="radio" name="drone" value="irreguliers" id="irreguliers" {{kiwi3}}>
+              <label for="irreguliers">Irréguliers</label>
+            </div>
+         </div>
+          </form>
+
+        <div class="exercice">
+          <h2>Conjuguer le verbe suivant au temps indiqué</h2>
+          <form id="actualisation" action="{{url_for('index')}}" method="post" name="form2">
+            <input type="hidden" id="reponse-correcte">
+            <label for="reponse">
+              <div class="displayPerson">
+                <p>{{pronouns}}</p>
+              </div>
+              <div class="displayVerb">
+                <p id=verbe>({{verb}})</p>
+              </div>
+              <div class="displayTime">
+                <p>[{{time}}]</p>
+              </div>
+            </label>
+            <div class="div-input">
+              <div class="text-input">
+                <input type="text" id="reponse" name="reponse" placeholder="Entrer le verbe conjugué" autocomplete="off">
+              </div>
+            </div>
+
+            <button type="submit">Valider</button>
+      
+      
+          </form>
+          
+          <div class="special-characters">
+            <button id="a" onclick="insertCharacter('á')">á</button>
+            <button id="i" onclick="insertCharacter('í')">í</button>
+            <button id="o" onclick="insertCharacter('ó')">ó</button>
+            <button id="u" onclick="insertCharacter('ú')">ú</button>
+            <button id="n" onclick="insertCharacter('ñ')">ñ</button>
+          </div>
+
+          <div class="correction">
+            <p>{{reponseUser}}</p>
+          </div>
+
+        </div>
+  
+        </div>
+
+      </div>      
+
+  <footer>
+    <div class="container">
+      <p>Réalisé par Cédric Soyer & Eliot Cupillard - Lycée Jules Ferry Cannes - 2023</p>
+    </div>
+  </footer>
+
+</body>
+
+</html>
