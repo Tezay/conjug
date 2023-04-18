@@ -2,23 +2,23 @@ from flask import Flask, render_template, request, session, redirect
 import random
 from . import csvReader
 from . import csvReaderIrregular
-from .utils import listPronouns, correspondanceTime, correspondanceTimeIrregular, correspondanceVerb, correspondanceTermination
+from .utils import listPronouns, correspondanceTime, correspondanceTimeIrregular, correspondanceVerb, \
+    correspondanceTermination
 
 app = Flask(__name__)
 app.config.from_object('config')
 
+
 @app.route("/", methods=['GET', 'POST'])
 def index():
-    
     reponseUser = ""
 
-    if not('time' in session):
+    if not ('time' in session):
         session["time"] = "temps"
         session["pronouns"] = "pronoms"
         session["verb"] = 'verbe'
 
-    if not("banane" in session):
-
+    if not ("banane" in session):
         session["banane"] = None
         session["banane2"] = None
         session["banane3"] = None
@@ -33,7 +33,7 @@ def index():
 
     verif = request.form.get("temps[]")
 
-    if verif == "Futuro" or verif == "Conditional" or verif == "Presente de indicativo" or verif == "Presente de subjonctivo" or verif == "Pretérito imperfecto de indicativo" or verif == "Pretérito indefinido" or verif == "Prétero imperfecto de subjonctivo" :
+    if verif == "Futuro" or verif == "Conditional" or verif == "Presente de indicativo" or verif == "Presente de subjonctivo" or verif == "Pretérito imperfecto de indicativo" or verif == "Pretérito indefinido" or verif == "Prétero imperfecto de subjonctivo":
 
         session["listActiveTimes"] = request.form.getlist("temps[]")
         session["time"] = random.choice(session["listActiveTimes"])
@@ -68,7 +68,6 @@ def index():
         else:
             session["banane7"] = None
 
-
     if request.form.get("drone") == "irreguliers":
 
         session["kiwi3"] = "checked"
@@ -80,7 +79,7 @@ def index():
 
     elif request.form.get("drone") == "tous":
 
-        aleatoire = random.randint(0,1)
+        aleatoire = random.randint(0, 1)
         session["kiwi2"] = "checked"
         session["kiwi3"] = None
         session["kiwi"] = None
@@ -103,22 +102,22 @@ def index():
         session["verb"] = csvReader.verbChoice()
         session["irregular"] = 8
 
-
-    if request.form.get("reponse") != None and len(request.form.get("reponse")) >= 0 and session["verb"] != "verbe":
+    if request.form.get("reponse") is not None and len(request.form.get("reponse")) >= 0 and session["verb"] != "verbe":
 
         reponse = request.form.getlist("reponse")
         reponseVerb = reponse[0].lower()
 
         if session["irregular"] == 6:
 
-            correction = correspondanceTimeIrregular[session["time"]]()[listPronouns.index(session['pronouns'])][correspondanceVerb.index(session["verb"])]
+            correction = correspondanceTimeIrregular[session["time"]]()[listPronouns.index(session['pronouns'])][
+                correspondanceVerb.index(session["verb"])]
 
             if reponseVerb == correction:
                 reponseUser = "✅ Bonne réponse !"
 
             else:
 
-               reponseUser = "❌ La réponse était: " + str(correction)
+                reponseUser = "❌ La réponse était: " + str(correction)
 
             session["verb"] = csvReaderIrregular.verbChoice()
 
@@ -126,13 +125,18 @@ def index():
 
             termination = str(session["verb"][-2:])
 
-            correction = correspondanceTime[session["time"]]()[listPronouns.index(session['pronouns'])][correspondanceTermination.index(termination)]
+            correction = correspondanceTime[session["time"]]()[listPronouns.index(session['pronouns'])][
+                correspondanceTermination.index(termination)]
 
-            if (reponseVerb == session["verb"][:-2] + correction and session["time"] != "Futuro" and session["time"] != "Conditional") or ((session["time"] == "Futuro" or session["time"] == "Conditional") and reponseVerb == session["verb"] + correction):
+            if (reponseVerb == session["verb"][:-2] + correction and session["time"] != "Futuro" and session[
+                "time"] != "Conditional") or (
+                    (session["time"] == "Futuro" or session["time"] == "Conditional") and reponseVerb == session[
+                "verb"] + correction):
 
                 reponseUser = "✅ Bonne réponse !"
 
-            elif (session["time"] == "Futuro" or session["time"] == "Conditional") and reponseVerb != session["verb"] + correction:
+            elif (session["time"] == "Futuro" or session["time"] == "Conditional") and reponseVerb != session[
+                "verb"] + correction:
 
                 reponseUser = "❌ La réponse était: " + str(session["verb"] + correction)
 
@@ -156,36 +160,33 @@ def index():
         session["time"] = random.choice(session["listActiveTimes"])
         session["pronouns"] = random.choice(listPronouns)
 
-
     return render_template("home.html",
-                           time = session["time"],
-                           pronouns = session["pronouns"],
-                           verb = session["verb"],
-                           reponseUser = reponseUser ,
-                           banane = session["banane"],
-                           banane2 = session["banane2"],
-                           banane3 = session["banane3"],
-                           banane4 = session["banane4"],
-                           banane5 = session["banane5"],
-                           banane6 = session["banane6"],
-                           banane7 = session["banane7"],
-                           kiwi = session["kiwi"],
-                           kiwi2 = session["kiwi2"],
-                           kiwi3 = session["kiwi3"])
+                           time=session["time"],
+                           pronouns=session["pronouns"],
+                           verb=session["verb"],
+                           reponseUser=reponseUser,
+                           banane=session["banane"],
+                           banane2=session["banane2"],
+                           banane3=session["banane3"],
+                           banane4=session["banane4"],
+                           banane5=session["banane5"],
+                           banane6=session["banane6"],
+                           banane7=session["banane7"],
+                           kiwi=session["kiwi"],
+                           kiwi2=session["kiwi2"],
+                           kiwi3=session["kiwi3"])
+
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-
-
-
     return redirect("/")
+
 
 @app.route("/logout", methods=['GET', 'POST'])
 def logout():
-
     return redirect("/")
+
 
 @app.route("/newAccount", methods=['GET', 'POST'])
 def newAccount():
-
     return redirect("/")
