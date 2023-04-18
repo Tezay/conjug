@@ -12,6 +12,7 @@ body {
   .sticky {
     position: sticky;
     top:0px;
+    z-index: 10;
   }
 
 
@@ -155,6 +156,7 @@ body {
   border-radius: 16px;
   background-color: #fff;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1;
 }
 
 .times label {
