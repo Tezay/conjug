@@ -9,8 +9,29 @@ app = Flask(__name__)
 app.config.from_object('config')
 
 
+#Home page
+
 @app.route("/", methods=['GET', 'POST'])
-def index():
+def home():
+    return render_template("home.html")
+
+
+#German page
+
+@app.route("/de", methods=['GET', 'POST'])
+def de():
+    return render_template("german.html")
+
+#Italian page
+
+@app.route("/it", methods=['GET', 'POST'])
+def it():
+    return render_template("italian.html")
+
+#Spanish page
+
+@app.route("/es", methods=['GET', 'POST'])
+def es():
     reponseUser = ""
 
     if not ('time' in session):
@@ -160,7 +181,7 @@ def index():
         session["time"] = random.choice(session["listActiveTimes"])
         session["pronouns"] = random.choice(listPronouns)
 
-    return render_template("home.html",
+    return render_template("spanish.html",
                            time=session["time"],
                            pronouns=session["pronouns"],
                            verb=session["verb"],
