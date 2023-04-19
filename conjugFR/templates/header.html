@@ -19,14 +19,14 @@
             </span>
 
             <div class="menu-burger">
-              <a id="openBtn" onclick="toggleNav()" href="#"><img src="{{url_for('static', filename='img/menu.png')}}" alt="Menu"></a>
+              <a id="openBtn" onclick="toggleNav()"><img src="{{url_for('static', filename='img/menu.png')}}" alt="Menu"></a>
             </div>
           </div>
 
         </nav>
 
         <div id="menu" class="menu">
-          <a id="openBtn" onclick="toggleNav()" class="back-arrow" href="#"><img src="{{url_for('static', filename='img/backArrow.png')}}" alt="Back"></a>
+          <a id="openBtn" onclick="toggleNav()" class="back-arrow"><img src="{{url_for('static', filename='img/backArrow.png')}}" alt="Back"></a>
           <ul>
             <li><a href="{{url_for('es')}}"><img src="{{ url_for('static', filename='img/flags/spainFlag.png') }}"><span>Espagnol</span></a></li>
             <li><a href="{{url_for('de')}}"><img src="{{ url_for('static', filename='img/flags/germanyFlag.png') }}"><span>Allemand</span></a></li>
