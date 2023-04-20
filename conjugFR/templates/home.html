@@ -20,8 +20,41 @@
 <body>
 
   {% include 'header.html' %}
-  
-     
+    
+    <div class="sloganBox">
+        <div class="slogan">
+            <h1>✨ On cherche un slogan sympa pour notre site !</h1>
+        </div>
+    </div>
+
+    <div class="languageContainer">
+        <div class="languageBox">
+            <div class="boxHeader">
+                <img src="{{ url_for('static', filename='img/flags/SpainFlag.png') }}"><h2>Espagnol</h2>
+            </div>
+            <p>Révisez toutes les conjugaisons de verbes réguliers et irréguliers en espagnol, et améliorez votre grammaire.</p>
+            <div class="redirectButton"><a href="{{url_for('es')}}">S'entrainer</a></div>
+        </div>
+            
+        <div class="languageBox">
+            <div class="boxHeader">
+                <img src="{{ url_for('static', filename='img/flags/GermanyFlag.png') }}"><h2>Allemand</h2>
+            </div>
+            <p>Prochainement disponible !</p>
+            <div class="redirectButton"><a href="{{url_for('de')}}">S'entrainer</a></div>
+        </div>
+
+        <div class="languageBox">
+            <div class="boxHeader">
+                <img src="{{ url_for('static', filename='img/flags/ItalyFlag.png') }}"><h2>Italien</h2>
+            </div>
+            <p>Prochainement disponible !</p>
+            <div class="redirectButton"><a href="{{url_for('it')}}">S'entrainer</a></div>
+        </div>
+
+    </div>
+
+
 
   <footer>
     <div class="container">
