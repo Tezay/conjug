@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, session, redirect
 import random
 from . import csvReader
 from . import csvReaderIrregular
+from . import models
 from .utils import listPronouns, correspondanceTime, correspondanceTimeIrregular, correspondanceVerb, \
     correspondanceTermination
 
@@ -9,26 +10,28 @@ app = Flask(__name__)
 app.config.from_object('config')
 
 
-#Home page
+# Home page
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
     return render_template("home.html")
 
 
-#German page
+# German page
 
 @app.route("/de", methods=['GET', 'POST'])
 def de():
-    return render_template("german.html")
+    return render_template("language/german.html")
 
-#Italian page
+
+# Italian page
 
 @app.route("/it", methods=['GET', 'POST'])
 def it():
-    return render_template("italian.html")
+    return render_template("language/italian.html")
 
-#Spanish page
+
+# Spanish page
 
 @app.route("/es", methods=['GET', 'POST'])
 def es():
@@ -181,7 +184,7 @@ def es():
         session["time"] = random.choice(session["listActiveTimes"])
         session["pronouns"] = random.choice(listPronouns)
 
-    return render_template("spanish.html",
+    return render_template("language/spanish.html",
                            time=session["time"],
                            pronouns=session["pronouns"],
                            verb=session["verb"],
@@ -198,16 +201,41 @@ def es():
                            kiwi3=session["kiwi3"])
 
 
-@app.route("/login", methods=['GET', 'POST'])
-def login():
+@app.route("/connexion", methods=['GET', 'POST'])
+def connexion():
+    return render_template("login.html")
+
+
+@app.route("/signup", methods=['GET', 'POST'])
+def signup():
+    user = models.User.query.all()
+    print(user)
+    for val in user:
+        if request.form.get("email") == val.email:  # or request.form.get("username") == val.username:
+            return redirect("/connexion")
+
+    email = request.form.get("email")
+    # firstname = request.form.get("firstname")
+    # lastname = request.form.get("lastname")
+    # username = request.form.get("username")
+    # password = request.form.get("password")
+    # etablissement = request.form.get("etablissement")
+    models.addUser(email)  # , firstname, lastname, username, password, etablissement)
+
     return redirect("/")
+
+
+@app.route("/signin", methods=['GET', 'POST'])
+def signin():
+    user = models.User.query.all()
+    print(user)
+    for val in user:
+        if request.form.get("email") == val.email and request.form.get("password") == val.email:
+            return redirect("/")
+
+    return redirect("/connexion")
 
 
 @app.route("/logout", methods=['GET', 'POST'])
 def logout():
-    return redirect("/")
-
-
-@app.route("/newAccount", methods=['GET', 'POST'])
-def newAccount():
     return redirect("/")

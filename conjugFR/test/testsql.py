@@ -1,71 +1,52 @@
-import sqlalchemy
-from sqlalchemy.ext.declarative import declarative_base
+from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlchemy
+import sqlalchemy.orm
 
-# Define the MariaDB engine using MariaDB Connector/Python
-engine = sqlalchemy.create_engine("mariadb+mariadbconnector://app_user:Password123!@127.0.0.1:3306/company")
+app = Flask("Application")
+# On configure la base de données
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@localhost:3306/test_database'
 
-Base = declarative_base()
+engine = sqlalchemy.create_engine("mysql+pymysql://root:root@localhost:3306/test_database", echo=True)
+# On initie l'extension
+db = SQLAlchemy(app)
+# On copiera ensuite le modèle de données :
 
-class Employee(Base):
-   __tablename__ = 'employees'
-   id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
-   firstname = sqlalchemy.Column(sqlalchemy.String(length=100))
-   lastname = sqlalchemy.Column(sqlalchemy.String(length=100))
-   active = sqlalchemy.Column(sqlalchemy.Boolean, default=True)
+Base = sqlalchemy.orm.declarative_base()
+
+
+class User(db.Model):
+    __tablename__ = 'user'
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(length=100), nullable=False)
+    # firstname = Column(String(length=100), nullable=False)
+    # lastname = Column(String(length=100), nullable=False)
+    # username = Column(String(length=100), nullable=False)
+    # password = Column(String(length=100), nullable=False)
+    # etablissement = Column(String(length=100))
+    db.UniqueConstraint('email')  # 'username', name='uix_1')
+
+
+# Puis on récupère les données au moment de l'exécution des routes :
 
 Base.metadata.create_all(engine)
 
-# Create a session
 Session = sqlalchemy.orm.sessionmaker()
 Session.configure(bind=engine)
 session = Session()
 
-def addEmployee(firstName,lastName):
-   newEmployee = Employee(firstname=firstName, lastname=lastName)
-   session.add(newEmployee)
-   session.commit()
 
-def selectAll():
-   employees = session.query(Employee).all()
-   for employee in employees:
-       print(" - " + employee.firstname + ' ' + employee.lastname)
+@app.route("/")
+def accueil():
+    # On a bien sûr aussi modifié le template pour refléter le changement
+    lieux = User.query.all()
+    print(lieux)
+    for user in lieux:
+        print(user.email)
+    return "banane"
 
-def selectByStatus(isActive):
-   employees = session.query(Employee).filter_by(active=isActive)
-   for employee in employees:
-       print(" - " + employee.firstname + ' ' + employee.lastname)
 
-def updateEmployeeStatus(id, isActive):
-   employee = session.query(Employee).get(id)
-   employee.active = isActive
-   session.commit()
-
-def deleteEmployee(id):
-   session.query(Employee).filter(Employee.id == id).delete()
-   session.commit()
-
-# Add some new employees
-addEmployee("Bruce", "Wayne")
-addEmployee("Diana", "Prince")
-addEmployee("Clark", "Kent")
-
-# Show all employees
-print('All Employees')
-selectAll()
-print("----------------")
-
-# Update employee status
-updateEmployeeStatus(2,False)
-
-# Show active employees
-print('Active Employees')
-selectByStatus(True)
-print("----------------")
-
-# Delete employee
-deleteEmployee(1)
-
-# Show all employees
-print('All Employees')
-selectAll()
-print("----------------")
+if __name__ == "__main__":
+    # with app.app_context():
+    #     db.drop_all()
+    #     db.create_all()
+    app.run(debug=True, use_evalex=False)
