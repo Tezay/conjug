@@ -1,4 +1,4 @@
-from conjugFR.models import app
+from conjugFR.views import app
 import sqlalchemy
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://dbadmin:89Rhs33EmG@localhost:3306/conjugDB'

@@ -1,4 +1,4 @@
-from conjugFR.views import app, db
+from conjugFR.models import app, db
 
 if __name__ == "__main__":
     with app.app_context():
