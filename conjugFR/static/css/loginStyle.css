@@ -1,134 +1,39 @@
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
-html {
-	font-size:16px;
-  }
 
-body {
-	margin: 0;
-    padding: 0;
+.container {
 	background: #f6f5f7;
-	display: flex;
+	margin-top: 100px;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
 	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
-	height: 100vh;
-	margin: -20px 0 50px;
 }
-
-/**Navbar**/
-
-.sticky {
-    position: sticky;
-    top:0px;
-  }
-
-
-  
-  .navbar {
-    background: linear-gradient(to right, #ef3939, #FF416C);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  
-  .navbar-left {
-    display: flex;
-    align-items: center;
-  }
-  
-  .navbar-left a {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: #fff;
-    font-weight: bold;
-    font-size: 2rem;
-  }
-  
-  .navbar-left img {
-    margin-right: 10px;
-    height: 50px;
-  }
-  
-  .navbar-right {
-    display: flex;
-    align-items: center;
-  }
-
-  
-  .connexion-button {
-    border: 1px solid #fff;
-    color: #da3240;
-    padding: 10px 40px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 24px;
-    font-size:16px;
-    background-color: #fff;
-  }
-
-
-  .github-button {
-    border: 1px solid #fff;
-    padding: 10px 40px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 24px;
-    font-size:16px;
-    margin: 0px 20px;
-    ;
-  }
-
-  .github-button a  {
-    text-decoration: none;
-    color: #fff;
-    font-weight: bold;
-    font-size:1rem;
-  }
-
-  .navbar-button:hover {
-    background-color: #f0e1e1;
-    color: #da3240;
-  }
-
 
 
   
 /**Main****/
 
 
-* {
+.container * {
 	box-sizing: border-box;
 }
 
-h1 {
+.container h1 {
 	font-weight: bold;
-	margin: 0;
+	margin-bottom: 20px;
 }
 
-h2 {
-    margin: 0;
-    text-align: center;
-    font-size: 1.5rem;
-	  color:#da3240;
-}
-
-p {
-	font-size: 14px;
+.container p {
+	font-size: 1rem;
 	font-weight: 100;
 	line-height: 20px;
 	letter-spacing: 0.5px;
 	margin: 20px;
 }
 
-span {
+.container span {
 	font-size: 12px;
 }
 
@@ -140,18 +45,20 @@ a {
 }
 
 button {
-	border-radius: 20px;
-	border: 1px solid #FF4B2B;
-	background-color: #FF4B2B;
+	border-radius: 24px;
+	border: 1px solid #fb923c;
+	background-color: #fb923c;
 	color: #FFFFFF;
-	font-size: 12px;
+	font-size: 1rem;
 	font-weight: bold;
 	padding: 12px 45px;
     margin: 10px;
+	cursor: pointer;
 	letter-spacing: 1px;
-	text-transform: uppercase;
-	transition: transform 90ms ease-in;
+	box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, box-shadow 0.2s ease, transform 0.1s ease-in;
 }
+
 
 button:active {
 	transform: scale(0.95);
@@ -159,6 +66,11 @@ button:active {
 
 button:focus {
 	outline: none;
+}
+
+button:hover {
+	transform: 	scale(1.02);
+    box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.3);
 }
 
 button.ghost {
@@ -182,8 +94,16 @@ input {
 	border: none;
     border-radius: 8px;
 	padding: 12px 15px;
-	margin: 8px 0;
+	margin: 6px 0px;
 	width: 100%;
+}
+
+.name input[name="firstname"] {
+	margin-right: 9px;
+}
+
+.name {
+	display: flex;
 }
 
 .container {
@@ -257,9 +177,9 @@ input {
 }
 
 .overlay {
-	background: #FF416C;
-	background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-	background: linear-gradient(to right, #FF4B2B, #FF416C);
+	background: #fb923c;
+	background: -webkit-linear-gradient(to right, #f97316, #fb923c);
+	background: linear-gradient(to right, #f97316, #fb923c);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0 0;

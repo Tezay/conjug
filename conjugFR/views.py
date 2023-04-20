@@ -215,12 +215,12 @@ def signup():
             return redirect("/connexion")
 
     email = request.form.get("email")
-    # firstname = request.form.get("firstname")
-    # lastname = request.form.get("lastname")
-    # username = request.form.get("username")
-    # password = request.form.get("password")
-    # etablissement = request.form.get("etablissement")
-    models.addUser(email)  # , firstname, lastname, username, password, etablissement)
+    firstname = request.form.get("firstname")
+    lastname = request.form.get("lastname")
+    username = request.form.get("username")
+    password = request.form.get("password")
+    etablissement = request.form.get("etablissement")
+    models.addUser(email, firstname, lastname, username, password, etablissement)
 
     return redirect("/")
 

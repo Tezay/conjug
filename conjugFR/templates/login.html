@@ -3,56 +3,47 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/loginStyle.css')}}">
-    <script language="JavaScript" src="{{url_for('static', filename='js/script2.js')}}" defer="defer"></script>
-</head>
+	<meta charset="UTF-8">
+	<meta name="description" content="Conjug.fr est un site de conjugaison pour l'espagnol. Révisez toutes les conjugaisons de verbes réguliers et irréguliers en espagnol, et améliorez votre grammaire.">
+	<meta name="keywords" content="conjugaison, espagnol, verbes, grammaire, apprendre l'espagnol, conjugaison de verbes en espagnol, verbes réguliers en espagnol, verbes irréguliers en espagnol, temps verbaux en espagnol, pronoms en espagnol, conjugaison des verbes être et avoir en espagnol, participe passé en espagnol, conditionnel en espagnol, subjonctif en espagnol, impératif en espagnol, auxiliaires en espagnol, conjugaison en ligne, outil de conjugaison, exercices de conjugaison, pratiquer la conjugaison, exercice, révision, conjugaison">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/header.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/loginStyle.css')}}">
+	<link rel="shortcut icon" href="{{url_for('static', filename='img/logo.png')}}">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@800&display=swap" rel="stylesheet">
+	<script defer="defer" language="JavaScript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+	<script defer="defer" language="JavaScript" src="{{ url_for('static', filename='js/script2.js') }}"></script>
+	<title>conjug.fr</title>
+  </head>
 
 <body>
 
-	<header class='sticky'>
-        <nav class="navbar">
-          <div class="navbar-left">
-            <a href="#">
-              <img src="img/logo.png" alt="Logo conjug.fr">
-              <span class="navbar-title">conjug.fr</span>
-            </a>
-          </div>
-          <div class="navbar-right">
-            <div class="github-button"><a href="https://github.com/Tezay/conjug" target="blank">GitHub</a></div>
-            <div class="connexion-button">Connexion</div>
-          </div>
-        </nav>
-      </header>
-
-
+	{% include 'heritage_template/header.html' %}
 
 <div class="container" id="container">
 	<div class="form-container sign-up-container">
 		<form action="{{url_for('signup')}}" method="post" name="signup">
 			<h1>Créer un compte</h1>
-			<div class="social-container">
-				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-				<a href="#" class="social"><i class="fab fa-apple-login"></i></a>
+			<div class="name">
+				<input type="text" placeholder="Prénom" name="firstname" />
+				<input type="text" placeholder="Nom" name="lastname" />
 			</div>
-			<span>ou utilisez votre adresse mail</span>
 			<input type="text" placeholder="Nom d'utilisateur" name="username" />
+			<input type="text" placeholder="Nom de votre établissement (facultatif)" name="etablissement" />
 			<input type="email" placeholder="Email" name="email"/>
 			<input type="password" placeholder="Mot de passe" name="password"/>
-			<button>Créer un compte</button>
+			<button>S'inscrire</button>
 		</form>
 	</div>
 	<div class="form-container sign-in-container">
 		<form action="{{url_for('signin')}}" method="post" name="signin">
 			<h1>Se connecter</h1>
-			<div class="social-container">
-				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-				<a href="#" class="social"><i class="fab fa-apple-login"></i></a>
-			</div>
-			<span>ou utilisez votre compte conjug.fr</span>
 			<input type="email" placeholder="Email" />
 			<input type="password" placeholder="Mot de passe" />
-			<a href="#">Un probème ? Nous contacter</a>
+			<a href="">Un probème ? Nous contacter</a>
 			<button>Connexion</button>
 		</form>
 	</div>
@@ -60,13 +51,13 @@
 		<div class="overlay">
 			<div class="overlay-panel overlay-left">
 				<h1>Déjà un compte ?</h1>
-				<p>Connectez vous avec votre adresse mail ou votre compte Google</p>
+				<p>Connectez à conjug.fr avec votre adresse email</p>
 				<button class="ghost" id="signIn">Se connecter</button>
 			</div>
 			<div class="overlay-panel overlay-right">
 				<h1>Pas encore de compte ?</h1>
 				<p>Créer un compte dès maintenant pour enregistrer vos statistiques !</p>
-				<button class="ghost" id="signUp">Créer un compte</button>
+				<button class="ghost" id="signUp">S'inscrire</button>
 			</div>
 		</div>
 	</div>
