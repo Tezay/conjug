@@ -35,16 +35,16 @@
 			<input type="text" placeholder="Nom de votre établissement (facultatif)" name="etablissement" />
 			<input type="email" placeholder="Email" name="email"/>
 			<input type="password" placeholder="Mot de passe" name="password"/>
-			<button>S'inscrire</button>
+			<button type="submit">S'inscrire</button>
 		</form>
 	</div>
 	<div class="form-container sign-in-container">
 		<form action="{{url_for('signin')}}" method="post" name="signin">
 			<h1>Se connecter</h1>
-			<input type="email" placeholder="Email" />
-			<input type="password" placeholder="Mot de passe" />
-			<a href="">Un probème ? Nous contacter</a>
-			<button>Connexion</button>
+			<input type="email" placeholder="Email" name="email"/>
+			<input type="password" placeholder="Mot de passe" name="password" />
+			<a href="">Un problème ? Nous contacter</a>
+			<button type="submit">Connexion</button>
 		</form>
 	</div>
 	<div class="overlay-container">
