@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, session, redirect
+from flask_hashing import Hashing
 import random
 from . import csvReader
 from . import csvReaderIrregular
@@ -8,27 +9,34 @@ from .utils import listPronouns, correspondanceTime, correspondanceTimeIrregular
 
 app = Flask(__name__)
 app.config.from_object('config')
+hashing = Hashing(app)
 
 
 # Home page
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    return render_template("home.html")
+    if not ("username" in session):
+        session["username"] = "Connexion"
+
+    return render_template("home.html",
+                           username=session["username"])
 
 
 # German page
 
 @app.route("/de", methods=['GET', 'POST'])
 def de():
-    return render_template("language/german.html")
+    return render_template("language/german.html",
+                           username=session["username"])
 
 
 # Italian page
 
 @app.route("/it", methods=['GET', 'POST'])
 def it():
-    return render_template("language/italian.html")
+    return render_template("language/italian.html",
+                           username=session["username"])
 
 
 # Spanish page
@@ -54,6 +62,9 @@ def es():
         session["kiwi"] = None
         session["kiwi2"] = None
         session["kiwi3"] = None
+
+    if not ("username" in session):
+        session["username"] = "Connexion"
 
     verif = request.form.get("temps[]")
 
@@ -198,12 +209,17 @@ def es():
                            banane7=session["banane7"],
                            kiwi=session["kiwi"],
                            kiwi2=session["kiwi2"],
-                           kiwi3=session["kiwi3"])
+                           kiwi3=session["kiwi3"],
+                           username=session["username"])
 
 
 @app.route("/connexion", methods=['GET', 'POST'])
 def connexion():
-    return render_template("login.html")
+    if not ("username" in session):
+        session["username"] = "Connexion"
+
+    return render_template("login.html",
+                           username=session["username"])
 
 
 @app.route("/signup", methods=['GET', 'POST'])
@@ -211,14 +227,14 @@ def signup():
     user = models.User.query.all()
     print(user)
     for val in user:
-        if request.form.get("email") == val.email:  # or request.form.get("username") == val.username:
+        if request.form.get("email") == val.email or request.form.get("username") == val.username:
             return redirect("/connexion")
 
     email = request.form.get("email")
     firstname = request.form.get("firstname")
     lastname = request.form.get("lastname")
     username = request.form.get("username")
-    password = request.form.get("password")
+    password = hashing.hash_value(request.form.get("password"), salt='abcd')
     etablissement = request.form.get("etablissement")
     models.addUser(email, firstname, lastname, username, password, etablissement)
 
@@ -228,9 +244,10 @@ def signup():
 @app.route("/signin", methods=['GET', 'POST'])
 def signin():
     user = models.User.query.all()
-    print(user)
     for val in user:
-        if request.form.get("email") == val.email and request.form.get("password") == val.password:
+        if request.form.get("email") == val.email and hashing.check_value(val.password, request.form.get("password"),
+                                                                          salt='abcd'):
+            session["username"] = val.username
             return redirect("/")
 
     return redirect("/connexion")
@@ -242,4 +259,4 @@ def logout():
 
 @app.route("/profile", methods=['GET', 'POST'])
 def profile():
-    return render_template("heritage_template/profile.html")
+    return render_template("heritage_template/profile.html", username=session["username"])
