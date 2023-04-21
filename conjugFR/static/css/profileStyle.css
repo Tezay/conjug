@@ -1,0 +1,71 @@
+.userInfos {
+    background-color: #fff;
+    color: #585656;
+    padding: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.userInfos h1, h2 {
+    margin: 0;
+}
+
+.userInfos h1 {
+    font-size: 2rem;
+}
+.userInfos h2 {
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+.userInfosContainer .icon {
+    height: 25px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.userInfosContainer {
+    padding-left: 5%;
+    padding: 50px;
+}
+
+#userIcon {
+    width: 150px;
+    height: 150px;
+    margin-right: 60px;
+    border-radius: 50%;
+    vertical-align: middle;
+
+}
+.userInfoFields {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.userInfoFields p {
+    margin: 0;
+    font-size: 18px;
+}
+
+.userInfosProfile, .userInfosCreationDate, .userInfosEtablissement {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+
+.userCaracteristics {
+    display: flex;
+}
+
+.userStats {
+    margin: 20px;
+}
+
+.userStats h2 {
+    margin-bottom: 10px;
+}
+.userStats p {
+    font-size: 18px;
+    margin: 0;
+}

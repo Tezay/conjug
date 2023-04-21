@@ -230,7 +230,7 @@ def signin():
     user = models.User.query.all()
     print(user)
     for val in user:
-        if request.form.get("email") == val.email and request.form.get("password") == val.email:
+        if request.form.get("email") == val.email and request.form.get("password") == val.password:
             return redirect("/")
 
     return redirect("/connexion")
@@ -239,3 +239,7 @@ def signin():
 @app.route("/logout", methods=['GET', 'POST'])
 def logout():
     return redirect("/")
+
+@app.route("/profile", methods=['GET', 'POST'])
+def profile():
+    return render_template("heritage_template/profile.html")
