@@ -44,23 +44,6 @@ class User(db.Model):
         self.classement = classement
 
 
-# class Erreur(db.Model):
-#     """donne les paramètres des colonnes de la table erreur de la base de données"""
-#
-#     __tablename__ = "erreur"
-#     id = db.Column(db.Integer, primary_key=True)
-#     pronom = db.Column(db.String(length=100), nullable=False)
-#     verbe = db.Column(db.String(length=100), nullable=False)
-#     temps = db.Column(db.String(length=100), nullable=False)
-#
-#     def __init__(self, pronom, verbe, temps):
-#         """fonction qui creer la tables erreur et les colonnes de la table dans la base de données"""
-#
-#         self.pronom = pronom
-#         self.verbe = verbe
-#         self.temps = temps
-
-
 Base.metadata.create_all(engine)
 
 Session = sqlalchemy.orm.sessionmaker()
@@ -75,13 +58,3 @@ def addUser(email, firstname, lastname, username, password, etablissement):
         etablissement=etablissement)
     session.add(newUser)
     session.commit()
-
-
-# def addErreur(pronom, verbe, temps):
-#     """ajoute les erreurs de l'utilisateurs a la base de données etsupprime sa dernière erreur"""
-#     erreurs = Erreur.query.all()
-#     if erreurs != []:
-#         session.delete(1)
-#     newErreur = Erreur(pronom=pronom, verbe=verbe, temps=temps)
-#     session.add(newErreur)
-#     session.commit()
