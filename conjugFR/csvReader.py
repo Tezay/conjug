@@ -4,7 +4,7 @@ import csv
 
 def verbChoice():
     
-    with open('conjugFR/spanishVerbsList.csv', newline='', encoding='utf8', errors='ignore') as csvfile:
+    with open('conjugFR/times/spanishVerbsList.csv', newline='', encoding='utf8', errors='ignore') as csvfile:
         reader = csv.reader(csvfile)
         rows = [row for row in reader]
         random_verbe = random.choice(rows)[0]

@@ -14,40 +14,40 @@
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@800&display=swap" rel="stylesheet">
 
   <script defer="defer" language="JavaScript" src="{{ url_for('static', filename='js/script.js') }}"></script>
-  <title>conjug.fr</title>
+  <title>Espagnol - conjug.fr</title>
 </head>
 
 <body>
 
   {% include 'heritage_template/header.html' %}
-  
+
       <div class="main">
 
         <div class="times">
           <form id="initialisation" action="{{url_for('es')}}" method="post" name="form1">
             <h2>Sélectionner les temps à réviser</h2>
-      
+
             <input type="checkbox" name="temps[]" value="Futuro" id="1" {{banane}}>
             <label for="futuro">Futuro</label><br>
-      
+
             <input type="checkbox" name="temps[]" value="Conditional" id="2" {{banane2}}>
             <label for="conditional">Condicional</label><br>
-      
+
             <input type="checkbox" name="temps[]" value="Presente de indicativo" id="3" {{banane3}}>
             <label for="presente-indicativo">Presente de indicativo</label><br>
-      
+
             <input type="checkbox" name="temps[]" value="Presente de subjonctivo" id="4" {{banane4}}>
             <label for="presente-subjonctivo">Presente de subjuntivo</label><br>
-      
+
             <input type="checkbox" name="temps[]" value="Pretérito imperfecto de indicativo" id="5" {{banane5}}>
             <label for="preterito-imperfecto-indicativo">Pretérito imperfecto de indicativo</label><br>
-      
+
             <input type="checkbox" name="temps[]" value="Pretérito indefinido" id="6" {{banane6}}>
             <label for="preterito-indefinido">Pretérito indefinido</label><br>
-      
+
             <input type="checkbox" name="temps[]" value="Prétero imperfecto de subjonctivo" id="7" {{banane7}}>
             <label for="preterito-imperfecto-subjonctivo">Pretérito imperfecto de subjuntivo</label><br>
-      
+
             <button type="submit" >Valider la sélection  ➡</button>
         </div>
 
@@ -58,10 +58,10 @@
             <div class="switch-toggle">
               <input type="radio" name="drone" value="reguliers" id="reguliers" {{kiwi}}>
               <label for="reguliers">Réguliers</label>
-              
+
               <input type="radio" name="drone" value="tous" id="tous" {{kiwi2}}>
               <label for="tous">Tous</label>
-              
+
               <input type="radio" name="drone" value="irreguliers" id="irreguliers" {{kiwi3}}>
               <label for="irreguliers">Irréguliers</label>
             </div>
@@ -88,12 +88,12 @@
                 <input type="text" id="reponse" name="reponse" placeholder="Entrer le verbe conjugué" autocomplete="off">
               </div>
             </div>
-
+            <p>{{rappel}}</p>
             <button type="submit">Valider</button>
-      
-      
+
+
           </form>
-          
+
           <div class="special-characters">
             <button id="a" onclick="insertCharacter('á')">á</button>
             <button id="i" onclick="insertCharacter('í')">í</button>
@@ -107,10 +107,10 @@
           </div>
 
         </div>
-  
+
         </div>
 
-      </div>      
+      </div>
 
   <footer>
     <div class="container">

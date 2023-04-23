@@ -23,6 +23,10 @@ correspondanceTimeIrregular = {
     "Prétero imperfecto de subjonctivo": csvReaderIrregular.Pretero_imperfecto_de_subjonctivo,
 }
 
-correspondanceVerb = ["dar", "decir", "estar", "haber", "hacer", "ir", "poder", "poner", "querer", "saber", "salir", "ser", "tener", "venir", "ver"]
+correspondanceVerb = ["dar", "decir", "estar", "haber", "hacer", "ir", "poder", "poner", "querer", "saber", "salir",
+                      "ser", "tener", "venir", "ver"]
 
 correspondanceTermination = ["ar", "er", "ir"]
+
+verbIrregular = csvReaderIrregular.verbChoice()
+verbs = csvReader.verbChoice()

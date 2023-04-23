@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request, session, redirect
 from flask_hashing import Hashing
 import random
+from . import models
 from . import csvReader
 from . import csvReaderIrregular
-from . import models
 from .utils import listPronouns, correspondanceTime, correspondanceTimeIrregular, correspondanceVerb, \
     correspondanceTermination
 
@@ -12,12 +12,47 @@ app.config.from_object('config')
 hashing = Hashing(app)
 
 
+def before_request():
+    """fonction qui initialise les session de flask pour éviter des erreurs"""
+    if not ("username" in session):
+        session["username"] = "Connexion"
+    if not ('time' in session):
+        session["time"] = "temps"
+        session["pronouns"] = "pronoms"
+        session["verb"] = 'verbe'
+    if not ("banane" in session):
+        session["banane"] = None
+        session["banane2"] = None
+        session["banane3"] = None
+        session["banane4"] = None
+        session["banane5"] = None
+        session["banane6"] = None
+        session["banane7"] = None
+        session["kiwi"] = None
+        session["kiwi2"] = None
+        session["kiwi3"] = None
+
+    if not ("username" in session):
+        session["username"] = "Connexion"
+
+    if not ("erreur_time" in session):
+        session["erreur_time"] = []
+        session["erreur_pronouns"] = []
+        session["erreur_verb"] = []
+
+    if "erreur_verb" in session and len(session["erreur_verb"]) >= 8:
+        session["erreur_time"] = [session["erreur_time"][-1]]
+        session["erreur_pronouns"] = [session["erreur_pronouns"][-1]]
+        session["erreur_verb"] = [session["erreur_verb"][-1]]
+
+
 # Home page
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    if not ("username" in session):
-        session["username"] = "Connexion"
+    """fonction qui renvoie la page d'acceuil du site"""
+
+    before_request()
 
     return render_template("home.html",
                            username=session["username"])
@@ -27,6 +62,10 @@ def home():
 
 @app.route("/de", methods=['GET', 'POST'])
 def de():
+    """fonction qui renvoie la page d'allemand du site"""
+
+    before_request()
+
     return render_template("language/german.html",
                            username=session["username"])
 
@@ -35,6 +74,10 @@ def de():
 
 @app.route("/it", methods=['GET', 'POST'])
 def it():
+    """fonction qui renvoie la page d'italien du site"""
+
+    before_request()
+
     return render_template("language/italian.html",
                            username=session["username"])
 
@@ -43,28 +86,14 @@ def it():
 
 @app.route("/es", methods=['GET', 'POST'])
 def es():
+    """fonction qui traite les temps et types de verbes(réguliers, irréguliers) que l'utilisateur veut réviser
+    et renvoie un verbe un pronom un temps pour réviser sur la page d'espagnol du site/ et qui traite aussi
+     la réponse de l'utilisateur si fausse renvoie la réponse, sinon dit bonne réponse sur la page d'espagnol du site
+     et met en place un système de rappel pour que l'utilisateur ne se trompe plus sur les mêmes verbes"""
+
+    before_request()
     reponseUser = ""
-
-    if not ('time' in session):
-        session["time"] = "temps"
-        session["pronouns"] = "pronoms"
-        session["verb"] = 'verbe'
-
-    if not ("banane" in session):
-        session["banane"] = None
-        session["banane2"] = None
-        session["banane3"] = None
-        session["banane4"] = None
-        session["banane5"] = None
-        session["banane6"] = None
-        session["banane7"] = None
-
-        session["kiwi"] = None
-        session["kiwi2"] = None
-        session["kiwi3"] = None
-
-    if not ("username" in session):
-        session["username"] = "Connexion"
+    rappel = ""
 
     verif = request.form.get("temps[]")
 
@@ -74,34 +103,15 @@ def es():
         session["time"] = random.choice(session["listActiveTimes"])
         session["pronouns"] = random.choice(listPronouns)
 
-        if "Futuro" in session["listActiveTimes"]:
-            session["banane"] = "checked"
-        else:
-            session["banane"] = None
-        if "Conditional" in session["listActiveTimes"]:
-            session["banane2"] = "checked"
-        else:
-            session["banane2"] = None
-        if "Presente de indicativo" in session["listActiveTimes"]:
-            session["banane3"] = "checked"
-        else:
-            session["banane3"] = None
-        if "Presente de subjonctivo" in session["listActiveTimes"]:
-            session["banane4"] = "checked"
-        else:
-            session["banane4"] = None
-        if "Pretérito imperfecto de indicativo" in session["listActiveTimes"]:
-            session["banane5"] = "checked"
-        else:
-            session["banane5"] = None
-        if "Pretérito indefinido" in session["listActiveTimes"]:
-            session["banane6"] = "checked"
-        else:
-            session["banane6"] = None
-        if "Prétero imperfecto de subjonctivo" in session["listActiveTimes"]:
-            session["banane7"] = "checked"
-        else:
-            session["banane7"] = None
+        bananes = {"Futuro": "banane", "Conditional": "banane2", "Presente de indicativo": "banane3",
+                   "Presente de subjonctivo": "banane4", "Pretérito imperfecto de indicativo": "banane5",
+                   "Pretérito indefinido": "banane6", "Prétero imperfecto de subjonctivo": "banane7"}
+
+        for time in bananes:
+            if time in session["listActiveTimes"]:
+                session[bananes[time]] = "checked"
+            else:
+                session[bananes[time]] = None
 
     if request.form.get("drone") == "irreguliers":
 
@@ -109,8 +119,8 @@ def es():
         session["kiwi"] = None
         session["kiwi2"] = None
         session["verb"] = csvReaderIrregular.verbChoice()
-        session["irregular"] = 6
-
+        session["irregular"] = True
+        session["tous"] = False
 
     elif request.form.get("drone") == "tous":
 
@@ -121,13 +131,13 @@ def es():
 
         if aleatoire == 0:
             session["verb"] = csvReaderIrregular.verbChoice()
-            session["irregular"] = 6
-            session["tous"] = 7
+            session["irregular"] = True
+            session["tous"] = True
 
         else:
             session["verb"] = csvReader.verbChoice()
-            session["irregular"] = 8
-            session["tous"] = 7
+            session["tous"] = True
+            session["irregular"] = False
 
     elif request.form.get("drone") == "reguliers":
 
@@ -135,14 +145,16 @@ def es():
         session["kiwi2"] = None
         session["kiwi3"] = None
         session["verb"] = csvReader.verbChoice()
-        session["irregular"] = 8
+        session["tous"] = False
+        session["irregular"] = False
 
     if request.form.get("reponse") is not None and len(request.form.get("reponse")) >= 0 and session["verb"] != "verbe":
 
         reponse = request.form.getlist("reponse")
         reponseVerb = reponse[0].lower()
 
-        if session["irregular"] == 6:
+        if ("irregular" in session and session["irregular"] == True) or (
+                "erreur_type" in session and session["erreur_type"] == "irréguliers" and session["compteur"] == 3):
 
             correction = correspondanceTimeIrregular[session["time"]]()[listPronouns.index(session['pronouns'])][
                 correspondanceVerb.index(session["verb"])]
@@ -153,6 +165,16 @@ def es():
             else:
 
                 reponseUser = "❌ La réponse était: " + str(correction)
+                session["erreur_time"] += [session["time"]]
+                print(session["time"], " etrt", session["erreur_time"])
+                session["erreur_verb"] += [session["verb"]]
+                print(session["verb"], " etrt", session["erreur_verb"])
+                session["erreur_pronouns"] += [session["pronouns"]]
+                print(session["pronouns"], " etrt", session["erreur_pronouns"])
+                session["erreur_type"] = "irréguliers"
+
+                if not ("compteur" in session):
+                    session["compteur"] = 0
 
             session["verb"] = csvReaderIrregular.verbChoice()
 
@@ -179,21 +201,48 @@ def es():
 
                 reponseUser = "❌ La réponse était: " + str(session["verb"][:-2] + correction)
 
+            if reponseUser[0] == "❌":
+                session["erreur_time"] += [session["time"]]
+                session["erreur_verb"] += [session["verb"]]
+                session["erreur_pronouns"] += [session["pronouns"]]
+                session["erreur_type"] = "reguliers"
+
+                if not ("compteur" in session):
+                    session["compteur"] = 0
+
             session["verb"] = csvReader.verbChoice()
 
-        if "tous" in session and session["tous"] == 7:
+        if "tous" in session and session["tous"] == True:
 
             aleatoire = random.randint(0, 1)
             if aleatoire == 0:
                 session["verb"] = csvReaderIrregular.verbChoice()
-                session["irregular"] = 6
+                session["irregular"] = True
 
             else:
                 session["verb"] = csvReader.verbChoice()
-                session["irregular"] = 8
+                session["irregular"] = False
 
-        session["time"] = random.choice(session["listActiveTimes"])
-        session["pronouns"] = random.choice(listPronouns)
+        if "compteur" in session and session["compteur"] == 2:
+
+            session["time"] = session["erreur_time"][0]
+            session["pronouns"] = session["erreur_pronouns"][0]
+            session["verb"] = session["erreur_verb"][0]
+            session["erreur_time"].pop(0)
+            session["erreur_pronouns"].pop(0)
+            session["erreur_verb"].pop(0)
+            rappel = "Vous êtes trompé la dernière fois réessayer"
+
+        else:
+            session["time"] = random.choice(session["listActiveTimes"])
+            session["pronouns"] = random.choice(listPronouns)
+
+        if "compteur" in session and session["compteur"] == 3:
+            session.pop("compteur")
+
+        if "compteur" in session:
+            print(session["compteur"])
+            session["compteur"] += 1
 
     return render_template("language/spanish.html",
                            time=session["time"],
@@ -210,13 +259,15 @@ def es():
                            kiwi=session["kiwi"],
                            kiwi2=session["kiwi2"],
                            kiwi3=session["kiwi3"],
-                           username=session["username"])
+                           username=session["username"],
+                           rappel=rappel)
 
 
 @app.route("/connexion", methods=['GET', 'POST'])
 def connexion():
-    if not ("username" in session):
-        session["username"] = "Connexion"
+    """fonction qui renvoie la page de connexion et de création de compte du site"""
+
+    before_request()
 
     return render_template("login.html",
                            username=session["username"])
@@ -224,8 +275,10 @@ def connexion():
 
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
+    """fonction qui traite la création de compte en vérifiant un compte avec cette adresse email n'existe pas déjà:
+    si existe renvoie a la page de connexion sinon envoie a la page d'acceuil du site"""
+
     user = models.User.query.all()
-    print(user)
     for val in user:
         if request.form.get("email") == val.email or request.form.get("username") == val.username:
             return redirect("/connexion")
@@ -243,6 +296,8 @@ def signup():
 
 @app.route("/signin", methods=['GET', 'POST'])
 def signin():
+    """fonction qui traite la connexion a un compte existant: si il existe l'envoie vers la page d'acceuil connecter
+    sinon le renvoie a la page connexion"""
     user = models.User.query.all()
     for val in user:
         if request.form.get("email") == val.email and hashing.check_value(val.password, request.form.get("password"),
@@ -255,4 +310,14 @@ def signin():
 
 @app.route("/logout", methods=['GET', 'POST'])
 def logout():
+    """fonction permettant de ce déconnecter de sont compte """
     return redirect("/")
+
+
+@app.route("/profile", methods=['GET', 'POST'])
+def profile():
+    """fonction qui renvoie la page de profil pour chaque utilisateur avec sont mot de passe, sa date de création..."""
+
+    before_request()
+
+    return render_template("heritage_template/profile.html", username=session["username"])
