@@ -56,9 +56,6 @@ function insertCharacter(lettre){
 };
 
 
-
-
-
 function openNav() {
   document.getElementById("menu").classList.add("active");
 };

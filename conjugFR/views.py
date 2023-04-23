@@ -15,7 +15,7 @@ hashing = Hashing(app)
 
 
 def before_request():
-    """fonction qui initialise les session de flask pour éviter des erreurs"""
+    """fonction qui initialise les sessions de flask pour éviter des erreurs"""
     if not ("username" in session):
         session["username"] = "Connexion"
     if not ('time' in session):
@@ -230,7 +230,7 @@ def es():
             session["erreur_time"].pop(0)
             session["erreur_pronouns"].pop(0)
             session["erreur_verb"].pop(0)
-            rappel = "Vous êtes trompé la dernière fois réessayer"
+            rappel = "Tu as fait une erreur récemment sur ce verbe, conjugue le à nouveau !"
 
         else:
             session["time"] = random.choice(session["listActiveTimes"])
