@@ -29,7 +29,7 @@ class User(db.Model):
 
     def __init__(self, email, firstname, lastname, username, password, etablissement, xp, level, date_creation, logo,
                  day_streak, classement):
-        """fonction qui creer la tabloes user et les colonnes de la table dans la base de données"""
+        """fonction qui creer la tables user et les colonnes de la table dans la base de données"""
         self.email = email
         self.firstname = firstname
         self.lastname = lastname
@@ -51,10 +51,11 @@ Session.configure(bind=engine)
 session = Session()
 
 
-def addUser(email, firstname, lastname, username, password, etablissement):
+def addUser(email, firstname, lastname, username, password, etablissement, xp, level, date_creation, logo, day_streak,
+            classement):
     """ajoute les utilisateurs à la base de données avec les infos données à la création d'un compte(Nom, Prénom ...)"""
-    newUser = User(
-        email=email, firstname=firstname, lastname=lastname, username=username, password=password,
-        etablissement=etablissement)
+    newUser = User(email=email, firstname=firstname, lastname=lastname, username=username,
+                   password=password, etablissement=etablissement, xp=xp, level=level,
+                   date_creation=date_creation, logo=logo, day_streak=day_streak, classement=classement)
     session.add(newUser)
     session.commit()

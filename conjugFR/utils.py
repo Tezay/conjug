@@ -28,3 +28,5 @@ correspondanceVerb = ["dar", "decir", "estar", "haber", "hacer", "ir", "poder", 
 
 correspondanceTermination = ["ar", "er", "ir"]
 
+verbIrregular = csvReaderIrregular.verbChoice()
+verbs = csvReader.verbChoice()

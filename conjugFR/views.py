@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, session, redirect
 from flask_hashing import Hashing
 import random
+from datetime import datetime
+from time import strftime
 from . import models
 from . import csvReader
 from . import csvReaderIrregular
@@ -166,11 +168,8 @@ def es():
 
                 reponseUser = "❌ La réponse était: " + str(correction)
                 session["erreur_time"] += [session["time"]]
-                print(session["time"], " etrt", session["erreur_time"])
                 session["erreur_verb"] += [session["verb"]]
-                print(session["verb"], " etrt", session["erreur_verb"])
                 session["erreur_pronouns"] += [session["pronouns"]]
-                print(session["pronouns"], " etrt", session["erreur_pronouns"])
                 session["erreur_type"] = "irréguliers"
 
                 if not ("compteur" in session):
@@ -241,7 +240,6 @@ def es():
             session.pop("compteur")
 
         if "compteur" in session:
-            print(session["compteur"])
             session["compteur"] += 1
 
     return render_template("language/spanish.html",
@@ -289,7 +287,9 @@ def signup():
     username = request.form.get("username")
     password = hashing.hash_value(request.form.get("password"), salt='abcd')
     etablissement = request.form.get("etablissement")
-    models.addUser(email, firstname, lastname, username, password, etablissement)
+    date_creation = datetime.now().strftime('%d/%m/%Y')
+    logo = "banana"
+    models.addUser(email, firstname, lastname, username, password, etablissement, 0, 0, date_creation, logo, 1, 0)
 
     return redirect("/")
 
@@ -314,10 +314,36 @@ def logout():
     return redirect("/")
 
 
-@app.route("/profile", methods=['GET', 'POST'])
+@app.route("/settings", methods=['GET', 'POST'])
 def profile():
     """fonction qui renvoie la page de profil pour chaque utilisateur avec sont mot de passe, sa date de création..."""
 
     before_request()
 
     return render_template("heritage_template/profile.html", username=session["username"])
+
+
+@app.route("/profile/<username>", methods=['GET', 'POST'])
+def username_route(username):
+    user = models.User.query.all()
+    for val in user:
+        if val.username == username:
+            date_creation = val.date_creation
+            xp = val.xp
+            etablissement = val.etablissement
+            level = val.level
+            day_streak = val.day_streak
+            logo = val.logo
+            classement = val.classement
+            return render_template("heritage_template/profile.html",
+                                   date_creation=date_creation,
+                                   xp=xp,
+                                   etablissement=etablissement,
+                                   day_streak=day_streak,
+                                   logo=logo,
+                                   username2=username,
+                                   level=level,
+                                   classement=classement,
+                                   username=session["username"])
+
+    return "Utilisateur non trouvé"
