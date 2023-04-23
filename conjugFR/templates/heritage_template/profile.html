@@ -21,7 +21,7 @@
 <body>
 
   {% include 'heritage_template/header.html' %}
-    
+
     <div class="userInfos">
         <div class="userInfosContainer">
             <img src="https://cdn.discordapp.com/attachments/1098726716798673016/1099109424590757929/mexicain.png" alt="Logo" id="userIcon">
@@ -41,12 +41,27 @@
             </div>
         </div>
     </div>
-    <div class="userCaracteristics">
-      <div class="userStats">
-          <h2>Statistiques</h2>
-          <p>Jour de suite : 10</p>
-          <p>XP : 500</p>
-          <p>Classement : 3</p>
+    <div class="bottomContainer">
+      <div class="userCaracteristics">
+        <div class="userStats">
+            <h2>Statistiques</h2>
+            <div class="statsUp">
+              <div class="statElement">
+                <p>Jours de suite</p>
+              </div>
+              <div class="statElement">
+                <p>XP</p>
+              </div>
+            </div>
+            <div class="statsDown">
+              <div class="statElement">
+                <p>Place classement</p>
+              </div>
+              <div class="statElement">
+                <p>...</p>
+              </div>
+            </div>
+        </div>
       </div>
       <div class="leaderboard">
         <!-- Importer depuis un fichier leaderboard.html -->

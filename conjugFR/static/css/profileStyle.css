@@ -1,10 +1,12 @@
 .userInfos {
     background-color: #fff;
     color: #585656;
-    padding: 20px;
+    padding-top: 60px;
+    padding-bottom: 60px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
 }
 
 .userInfos h1, h2 {
@@ -26,8 +28,7 @@
 }
 
 .userInfosContainer {
-    padding-left: 5%;
-    padding: 50px;
+    display: inline-block;
 }
 
 #userIcon {
@@ -54,18 +55,62 @@
 }
 
 
+
+
+.bottomContainer {
+    margin: 0 auto;
+    max-width: 1056px;
+    padding-top: 40px;
+    width: 100%;
+    display: flex;
+    text-align: center;
+}
+
+
 .userCaracteristics {
     display: flex;
+    justify-content: center;
 }
 
 .userStats {
     margin: 20px;
+    display:flex;
+    flex-direction: column;
+    
 }
 
 .userStats h2 {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    text-align: left;
 }
+
 .userStats p {
     font-size: 18px;
     margin: 0;
+    color: #333232;
+}
+
+.statsUp, .statsDown {
+    display: flex;
+}
+
+.statsUp {
+    margin-bottom: 20px;
+}
+
+.statElement {
+    padding: 25px;
+    border: 1px solid #c8c8c8;
+    border-radius: 22px;
+    margin-right: 20px;
+    width: 200px;
+}
+
+
+.leaderboard{
+    border: 1px solid #c8c8c8;
+    border-radius: 24px;
+    width:350px;
+    height:500px;
+    background-color: #928e8e;
 }
