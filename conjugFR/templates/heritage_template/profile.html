@@ -36,12 +36,14 @@
         </div>
         <div class="userInteraction">
           <button class="button-settings">
-              <img src="{{ url_for('static', filename='assets/share.svg') }}" class="icon" alt="Share Icon">
+            <img src="{{ url_for('static', filename='assets/share.svg') }}" class="icon" alt="Share Icon">
             Partager ce profil
           </button>
           <button class="button-share-profile">
-            <img src="{{ url_for('static', filename='assets/logout.svg') }}" class="icon" alt="Logout Icon">
-            Se déconnecter
+            <a href="{{url_for('logout')}}">
+              <img src="{{ url_for('static', filename='assets/logout.svg') }}" class="icon" alt="Logout Icon">
+              Se déconnecter
+            </a>
           </button>
         </div>
     </div>
