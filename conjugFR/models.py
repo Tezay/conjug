@@ -1,12 +1,10 @@
 from flask_sqlalchemy import SQLAlchemy
-import sqlalchemy.orm
 
-from config import engine
 from conjugFR.views import app
 
-db = SQLAlchemy(app)
+db = SQLAlchemy()
 
-Base = sqlalchemy.orm.declarative_base()
+db.init_app(app)
 
 
 class User(db.Model):
@@ -27,28 +25,25 @@ class User(db.Model):
     day_streak = db.Column(db.Integer)
     classement = db.Column(db.Integer)
 
-    def __init__(self, email, firstname, lastname, username, password, etablissement, xp, level, date_creation, logo,
-                 day_streak, classement):
-        """fonction qui creer la tables user et les colonnes de la table dans la base de données"""
-        self.email = email
-        self.firstname = firstname
-        self.lastname = lastname
-        self.username = username
-        self.password = password
-        self.etablissement = etablissement
-        self.xp = xp
-        self.level = level
-        self.date_creation = date_creation
-        self.logo = logo
-        self.day_streak = day_streak
-        self.classement = classement
+    # def __init__(self, email, firstname, lastname, username, password, etablissement, xp, level, date_creation, logo,
+    #              day_streak, classement):
+    #     """fonction qui creer la tables user et les colonnes de la table dans la base de données"""
+    #     self.email = email
+    #     self.firstname = firstname
+    #     self.lastname = lastname
+    #     self.username = username
+    #     self.password = password
+    #     self.etablissement = etablissement
+    #     self.xp = xp
+    #     self.level = level
+    #     self.date_creation = date_creation
+    #     self.logo = logo
+    #     self.day_streak = day_streak
+    #     self.classement = classement
 
 
-Base.metadata.create_all(engine)
-
-Session = sqlalchemy.orm.sessionmaker()
-Session.configure(bind=engine)
-session = Session()
+with app.app_context():
+    db.create_all()
 
 
 def addUser(email, firstname, lastname, username, password, etablissement, xp, level, date_creation, logo, day_streak,
@@ -57,5 +52,14 @@ def addUser(email, firstname, lastname, username, password, etablissement, xp, l
     newUser = User(email=email, firstname=firstname, lastname=lastname, username=username,
                    password=password, etablissement=etablissement, xp=xp, level=level,
                    date_creation=date_creation, logo=logo, day_streak=day_streak, classement=classement)
-    session.add(newUser)
-    session.commit()
+    db.session.add(newUser)
+    db.session.commit()
+
+
+def addPoint(username):
+    """ajoute un point à l'xp de l'utilisateur quand il conjugue bien un verbe"""
+    user = User.query.all()
+    for val in user:
+        if val.username == username:
+            val.xp += 1
+            db.session.commit()
