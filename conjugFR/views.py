@@ -327,7 +327,8 @@ def signin():
 def logout():
     """fonction permettant de ce déconnecter de sont compte """
     session["username"] = "Connexion"
-    return redirect("/")
+    flash("Déconnection réussi")
+    return redirect(url_for("home"))
 
 
 @app.route("/settings", methods=['GET', 'POST'])
@@ -362,3 +363,7 @@ def username_route(username):
                                    classement=classement,
                                    username=session["username"])
     return "User Not Found"
+
+@app.route("/partager", methods=['GET', 'POST'])
+def partager():
+    flash("Le lien du profil a bien été copié")
