@@ -1,6 +1,9 @@
 .userInfos {
     background-color: #fff;
     color: #585656;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding-top: 60px;
     padding-bottom: 60px;
     border-bottom-left-radius: 20px;
@@ -26,8 +29,8 @@
     margin-right: 10px;
 }
 
-.userInfosContainer {
-    display: inline-block;
+.userInfosContainer, .userInteraction {
+    width: 35%;
 }
 
 #userIcon {
@@ -53,6 +56,52 @@
     margin-bottom: 10px;
     vertical-align: middle;
 }
+
+
+
+/*User Interaction**/
+
+.userInteraction {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .userInteraction button {
+    color: #fff;
+    background: -webkit-linear-gradient(to right, #f97316, #fb923c);
+	background: linear-gradient(to right, #f97316, #fb923c);
+    border: none;
+    border-radius: 18px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 15px 15px;
+    margin: 10px 0;
+    width:230px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease-in-out;
+  }
+
+  .userInteraction a {
+    color: #fff;
+  }
+  
+  .userInteraction button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .userInteraction .icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+
+  
 
 
 

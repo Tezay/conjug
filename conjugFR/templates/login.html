@@ -3,20 +3,16 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="description" content="Conjug.fr est un site de conjugaison pour l'espagnol. Révisez toutes les conjugaisons de verbes réguliers et irréguliers en espagnol, et améliorez votre grammaire.">
-	<meta name="keywords" content="conjugaison, espagnol, verbes, grammaire, apprendre l'espagnol, conjugaison de verbes en espagnol, verbes réguliers en espagnol, verbes irréguliers en espagnol, temps verbaux en espagnol, pronoms en espagnol, conjugaison des verbes être et avoir en espagnol, participe passé en espagnol, conditionnel en espagnol, subjonctif en espagnol, impératif en espagnol, auxiliaires en espagnol, conjugaison en ligne, outil de conjugaison, exercices de conjugaison, pratiquer la conjugaison, exercice, révision, conjugaison">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	{% include 'heritage_template/meta.html' %}
+
 	<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
 	<link rel="stylesheet" href="{{url_for('static', filename='css/header.css')}}">
 	<link rel="stylesheet" href="{{url_for('static', filename='css/loginStyle.css')}}">
 	<link rel="shortcut icon" href="{{url_for('static', filename='img/logo.png')}}">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@800&display=swap" rel="stylesheet">
-	<script defer="defer" language="JavaScript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+
 	<script defer="defer" language="JavaScript" src="{{ url_for('static', filename='js/script2.js') }}"></script>
-	<title>conjug.fr</title>
+	<title>Connexion - conjug.fr</title>
   </head>
 
 <body>
@@ -27,11 +23,12 @@
   		{% if messages %}
 		<ul class=flashes>
     	{% for message in messages %}
-			<li>{{ message }}</li>
-			{% endfor %}
-    	</ul>
+            <p class="alert alert-success">{{ message }}</p>
+            {% endfor %}
+        </ul>
 		{% endif %}
 	{% endwith %}
+	
 <div class="container" id="container">
 	<div class="form-container sign-up-container">
 		<form action="{{url_for('signup')}}" method="post" name="signup" id="inscription">

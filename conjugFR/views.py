@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, session, redirect, flash, url
 from flask_hashing import Hashing
 import random
 from datetime import datetime
+import pyperclip
 
 from . import models
 from . import csvReader
@@ -343,6 +344,7 @@ def profile():
 @app.route("/profile/<username>", methods=['GET', 'POST'])
 def username_route(username):
     user = models.User.query.all()
+    session["url"] = request.path
     for val in user:
         if val.username == username:
             date_creation = val.date_creation
@@ -364,6 +366,9 @@ def username_route(username):
                                    username=session["username"])
     return "User Not Found"
 
+
 @app.route("/partager", methods=['GET', 'POST'])
 def partager():
+    pyperclip.copy(f"https://conjug.fr{session['url']}")
     flash("Le lien du profil a bien été copié")
+    return redirect(url_for("username_route", username=session["username"]))
