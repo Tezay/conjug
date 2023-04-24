@@ -15,7 +15,17 @@
 <body>
 
   {% include 'heritage_template/header.html' %}
-    
+
+    {% with messages = get_flashed_messages() %}
+  		{% if messages %}
+		<ul class=flashes>
+    	{% for message in messages %}
+			<li>{{ message }}</li>
+			{% endfor %}
+    	</ul>
+		{% endif %}
+	{% endwith %}
+
     <div class="sloganBox">
         <div class="slogan">
             <h1>✨ Plus d’excuse pour conjuguer, c’est gagné !</h1>

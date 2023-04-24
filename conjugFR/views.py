@@ -1,8 +1,8 @@
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, flash, url_for
 from flask_hashing import Hashing
 import random
 from datetime import datetime
-from time import strftime
+
 from . import models
 from . import csvReader
 from . import csvReaderIrregular
@@ -22,6 +22,7 @@ def before_request():
         session["time"] = "temps"
         session["pronouns"] = "pronoms"
         session["verb"] = 'verbe'
+
     if not ("banane" in session):
         session["banane"] = None
         session["banane2"] = None
@@ -163,6 +164,7 @@ def es():
 
             if reponseVerb == correction:
                 reponseUser = "✅ Bonne réponse !"
+                models.addPoint(session["username"])
 
             else:
 
@@ -190,6 +192,7 @@ def es():
                 "verb"] + correction):
 
                 reponseUser = "✅ Bonne réponse !"
+                models.addPoint(session["username"])
 
             elif (session["time"] == "Futuro" or session["time"] == "Conditional") and reponseVerb != session[
                 "verb"] + correction:
@@ -278,8 +281,12 @@ def signup():
 
     user = models.User.query.all()
     for val in user:
-        if request.form.get("email") == val.email or request.form.get("username") == val.username:
-            return redirect("/connexion")
+        if request.form.get("email") == val.email:
+            flash("Adresse email déjà utilisé")
+            return redirect(url_for("connexion"))
+        elif request.form.get("username") == val.username:
+            flash("Nom d'utilisateur déjà utilisé")
+            return redirect(url_for("connexion"))
 
     email = request.form.get("email")
     firstname = request.form.get("firstname")
@@ -290,8 +297,10 @@ def signup():
     date_creation = datetime.now().strftime('%d/%m/%Y')
     logo = "banana"
     models.addUser(email, firstname, lastname, username, password, etablissement, 0, 0, date_creation, logo, 1, 0)
+    session["username"] = username
+    flash("Bienvenue et bonne conjugaison")
 
-    return redirect("/")
+    return redirect(url_for("home"))
 
 
 @app.route("/signin", methods=['GET', 'POST'])
@@ -300,17 +309,24 @@ def signin():
     sinon le renvoie a la page connexion"""
     user = models.User.query.all()
     for val in user:
-        if request.form.get("email") == val.email and hashing.check_value(val.password, request.form.get("password"),
-                                                                          salt='abcd'):
+        if request.form.get("email") == val.email and hashing.check_value(val.password, request.form.get("password"), salt='abcd'):
+            flash("Connexion réussi")
             session["username"] = val.username
-            return redirect("/")
+            return redirect(url_for("home"))
 
-    return redirect("/connexion")
+        elif request.form.get("email") == val.email:
+            flash("Mot de passe incorrect")
+            return redirect(url_for("connexion"))
+
+
+    flash("Pas de compte utilisateur pour cette adresse email")
+    return redirect(url_for("connexion"))
 
 
 @app.route("/logout", methods=['GET', 'POST'])
 def logout():
     """fonction permettant de ce déconnecter de sont compte """
+    session["username"] = "Connexion"
     return redirect("/")
 
 
@@ -345,5 +361,4 @@ def username_route(username):
                                    level=level,
                                    classement=classement,
                                    username=session["username"])
-
-    return "Utilisateur non trouvé"
+    return "User Not Found"
