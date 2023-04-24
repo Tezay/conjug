@@ -368,11 +368,29 @@ footer {
   height: 100%;
   }
 
-footer p {
-  font-size: 0.6rem;
+footer p, li {
+  font-size: 0.7rem;
+  text-transform: uppercase;
 }
 
 
+footer ul li {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+footer ul li:first-child {
+  margin-left: 0;
+}
+
+footer ul li a {
+  color: #333;
+  text-decoration: none;
+}
+
+footer ul li a:hover {
+  text-decoration: underline;
+}
 
 
 

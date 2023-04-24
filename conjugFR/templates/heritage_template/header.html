@@ -15,7 +15,7 @@
             </span>
             <span class="interactionButtons">
               <div class="github-button"><a href="https://github.com/Tezay/conjug" target="blank">GitHub</a></div>
-              <div class="connexion-button"><a href="{{url_for('connexion')}}">{{username}}</a></div>
+              <div class="connexion-button">{% if username == "Connexion" %} <a href="{{url_for('connexion')}}">{{username}}</a> {%else%} <a href="{{url_for('username_route', username = username)}}">{{username}}</a> {%endif%}</a></div>
             </span>
 
             <div class="menu-burger">
@@ -34,7 +34,7 @@
           </ul>
           <div class="interactionButtons-burger">
             <div class="github-button-burger"><a href="https://github.com/Tezay/conjug" target="blank">GitHub</a></div>
-            <div class="connexion-button-burger"><a href="{{url_for('connexion')}}">{{username}}</a></div>
+            <div class="connexion-button-burger">{% if username == "Connexion" %} <a href="{{('connexion')}}">{{username}}</a> {%else%} <a href="{{url_for('username_route', username = username)}}">{{username}}</a> {%endif%}</a></div>
           </div>
         </div>
 

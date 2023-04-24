@@ -2,20 +2,14 @@
 <html lang="fr">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="description" content="Conjug.fr est un site de conjugaison pour l'espagnol. Révisez toutes les conjugaisons de verbes réguliers et irréguliers en espagnol, et améliorez votre grammaire.">
-  <meta name="keywords" content="conjugaison, espagnol, verbes, grammaire, apprendre l'espagnol, conjugaison de verbes en espagnol, verbes réguliers en espagnol, verbes irréguliers en espagnol, temps verbaux en espagnol, pronoms en espagnol, conjugaison des verbes être et avoir en espagnol, participe passé en espagnol, conditionnel en espagnol, subjonctif en espagnol, impératif en espagnol, auxiliaires en espagnol, conjugaison en ligne, outil de conjugaison, exercices de conjugaison, pratiquer la conjugaison, exercice, révision, conjugaison">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  {% include 'heritage_template/meta.html' %}
+
   <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
   <link rel="stylesheet" href="{{url_for('static', filename='css/header.css')}}">
   <link rel="stylesheet" href="{{url_for('static', filename='css/profileStyle.css')}}">
-  <link rel="shortcut icon" href="{{url_for('static', filename='img/logo.png')}}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@800&display=swap" rel="stylesheet">
 
-  <script defer="defer" language="JavaScript" src="{{ url_for('static', filename='js/script.js') }}"></script>
-  <title>Profil - conjug.fr</title>
+  <title>{{username}} - conjug.fr</title>
 </head>
 
 <body>
@@ -40,6 +34,16 @@
                 </div>
             </div>
         </div>
+        <div class="userInteraction">
+          <button class="button-settings">
+              <img src="{{ url_for('static', filename='assets/share.svg') }}" class="icon" alt="Share Icon">
+            Partager ce profil
+          </button>
+          <button class="button-share-profile">
+            <img src="{{ url_for('static', filename='assets/logout.svg') }}" class="icon" alt="Logout Icon">
+            Se déconnecter
+          </button>
+        </div>
     </div>
     <div class="bottomContainer">
       <div class="userCaracteristics">
@@ -58,7 +62,7 @@
                 <p>🎖️ Classement : {{classement}}</p>
               </div>
               <div class="statElement">
-                <p>...</p>
+                <p></p>
               </div>
             </div>
         </div>
@@ -71,11 +75,7 @@
 
 
 
-  <footer>
-    <div class="container">
-      <p>Réalisé par Cédric Soyer & Eliot Cupillard - Lycée Jules Ferry Cannes - 2023</p>
-    </div>
-  </footer>
+  {% include 'heritage_template/footer.html' %}
 
 </body>
 

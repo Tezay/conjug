@@ -2,18 +2,13 @@
 <html lang="fr">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="description" content="Conjug.fr est un site de conjugaison pour l'espagnol. Révisez toutes les conjugaisons de verbes réguliers et irréguliers en espagnol, et améliorez votre grammaire.">
-  <meta name="keywords" content="conjugaison, espagnol, verbes, grammaire, apprendre l'espagnol, conjugaison de verbes en espagnol, verbes réguliers en espagnol, verbes irréguliers en espagnol, temps verbaux en espagnol, pronoms en espagnol, conjugaison des verbes être et avoir en espagnol, participe passé en espagnol, conditionnel en espagnol, subjonctif en espagnol, impératif en espagnol, auxiliaires en espagnol, conjugaison en ligne, outil de conjugaison, exercices de conjugaison, pratiquer la conjugaison, exercice, révision, conjugaison">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  {% include 'heritage_template/meta.html' %}
+
   <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
   <link rel="stylesheet" href="{{url_for('static', filename='css/header.css')}}">
   <link rel="shortcut icon" href="{{url_for('static', filename='img/logo.png')}}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@800&display=swap" rel="stylesheet">
 
-  <script defer="defer" language="JavaScript" src="{{ url_for('static', filename='js/script.js') }}"></script>
   <title>conjug.fr</title>
 </head>
 
@@ -23,7 +18,7 @@
     
     <div class="sloganBox">
         <div class="slogan">
-            <h1>✨ On cherche un slogan sympa pour notre site !</h1>
+            <h1>✨ Plus d’excuse pour conjuguer, c’est gagné !</h1>
         </div>
     </div>
 
@@ -56,11 +51,7 @@
 
 
 
-  <footer>
-    <div class="container">
-      <p>Réalisé par Cédric Soyer & Eliot Cupillard - Lycée Jules Ferry Cannes - 2023</p>
-    </div>
-  </footer>
+    {% include 'heritage_template/footer.html' %}
 
 </body>
 
