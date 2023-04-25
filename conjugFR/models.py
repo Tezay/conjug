@@ -63,5 +63,3 @@ def addPoint(username, point):
         if val.username == username:
             val.xp += point
             db.session.commit()
-            val.xp += 1
-            db.session.commit()
