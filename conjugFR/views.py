@@ -44,7 +44,7 @@ def before_request():
         session["erreur_verb"] = []
         session["erreur_type"] = []
 
-    if "erreur_verb" in session and len(session["erreur_verb"]) >= 4:
+    if "erreur_verb" in session and len(session["erreur_verb"]) >= 8:
         session["erreur_time"] = [session["erreur_time"][-1]]
         session["erreur_pronouns"] = [session["erreur_pronouns"][-1]]
         session["erreur_verb"] = [session["erreur_verb"][-1]]
@@ -159,7 +159,7 @@ def es():
         reponseVerb = reponse[0].lower()
 
         if ("irregular" in session and session["irregular"] == True) or (
-                "erreur_type" in session and session["erreur_type"][0] == "irréguliers" and session["compteur"] == 3):
+                session["erreur_type"] != [] and session["erreur_type"][0] == "irréguliers" and "compteur" in session and session["compteur"] == 3):
 
             correction = correspondanceTimeIrregular[session["time"]]()[listPronouns.index(session['pronouns'])][
                 correspondanceVerb.index(session["verb"])]
