@@ -3,7 +3,7 @@ import csv
 
 
 def verbChoice():
-    
+    """retoune un verbe au hasard parmi la liste des verbes irréguliers"""
     with open('conjugFR/timesIrregular/Infinitif.csv', newline='', encoding='utf8', errors='ignore') as csvfile:
         reader = csv.reader(csvfile)
         rows = [row for row in reader]
@@ -11,6 +11,9 @@ def verbChoice():
         
         return random_verbe
 
+    
+"""Toutes les fonctions suivantes retoune une liste des corrections selon le temps(nom de la fonction) à partir de fichier csv
+    pour les verbes irréguliers"""
 def Presente_de_indicativo():
     
     with open('conjugFR/timesIrregular/Presente de indicativo.csv', newline='', encoding='utf8', errors='ignore') as csvfile:
