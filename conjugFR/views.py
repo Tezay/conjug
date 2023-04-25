@@ -157,7 +157,12 @@ def es():
     if request.form.get("reponse") is not None and len(request.form.get("reponse")) >= 0 and session["verb"] != "verbe":
 
         reponse = request.form.getlist("reponse")
-        reponseVerb = reponse[0].lower()
+        reponse = reponse[0].lower()
+        reponseVerb = ""
+        for chr in reponse:
+            if chr != " ":
+                reponseVerb += chr
+
 
         if ("irregular" in session and session["irregular"] == True) or (
                 session["erreur_type"] != [] and session["erreur_type"][0] == "irréguliers" and "compteur" in session and session["compteur"] == 3):
@@ -297,7 +302,12 @@ def signup():
     email = request.form.get("email")
     firstname = request.form.get("firstname")
     lastname = request.form.get("lastname")
-    username = request.form.get("username")
+    usernameBase = request.form.get("username")
+    username = ""
+    for chr in usernameBase:
+        if chr != " " and 33 <= ord(chr) <= 126:
+            username += chr
+
     password = hashing.hash_value(request.form.get("password"), salt='abcd')
     etablissement = request.form.get("etablissement")
     date_creation = datetime.now().strftime('%d/%m/%Y')
