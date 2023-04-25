@@ -56,10 +56,10 @@ def addUser(email, firstname, lastname, username, password, etablissement, xp, l
     db.session.commit()
 
 
-def addPoint(username):
+def addPoint(username, point):
     """ajoute un point à l'xp de l'utilisateur quand il conjugue bien un verbe"""
     user = User.query.all()
     for val in user:
         if val.username == username:
-            val.xp += 1
+            val.xp += point
             db.session.commit()

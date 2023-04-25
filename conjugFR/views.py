@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, session, redirect, flash, url
 from flask_hashing import Hashing
 import random
 from datetime import datetime
-import pyperclip
 
 from . import models
 from . import csvReader
@@ -43,11 +42,13 @@ def before_request():
         session["erreur_time"] = []
         session["erreur_pronouns"] = []
         session["erreur_verb"] = []
+        session["erreur_type"] = []
 
     if "erreur_verb" in session and len(session["erreur_verb"]) >= 4:
         session["erreur_time"] = [session["erreur_time"][-1]]
         session["erreur_pronouns"] = [session["erreur_pronouns"][-1]]
         session["erreur_verb"] = [session["erreur_verb"][-1]]
+        session["erreur_type"] = [session["erreur_type"][-1]]
 
 
 # Home page
@@ -158,14 +159,14 @@ def es():
         reponseVerb = reponse[0].lower()
 
         if ("irregular" in session and session["irregular"] == True) or (
-                "erreur_type" in session and session["erreur_type"] == "irréguliers" and session["compteur"] == 3):
+                "erreur_type" in session and session["erreur_type"][0] == "irréguliers" and session["compteur"] == 3):
 
             correction = correspondanceTimeIrregular[session["time"]]()[listPronouns.index(session['pronouns'])][
                 correspondanceVerb.index(session["verb"])]
 
             if reponseVerb == correction:
                 reponseUser = "✅ Bonne réponse !"
-                models.addPoint(session["username"])
+                models.addPoint(session["username"], 2)
 
             else:
 
@@ -173,7 +174,7 @@ def es():
                 session["erreur_time"] += [session["time"]]
                 session["erreur_verb"] += [session["verb"]]
                 session["erreur_pronouns"] += [session["pronouns"]]
-                session["erreur_type"] = "irréguliers"
+                session["erreur_type"] += ["irréguliers"]
 
                 if not ("compteur" in session):
                     session["compteur"] = 0
@@ -193,7 +194,7 @@ def es():
                 "verb"] + correction):
 
                 reponseUser = "✅ Bonne réponse !"
-                models.addPoint(session["username"])
+                models.addPoint(session["username"], 1)
 
             elif (session["time"] == "Futuro" or session["time"] == "Conditional") and reponseVerb != session[
                 "verb"] + correction:
@@ -208,7 +209,7 @@ def es():
                 session["erreur_time"] += [session["time"]]
                 session["erreur_verb"] += [session["verb"]]
                 session["erreur_pronouns"] += [session["pronouns"]]
-                session["erreur_type"] = "reguliers"
+                session["erreur_type"] += ["reguliers"]
 
                 if not ("compteur" in session):
                     session["compteur"] = 0
@@ -233,6 +234,7 @@ def es():
             session["verb"] = session["erreur_verb"][0]
             session["erreur_time"].pop(0)
             session["erreur_pronouns"].pop(0)
+            session["erreur_verb"].pop(0)
             session["erreur_verb"].pop(0)
             rappel = "Tu as fait une erreur récemment sur ce verbe, conjugue le à nouveau !"
 
@@ -310,7 +312,8 @@ def signin():
     sinon le renvoie a la page connexion"""
     user = models.User.query.all()
     for val in user:
-        if request.form.get("email") == val.email and hashing.check_value(val.password, request.form.get("password"), salt='abcd'):
+        if request.form.get("email") == val.email and hashing.check_value(val.password, request.form.get("password"),
+                                                                          salt='abcd'):
             flash("Connexion réussi")
             session["username"] = val.username
             return redirect(url_for("home"))
@@ -318,7 +321,6 @@ def signin():
         elif request.form.get("email") == val.email:
             flash("Mot de passe incorrect")
             return redirect(url_for("connexion"))
-
 
     flash("Pas de compte utilisateur pour cette adresse email")
     return redirect(url_for("connexion"))
@@ -332,13 +334,13 @@ def logout():
     return redirect(url_for("home"))
 
 
-@app.route("/settings", methods=['GET', 'POST'])
-def profile():
-    """fonction qui renvoie la page de profil pour chaque utilisateur avec sont mot de passe, sa date de création..."""
-
-    before_request()
-
-    return render_template("heritage_template/profile.html", username=session["username"])
+# @app.route("/settings", methods=['GET', 'POST'])
+# def profile():
+#     """fonction qui renvoie la page de profil pour chaque utilisateur avec sont mot de passe, sa date de création..."""
+#
+#     before_request()
+#
+#     return render_template("heritage_template/profile.html", username=session["username"])
 
 
 @app.route("/profile/<username>", methods=['GET', 'POST'])
@@ -369,6 +371,5 @@ def username_route(username):
 
 @app.route("/partager", methods=['GET', 'POST'])
 def partager():
-    pyperclip.copy(f"https://conjug.fr{session['url']}")
     flash("Le lien du profil a bien été copié")
     return redirect(url_for("username_route", username=session["username"]))
