@@ -97,6 +97,7 @@ def es():
      et met en place un système de rappel pour que l'utilisateur ne se trompe plus sur les mêmes verbes"""
 
     before_request()
+
     reponseUser = ""
     rappel = ""
 
@@ -235,7 +236,7 @@ def es():
             session["erreur_time"].pop(0)
             session["erreur_pronouns"].pop(0)
             session["erreur_verb"].pop(0)
-            session["erreur_verb"].pop(0)
+            session["erreur_type"].pop(0)
             rappel = "Tu as fait une erreur récemment sur ce verbe, conjugue le à nouveau !"
 
         else:
@@ -282,6 +283,8 @@ def signup():
     """fonction qui traite la création de compte en vérifiant un compte avec cette adresse email n'existe pas déjà:
     si existe renvoie a la page de connexion sinon envoie a la page d'acceuil du site"""
 
+    before_request()
+
     user = models.User.query.all()
     for val in user:
         if request.form.get("email") == val.email:
@@ -310,6 +313,9 @@ def signup():
 def signin():
     """fonction qui traite la connexion a un compte existant: si il existe l'envoie vers la page d'acceuil connecter
     sinon le renvoie a la page connexion"""
+
+    before_request()
+
     user = models.User.query.all()
     for val in user:
         if request.form.get("email") == val.email and hashing.check_value(val.password, request.form.get("password"),
@@ -329,6 +335,9 @@ def signin():
 @app.route("/logout", methods=['GET', 'POST'])
 def logout():
     """fonction permettant de ce déconnecter de sont compte """
+
+    before_request()
+
     session["username"] = "Connexion"
     flash("Déconnection réussi")
     return redirect(url_for("home"))
@@ -345,6 +354,7 @@ def logout():
 
 @app.route("/profile/<username>", methods=['GET', 'POST'])
 def username_route(username):
+    before_request()
     user = models.User.query.all()
     session["url"] = request.path
     for val in user:
