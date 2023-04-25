@@ -61,5 +61,10 @@ def addPoint(username, point):
     user = User.query.all()
     for val in user:
         if val.username == username:
+<<<<<<< HEAD
             val.xp += point
             db.session.commit()
+=======
+            val.xp += 1
+            db.session.commit()
+>>>>>>> 80d4ffb44637bb60180f3608e6851fe436843d66

@@ -2,6 +2,10 @@ from flask import Flask, render_template, request, session, redirect, flash, url
 from flask_hashing import Hashing
 import random
 from datetime import datetime
+<<<<<<< HEAD
+=======
+import pandas
+>>>>>>> 80d4ffb44637bb60180f3608e6851fe436843d66
 
 from . import models
 from . import csvReader
@@ -371,5 +375,10 @@ def username_route(username):
 
 @app.route("/partager", methods=['GET', 'POST'])
 def partager():
+<<<<<<< HEAD
+=======
+    df = pandas.DataFrame([f"https://conjug.fr{session['url']}"])
+    df.to_clipboard(index=False, header=False)
+>>>>>>> 80d4ffb44637bb60180f3608e6851fe436843d66
     flash("Le lien du profil a bien été copié")
     return redirect(url_for("username_route", username=session["username"]))
