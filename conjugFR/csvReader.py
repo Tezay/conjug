@@ -11,7 +11,7 @@ def verbChoice():
         
         return random_verbe
 
- """Toutes les fonctions suivante retoune une liste des terminasions selon le temps(nom de la fonction) à partir de fichier csv"""
+"""Toutes les fonctions suivante retoune une liste des terminasions selon le temps(nom de la fonction) à partir de fichier csv"""
 def Presente_de_indicativo():
     
     with open('conjugFR/times/Presente de indicativo.csv', newline='', encoding='utf8', errors='ignore') as csvfile:
