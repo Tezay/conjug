@@ -43,6 +43,7 @@ class User(db.Model):
 
 
 with app.app_context():
+    """créer la table user"""
     db.create_all()
 
 
@@ -57,7 +58,7 @@ def addUser(email, firstname, lastname, username, password, etablissement, xp, l
 
 
 def addPoint(username, point):
-    """ajoute un point à l'xp de l'utilisateur quand il conjugue bien un verbe"""
+    """ajoute un point à l'xp de l'utilisateur quand il conjugue bien un verbe 2 si verbe irréguliers, 1 si verbe réguliers"""
     user = User.query.all()
     for val in user:
         if val.username == username:

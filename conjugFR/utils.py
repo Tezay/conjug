@@ -1,7 +1,7 @@
 from . import csvReader
 from . import csvReaderIrregular
 
-listPronouns = ["yo", "tú", "él", "nosotros", "vosotros", "ellos"]
+listPronouns = ["yo", "tú", "él", "nosotros", "vosotros", "ellos"] #liste des pronoms personnels espagnol
 
 correspondanceTime = {
     "Conditional": csvReader.Conditional,
@@ -11,7 +11,7 @@ correspondanceTime = {
     "Pretérito imperfecto de indicativo": csvReader.Preterito_imperfecto_de_indicativo,
     "Pretérito indefinido": csvReader.Preterito_indefinido,
     "Prétero imperfecto de subjonctivo": csvReader.Pretero_imperfecto_de_subjonctivo,
-}
+} #dictionnaire des temps correspondant à leurs terminasons pour les verbes réguliers
 
 correspondanceTimeIrregular = {
     "Conditional": csvReaderIrregular.Conditional,
@@ -21,12 +21,9 @@ correspondanceTimeIrregular = {
     "Pretérito imperfecto de indicativo": csvReaderIrregular.Preterito_imperfecto_de_indicativo,
     "Pretérito indefinido": csvReaderIrregular.Preterito_indefinido,
     "Prétero imperfecto de subjonctivo": csvReaderIrregular.Pretero_imperfecto_de_subjonctivo,
-}
+} #dictionnaire des temps correspondant à leurs corrections pour les verbes irréguliers
 
 correspondanceVerb = ["dar", "decir", "estar", "haber", "hacer", "ir", "poder", "poner", "querer", "saber", "salir",
-                      "ser", "tener", "venir", "ver"]
+                      "ser", "tener", "venir", "ver"] #liste de tout les verbes irréguliers des fichiers csv
 
-correspondanceTermination = ["ar", "er", "ir"]
-
-verbIrregular = csvReaderIrregular.verbChoice()
-verbs = csvReader.verbChoice()
+correspondanceTermination = ["ar", "er", "ir"] #liste des terminaisons possibles à l'infinitif

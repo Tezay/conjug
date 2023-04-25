@@ -3,7 +3,7 @@ import csv
 
 
 def verbChoice():
-    
+    """retourne un verbe aléatoire parmi les 720 dans un fichier csv"""
     with open('conjugFR/times/spanishVerbsList.csv', newline='', encoding='utf8', errors='ignore') as csvfile:
         reader = csv.reader(csvfile)
         rows = [row for row in reader]
@@ -11,6 +11,7 @@ def verbChoice():
         
         return random_verbe
 
+ """Toutes les fonctions suivante retoune une liste des terminasions selon le temps(nom de la fonction) à partir de fichier csv"""
 def Presente_de_indicativo():
     
     with open('conjugFR/times/Presente de indicativo.csv', newline='', encoding='utf8', errors='ignore') as csvfile:

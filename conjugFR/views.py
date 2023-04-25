@@ -91,10 +91,14 @@ def it():
 
 @app.route("/es", methods=['GET', 'POST'])
 def es():
-    """fonction qui traite les temps et types de verbes(réguliers, irréguliers) que l'utilisateur veut réviser
-    et renvoie un verbe un pronom un temps pour réviser sur la page d'espagnol du site/ et qui traite aussi
-     la réponse de l'utilisateur si fausse renvoie la réponse, sinon dit bonne réponse sur la page d'espagnol du site
-     et met en place un système de rappel pour que l'utilisateur ne se trompe plus sur les mêmes verbes"""
+    """fonction qui traite plusieurs chose:
+    -renvoie la page d'espagnol du site
+    -les temps et types de verbes chosie par l'utilisateur(qui viennent d'un formulaire du html): renvoie la page d'espagnol 
+    du site avec des verbes du bon type (réguliers, irréguliers, tous) à conjuguer avec un pronom personnel et le temps auquel le conjugué.
+    -la réponse de l'utilisateur avec un verbe conjuguer: si il est juste renvoie que la page d'espagnol du site avec écrit
+    que c'est une bonne réponse sinon renvoie la correction
+    
+    renvoie aussi un verbe ou l'utilisateur c'est déjà trompé(système de rappel d'erreur) 3 verbes après que l'utilisateur se soient trompé"""
 
     before_request()
 
@@ -286,7 +290,7 @@ def connexion():
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
     """fonction qui traite la création de compte en vérifiant un compte avec cette adresse email n'existe pas déjà:
-    si existe renvoie a la page de connexion sinon envoie a la page d'acceuil du site"""
+    si existe renvoie à la page de connexion sinon envoie a la page d'acceuil du site"""
 
     before_request()
 
@@ -321,8 +325,8 @@ def signup():
 
 @app.route("/signin", methods=['GET', 'POST'])
 def signin():
-    """fonction qui traite la connexion a un compte existant: si il existe l'envoie vers la page d'acceuil connecter
-    sinon le renvoie a la page connexion"""
+    """fonction qui traite la connexion à un compte existant: si il existe l'envoie vers la page d'acceuil connecter
+    sinon le renvoie à la page de connexion"""
 
     before_request()
 
@@ -344,7 +348,7 @@ def signin():
 
 @app.route("/logout", methods=['GET', 'POST'])
 def logout():
-    """fonction permettant de ce déconnecter de sont compte """
+    """fonction permettant de ce déconnecter de son compte """
 
     before_request()
 
@@ -364,7 +368,8 @@ def logout():
 
 @app.route("/profile/<username>", methods=['GET', 'POST'])
 def username_route(username):
-
+    """fonction qui renvoie la page de profil de l'utilisateur rechercher"""
+    
     before_request()
 
     user = models.User.query.all()
@@ -393,5 +398,6 @@ def username_route(username):
 
 @app.route("/partager", methods=['GET', 'POST'])
 def partager():
+    """fonction qui permet de copié le l'url de la page et de partager sont profil"""
     flash("Le lien du profil a bien été copié")
     return redirect(url_for("username_route", username=session["username"]))
