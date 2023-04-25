@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, session, redirect, flash, url
 from flask_hashing import Hashing
 import random
 from datetime import datetime
-import clipboard as c
+import xerox
 
 from . import models
 from . import csvReader
@@ -369,6 +369,6 @@ def username_route(username):
 
 @app.route("/partager", methods=['GET', 'POST'])
 def partager():
-    c.copy(f"https://conjug.fr{session['url']}")
+    xerox.copy(f"https://conjug.fr{session['url']}")
     flash("Le lien du profil a bien été copié")
     return redirect(url_for("username_route", username=session["username"]))
