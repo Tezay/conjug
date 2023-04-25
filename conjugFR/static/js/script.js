@@ -38,7 +38,7 @@ form2.addEventListener("submit", function(e){
     e.preventDefault();
     alert("Entrer un verbe conjugué");
     return false;
-  } else if(verb == "verbe") {
+  } else if(verb == "(verbe)") {
     alert("Choisir et valider un ou plusieurs temps");
     return false;  
   } else {

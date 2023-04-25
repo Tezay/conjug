@@ -159,11 +159,17 @@ def es():
         session["tous"] = False
         session["irregular"] = False
 
-    if request.form.get("reponse") is not None and len(request.form.get("reponse")) >= 0 and session["verb"] != "verbe":
+    if (request.form.get("reponse") is not None or request.form.get("skip") is not None) and session["verb"] != "verbe":
 
-        reponse = request.form.getlist("reponse")
-        reponse = reponse[0].lower()
+        if request.form.get("reponse") is not None:
+            reponse = request.form.getlist("reponse")
+            reponse = reponse[0].lower()
+
+        else:
+            reponse = ""
+
         reponseVerb = ""
+
         for chr in reponse:
             if chr != " ":
                 reponseVerb += chr
