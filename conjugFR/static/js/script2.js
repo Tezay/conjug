@@ -26,7 +26,7 @@ form3.addEventListener("submit", function(e){
       return false;
     };
 
-    if(username.match( /[^-.0-9_a-z]/g) || username.match( /[ \t\n\x0B\f\r]/g) || len(username) < 3 || len(username) > 15){
+    if(username.match( /[^-.0-9_a-z]/g) || username.match( /[ \t\n\x0B\f\r]/g) || username.length < 3 || username.length > 15){
       e.preventDefault();
       alert("Votre nom d'utilisateur doit faire minimun 3 caractères, maximum 15 caractères et ne doit pas contenir d'espace ou de caractères non conformes");
       return false;
