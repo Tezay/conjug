@@ -43,6 +43,7 @@ class User(db.Model):
 
 
 with app.app_context():
+    dp.drop_all()
     db.create_all()
 
 
