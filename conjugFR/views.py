@@ -159,7 +159,7 @@ def es():
         reponseVerb = reponse[0].lower()
 
         if ("irregular" in session and session["irregular"] == True) or (
-                "erreur_type" in session and session["erreur_type"][0] == "irréguliers" and session["compteur"] == 3):
+                session["erreur_type"] != [] and session["erreur_type"][0] == "irréguliers" and session["compteur"] == 3):
 
             correction = correspondanceTimeIrregular[session["time"]]()[listPronouns.index(session['pronouns'])][
                 correspondanceVerb.index(session["verb"])]
