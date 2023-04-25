@@ -302,10 +302,10 @@ def signup():
     email = request.form.get("email")
     firstname = request.form.get("firstname")
     lastname = request.form.get("lastname")
-    usernameBase = request.form.get("username")
+    usernameBase = request.form.get("username").lower()
     username = ""
     for chr in usernameBase:
-        if chr != " " and 33 <= ord(chr) <= 126:
+        if chr != " " and (ord(chr) == 45 or ord(chr) == 46 or 48 <= ord(chr) <= 57 or ord(chr) == 95 or 97 <= ord(chr) <= 122):
             username += chr
 
     password = hashing.hash_value(request.form.get("password"), salt='abcd')
