@@ -354,7 +354,9 @@ def logout():
 
 @app.route("/profile/<username>", methods=['GET', 'POST'])
 def username_route(username):
+
     before_request()
+
     user = models.User.query.all()
     session["url"] = request.path
     for val in user:
