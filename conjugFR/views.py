@@ -15,7 +15,8 @@ hashing = Hashing(app)
 
 
 def before_request():
-    """fonction qui initialise les sessions de flask pour éviter des erreurs"""
+    """fonction qui initialise les sessions de flask"""
+
     if not ("username" in session):
         session["username"] = "Connexion"
     if not ('time' in session):
