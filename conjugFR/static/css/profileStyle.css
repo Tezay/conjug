@@ -54,7 +54,7 @@
 .userInfosProfile, .userInfosCreationDate, .userInfosEtablissement {
     display: flex;
     margin-bottom: 10px;
-    vertical-align: middle;
+    align-items: center;
 }
 
 
