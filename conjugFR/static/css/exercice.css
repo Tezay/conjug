@@ -314,9 +314,11 @@ input[type="checkbox"] {
         height: 400px;
         width: 100%;
         padding: 0 25px;
+        padding-bottom: 230px;
+        margin-top: 250px;
         border-top: 2px solid #c5c4c4;
         border-right: none;
-        bottom: 60px;
+        overflow: auto;
     }
 
     .parameters-container h2 {
