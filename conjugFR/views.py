@@ -242,7 +242,6 @@ def es():
             session["erreur_time"].pop(0)
             session["erreur_pronouns"].pop(0)
             session["erreur_verb"].pop(0)
-            session["erreur_type"].pop(0)
             rappel = "Tu as fait une erreur récemment sur ce verbe, conjugue le à nouveau !"
 
         else:
@@ -251,6 +250,7 @@ def es():
 
         if "compteur" in session and session["compteur"] == 3:
             session.pop("compteur")
+            session["erreur_type"].pop(0)
 
         if "compteur" in session:
             session["compteur"] += 1
