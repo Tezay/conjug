@@ -6,12 +6,10 @@
 
 	{% include 'heritage_template/meta.html' %}
 
-	<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
-	<link rel="stylesheet" href="{{url_for('static', filename='css/header.css')}}">
-	<link rel="stylesheet" href="{{url_for('static', filename='css/loginStyle.css')}}">
-	<link rel="shortcut icon" href="{{url_for('static', filename='img/logo.png')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/login.css')}}">
 
 	<script defer="defer" language="JavaScript" src="{{ url_for('static', filename='js/script2.js') }}"></script>
+	
 	<title>Connexion - conjug.fr</title>
   </head>
 
@@ -49,7 +47,7 @@
 			<h1>Se connecter</h1>
 			<input type="email" placeholder="Email" name="email" required/>
 			<input type="password" placeholder="Mot de passe" name="password" required/>
-			<a href="">Un problème ? Nous contacter</a>
+			<a class="contact-link" href="https://github.com/Tezay/conjug/issues" target="blank">Un problème ? Nous contacter</a>
 			<button type="submit">Connexion</button>
 		</form>
 	</div>

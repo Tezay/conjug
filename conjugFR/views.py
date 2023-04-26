@@ -105,6 +105,7 @@ def es():
 
     reponseUser = ""
     rappel = ""
+    reponseVerb = ""
 
     verif = request.form.get("temps[]")
 
@@ -124,41 +125,6 @@ def es():
             else:
                 session[bananes[time]] = None
 
-    if request.form.get("drone") == "irreguliers":
-
-        session["kiwi3"] = "checked"
-        session["kiwi"] = None
-        session["kiwi2"] = None
-        session["verb"] = csvReaderIrregular.verbChoice()
-        session["irregular"] = True
-        session["tous"] = False
-
-    elif request.form.get("drone") == "tous":
-
-        aleatoire = random.randint(0, 1)
-        session["kiwi2"] = "checked"
-        session["kiwi3"] = None
-        session["kiwi"] = None
-
-        if aleatoire == 0:
-            session["verb"] = csvReaderIrregular.verbChoice()
-            session["irregular"] = True
-            session["tous"] = True
-
-        else:
-            session["verb"] = csvReader.verbChoice()
-            session["tous"] = True
-            session["irregular"] = False
-
-    elif request.form.get("drone") == "reguliers":
-
-        session["kiwi"] = "checked"
-        session["kiwi2"] = None
-        session["kiwi3"] = None
-        session["verb"] = csvReader.verbChoice()
-        session["tous"] = False
-        session["irregular"] = False
-
     if (request.form.get("reponse") is not None or request.form.get("skip") is not None) and session["verb"] != "verbe":
 
         if request.form.get("reponse") is not None:
@@ -168,35 +134,30 @@ def es():
         else:
             reponse = ""
 
-        reponseVerb = ""
-
         for chr in reponse:
             if chr != " ":
                 reponseVerb += chr
 
-
-        if ("irregular" in session and session["irregular"] == True) or (
-                session["erreur_type"] != [] and session["erreur_type"][0] == "irréguliers" and "compteur" in session and session["compteur"] == 3):
+        if ("irregular" in session and session["irregular"] is True) or (
+                session["erreur_type"] != [] and session["erreur_type"][0] == "irreguliers" and "compteur" in session and session["compteur"] == 3):
 
             correction = correspondanceTimeIrregular[session["time"]]()[listPronouns.index(session['pronouns'])][
                 correspondanceVerb.index(session["verb"])]
 
             if reponseVerb == correction:
-                reponseUser = "✅ Bonne réponse !"
+                reponseUser = True
                 models.addPoint(session["username"], 2)
 
             else:
 
-                reponseUser = "❌ La réponse était: " + str(correction)
+                reponseUser = str(correction)
                 session["erreur_time"] += [session["time"]]
                 session["erreur_verb"] += [session["verb"]]
                 session["erreur_pronouns"] += [session["pronouns"]]
-                session["erreur_type"] += ["irréguliers"]
+                session["erreur_type"] += ["irreguliers"]
 
                 if not ("compteur" in session):
                     session["compteur"] = 0
-
-            session["verb"] = csvReaderIrregular.verbChoice()
 
         else:
 
@@ -210,19 +171,19 @@ def es():
                     (session["time"] == "Futuro" or session["time"] == "Conditional") and reponseVerb == session[
                 "verb"] + correction):
 
-                reponseUser = "✅ Bonne réponse !"
+                reponseUser = True
                 models.addPoint(session["username"], 1)
 
             elif (session["time"] == "Futuro" or session["time"] == "Conditional") and reponseVerb != session[
                 "verb"] + correction:
 
-                reponseUser = "❌ La réponse était: " + str(session["verb"] + correction)
+                reponseUser = str(session["verb"] + correction)
 
             else:
 
-                reponseUser = "❌ La réponse était: " + str(session["verb"][:-2] + correction)
+                reponseUser = str(session["verb"][:-2] + correction)
 
-            if reponseUser[0] == "❌":
+            if reponseUser is not True:
                 session["erreur_time"] += [session["time"]]
                 session["erreur_verb"] += [session["verb"]]
                 session["erreur_pronouns"] += [session["pronouns"]]
@@ -231,18 +192,47 @@ def es():
                 if not ("compteur" in session):
                     session["compteur"] = 0
 
-            session["verb"] = csvReader.verbChoice()
+    verb_type = request.form.get("drone")
 
-        if "tous" in session and session["tous"] == True:
+    if request.form.get("continue") is not None or verb_type is not None:
 
+        if verb_type == "tous" or (verb_type != "reguliers" and verb_type != "irreguliers" and "tous" in session and session["tous"] is True):
+    
             aleatoire = random.randint(0, 1)
+            session["kiwi2"] = "checked"
+            session["kiwi3"] = None
+            session["kiwi"] = None
+
             if aleatoire == 0:
                 session["verb"] = csvReaderIrregular.verbChoice()
                 session["irregular"] = True
+                session["tous"] = True
 
             else:
                 session["verb"] = csvReader.verbChoice()
+                session["tous"] = True
                 session["irregular"] = False
+
+        elif verb_type == "irreguliers" or (verb_type != "reguliers" and "irregular" in session and session["irregular"] is True):
+
+            session["kiwi3"] = "checked"
+            session["kiwi"] = None
+            session["kiwi2"] = None
+            session["verb"] = csvReaderIrregular.verbChoice()
+            session["irregular"] = True
+            session["tous"] = False
+
+
+
+        else:
+
+            session["kiwi"] = "checked"
+            session["kiwi2"] = None
+            session["kiwi3"] = None
+            session["verb"] = csvReader.verbChoice()
+            session["tous"] = False
+            session["irregular"] = False
+
 
         if "compteur" in session and session["compteur"] == 2:
 
@@ -270,6 +260,7 @@ def es():
                            pronouns=session["pronouns"],
                            verb=session["verb"],
                            reponseUser=reponseUser,
+                           reponseVerb=reponseVerb,
                            banane=session["banane"],
                            banane2=session["banane2"],
                            banane3=session["banane3"],
