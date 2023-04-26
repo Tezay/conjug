@@ -40,10 +40,12 @@ button:hover {
     left: 0;
     position: fixed!important;
     z-index: 1;
-    height: 71vh;
+    height: 
+    100vh;
     padding: 0 25px;
     border-right: 2px solid #c5c4c4;
     box-sizing: border-box;
+    z-index: 1;
 }
 
 
@@ -207,6 +209,7 @@ input[type="checkbox"] {
     padding-top: 30px;
     padding-bottom: 30px;
     justify-content: center;
+    z-index: 2;
 }
 
 .interaction-grid {
@@ -219,11 +222,11 @@ input[type="checkbox"] {
     margin-right: auto;
 }
   
-  .confirm-container {
+.confirm-container {
     margin-left: auto;
 }
   
-  .lesson-container {
+.lesson-container {
     display: flex;
     justify-content: center;
 }
@@ -296,4 +299,140 @@ input[type="checkbox"] {
     border: 2px solid #7b7a7a;
     color: #fff;
     background-color: #a1a1a1;
+}
+
+
+
+/**Responsive**/
+
+@media screen and (max-width:930px){
+
+    /**Parameters**/
+
+    .parameters-container {
+        position: block;
+        height: 400px;
+        width: 100%;
+        padding: 0 25px;
+        border-top: 2px solid #c5c4c4;
+        border-right: none;
+        bottom: 60px;
+    }
+
+    .parameters-container h2 {
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+
+    .switch-toggle {
+        width: 100%;
+        height: 30px;
+    }
+
+    .switch-toggle label {
+        font-size: 0.9rem;
+        line-height: 30px;
+    }
+
+    .parameters-button-container .submit-button {
+        margin: 5px;
+        padding: 10px 30px;
+        border-radius: 16px;
+    }
+
+    /**Exercice**/
+
+    .exercice-container {
+        position: fixed;
+        padding-left: 0px;
+        padding-top:0px;
+        width: 90%;
+    }
+
+    .exercice-image img {
+        height: 100px;
+    }
+
+    .exercice-title {
+        margin-bottom: 10px;
+    }
+
+    .exercice-title h1 {
+        font-size: 1.5rem;
+        margin: 0;
+    }
+
+    .exercice-verb {
+        padding: 10px;
+    }
+
+    .exercice-special-characters {
+        text-align: center;
+    }
+
+    .exercice-special-characters button {
+        padding: 4px 15px;
+    }
+
+    /**Interaction**/
+
+    .interaction-container {
+        height: 115px;
+        bottom: 0px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .interaction-grid {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .interaction-grid button {
+        margin: 5px 0px;
+    }
+
+    .skip-container {
+        display: none;
+    }
+
+    .confirm-container, .lesson-container {
+        text-align: center;
+        margin-left: 0;
+        width: 90%;
+    }
+
+    .confirm-container .submit-button, .lesson-container .lesson-button {
+        width: 100%;
+    }
+
+    .interaction-image {
+        display: none;
+    }
+      
+    /**Wrong answer**/
+
+    .correction-left-container  {
+        margin-left: 30px;
+    }
+
+    .correction-left-container h3, .correction-left-container p {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    #wrong-answer .lesson-container, #right-answer .lesson-container {
+        display: none;
+    }
+
+    .pass-button {
+        width: 90%;
+        margin-left: 0;
+    }
+
+    .pass-button button{
+        width: 100%;
+    }
+
 }

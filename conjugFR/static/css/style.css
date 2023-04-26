@@ -24,6 +24,10 @@ a {
       font-size: 1.2rem;
     }
 
+    .footer {
+      display: none;
+    }
+
 }
 
 .alert{
