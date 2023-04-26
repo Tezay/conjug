@@ -326,6 +326,11 @@ input[type="checkbox"] {
         margin-bottom: 8px;
     }
 
+    input[type="checkbox"] {
+        margin-right: 10px;
+        transform: scale(1.2);
+    }
+
     .switch-toggle {
         width: 100%;
         height: 30px;
