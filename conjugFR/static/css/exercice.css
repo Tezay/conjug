@@ -328,7 +328,7 @@ input[type="checkbox"] {
 
     input[type="checkbox"] {
         margin-right: 10px;
-        transform: scale(1.2);
+        transform: scale(1.4);
     }
 
     .switch-toggle {
