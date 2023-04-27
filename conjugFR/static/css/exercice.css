@@ -415,16 +415,15 @@ input[type="checkbox"] {
     /**Interaction**/
 
     .interaction-container {
-        height: 115px;
+        height: 60px;
         bottom: 0px;
         padding-top: 10px;
         padding-bottom: 10px;
+        width: 100%;
     }
 
     .interaction-grid {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
+        width: 90%;
     }
 
     .interaction-grid button {
@@ -451,21 +450,18 @@ input[type="checkbox"] {
       
     /**Wrong answer**/
 
-    .correction-left-container  {
-        margin-left: 30px;
-    }
 
     .correction-left-container h3, .correction-left-container p {
         margin-top: 5px;
         margin-bottom: 5px;
     }
 
-    #wrong-answer .lesson-container, #right-answer .lesson-container {
+    #wrong-answer .lesson-container, #right-answer .lesson-container, #interaction-default .lesson-container {
         display: none;
     }
 
     .pass-button {
-        width: 90%;
+        width: 50%;
         margin-left: 0;
     }
 
