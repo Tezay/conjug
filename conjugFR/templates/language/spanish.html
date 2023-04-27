@@ -91,9 +91,26 @@
                         <div class="exercice-image">
                             <img src="https://cdn.discordapp.com/attachments/1098726716798673016/1099104373650497647/mexicain.png">
                         </div>
+                        
+                        {% if rappel != "" %}
+                        
+                        <div>
+                            <div class="exercice-reminder">
+                                <span>Vous vous êtes trompé la dernière fois sur ce verbe, conjuguez le à nouveau :</span>
+                            </div>
+                            <div class="exercice-verb-reminder">
+                                <span>({{pronouns}}) {{verb}} [{{time}}]</span>
+                            </div>
+                        </div>
+                        
+                        {% else %}
+
                         <div class="exercice-verb">
                             <span>({{pronouns}}) {{verb}} [{{time}}]</span>
                         </div>
+                        
+                        {%endif%}
+
                     </div>
                     <form id="actualisation" action="{{url_for('es')}}" method="post" name="form2">
                         <div class="exercice-input">

@@ -171,6 +171,27 @@ input[type="checkbox"] {
     border-radius: 14px;
 }
 
+    /**Reminder **/
+
+    .exercice-reminder {
+        margin-left: 30px;
+        padding:5px 20px;
+        border: 2px solid #8dbc00;
+        border-bottom: none;
+        border-top-left-radius: 14px;
+        border-top-right-radius: 14px;
+        background-color: #d8fcbc;
+        color: #8dbc00;
+    }
+
+    .exercice-verb-reminder {
+        margin-left: 30px;
+        padding:20px;
+        border: 2px solid #c5c4c4;
+        border-bottom-left-radius: 14px;
+        border-bottom-right-radius: 14px;
+    }
+
 .exercice-container input[type="text"] {
     border: 2px solid #c5c4c4;
     background-color: #f7f7f7;
@@ -373,6 +394,16 @@ input[type="checkbox"] {
         padding: 10px;
     }
 
+        /**Reminder**/
+
+        .exercice-verb-reminder {
+            padding: 10px;
+        }
+
+        .exercice-reminder {
+            padding: 5px;
+        }
+
     .exercice-special-characters {
         text-align: center;
     }
@@ -384,16 +415,15 @@ input[type="checkbox"] {
     /**Interaction**/
 
     .interaction-container {
-        height: 115px;
+        height: 60px;
         bottom: 0px;
         padding-top: 10px;
         padding-bottom: 10px;
+        width: 100%;
     }
 
     .interaction-grid {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
+        width: 90%;
     }
 
     .interaction-grid button {
@@ -420,21 +450,18 @@ input[type="checkbox"] {
       
     /**Wrong answer**/
 
-    .correction-left-container  {
-        margin-left: 30px;
-    }
 
     .correction-left-container h3, .correction-left-container p {
         margin-top: 5px;
         margin-bottom: 5px;
     }
 
-    #wrong-answer .lesson-container, #right-answer .lesson-container {
+    #wrong-answer .lesson-container, #right-answer .lesson-container, #interaction-default .lesson-container {
         display: none;
     }
 
     .pass-button {
-        width: 90%;
+        width: 50%;
         margin-left: 0;
     }
 

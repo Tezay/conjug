@@ -45,7 +45,7 @@ def before_request():
         session["erreur_verb"] = []
         session["erreur_type"] = []
 
-    if "erreur_verb" in session and len(session["erreur_verb"]) >= 8:
+    if "erreur_verb" in session and len(session["erreur_verb"]) >= 5:
         session["erreur_time"] = [session["erreur_time"][-1]]
         session["erreur_pronouns"] = [session["erreur_pronouns"][-1]]
         session["erreur_verb"] = [session["erreur_verb"][-1]]
@@ -142,9 +142,7 @@ def es():
             if chr != " ":
                 session["reponseVerb"] += chr
 
-        if ("irregular" in session and session["irregular"] is True) or (
-                session["erreur_type"] != [] and session["erreur_type"][
-            0] == "irreguliers" and "compteur" in session and session["compteur"] == 3):
+        if "irregular" in session and session["irregular"] is True :
 
             correction = correspondanceTimeIrregular[session["time"]]()[listPronouns.index(session['pronouns'])][
                 correspondanceVerb.index(session["verb"])]
@@ -159,7 +157,7 @@ def es():
                 session["erreur_time"] += [session["time"]]
                 session["erreur_verb"] += [session["verb"]]
                 session["erreur_pronouns"] += [session["pronouns"]]
-                session["erreur_type"] += ["irreguliers"]
+                session["erreur_type"] += [True]
 
                 if not ("compteur" in session):
                     session["compteur"] = 0
@@ -194,7 +192,7 @@ def es():
                 session["erreur_time"] += [session["time"]]
                 session["erreur_verb"] += [session["verb"]]
                 session["erreur_pronouns"] += [session["pronouns"]]
-                session["erreur_type"] += ["reguliers"]
+                session["erreur_type"] += [False]
 
                 if not ("compteur" in session):
                     session["compteur"] = 0
@@ -202,6 +200,9 @@ def es():
     verb_type = request.form.get("drone")
 
     if request.form.get("continue") is not None or verb_type is not None:
+        
+        session["reponseUser"] = ""
+        session["reponseVerb"] = ""
 
         if verb_type == "tous" or (
                 verb_type != "reguliers" and verb_type != "irreguliers" and "tous" in session and session[
@@ -232,8 +233,6 @@ def es():
             session["irregular"] = True
             session["tous"] = False
 
-
-
         else:
 
             session["kiwi"] = "checked"
@@ -248,18 +247,17 @@ def es():
             session["time"] = session["erreur_time"][0]
             session["pronouns"] = session["erreur_pronouns"][0]
             session["verb"] = session["erreur_verb"][0]
+            session["irregular"] = session["erreur_type"][0]
             session["erreur_time"].pop(0)
             session["erreur_pronouns"].pop(0)
             session["erreur_verb"].pop(0)
+            session["erreur_type"].pop(0)
+            session.pop("compteur")
             rappel = "Tu as fait une erreur récemment sur ce verbe, conjugue le à nouveau !"
 
         else:
             session["time"] = random.choice(session["listActiveTimes"])
             session["pronouns"] = random.choice(listPronouns)
-
-        if "compteur" in session and session["compteur"] == 3:
-            session.pop("compteur")
-            session["erreur_type"].pop(0)
 
         if "compteur" in session:
             session["compteur"] += 1
