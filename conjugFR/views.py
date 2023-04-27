@@ -138,8 +138,7 @@ def es():
             if chr != " ":
                 reponseVerb += chr
 
-        if  ("irregular" in session and session["irregular"] is True  and  "compteur" in session and session["compteur"] != 3) or 
-        (session["erreur_type"] != [] and session["erreur_type"][0] == "irreguliers" and "compteur" in session and session["compteur"] == 3):
+        if  ("irregular" in session and session["irregular"] is True):
 
             correction = correspondanceTimeIrregular[session["time"]]()[listPronouns.index(session['pronouns'])][
                 correspondanceVerb.index(session["verb"])]
@@ -154,7 +153,7 @@ def es():
                 session["erreur_time"] += [session["time"]]
                 session["erreur_verb"] += [session["verb"]]
                 session["erreur_pronouns"] += [session["pronouns"]]
-                session["erreur_type"] += ["irreguliers"]
+                session["erreur_type"] += [True]
 
                 if not ("compteur" in session):
                     session["compteur"] = 0
@@ -187,7 +186,7 @@ def es():
                 session["erreur_time"] += [session["time"]]
                 session["erreur_verb"] += [session["verb"]]
                 session["erreur_pronouns"] += [session["pronouns"]]
-                session["erreur_type"] += ["reguliers"]
+                session["erreur_type"] += [False]
 
                 if not ("compteur" in session):
                     session["compteur"] = 0
@@ -239,18 +238,17 @@ def es():
             session["time"] = session["erreur_time"][0]
             session["pronouns"] = session["erreur_pronouns"][0]
             session["verb"] = session["erreur_verb"][0]
+            session["irregular"] = session["erreur_type"][0]
             session["erreur_time"].pop(0)
             session["erreur_pronouns"].pop(0)
             session["erreur_verb"].pop(0)
+            session["erreur_type"].pop(0)
+            session.pop("compteur")
             rappel = "Tu as fait une erreur récemment sur ce verbe, conjugue le à nouveau !"
 
         else:
             session["time"] = random.choice(session["listActiveTimes"])
             session["pronouns"] = random.choice(listPronouns)
-
-        if "compteur" in session and session["compteur"] == 3:
-            session.pop("compteur")
-            session["erreur_type"].pop(0)
 
         if "compteur" in session:
             session["compteur"] += 1
