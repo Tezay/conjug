@@ -25,22 +25,6 @@ class User(db.Model):
     day_streak = db.Column(db.Integer)
     classement = db.Column(db.Integer)
 
-    # def __init__(self, email, firstname, lastname, username, password, etablissement, xp, level, date_creation, logo,
-    #              day_streak, classement):
-    #     """fonction qui creer la tables user et les colonnes de la table dans la base de données"""
-    #     self.email = email
-    #     self.firstname = firstname
-    #     self.lastname = lastname
-    #     self.username = username
-    #     self.password = password
-    #     self.etablissement = etablissement
-    #     self.xp = xp
-    #     self.level = level
-    #     self.date_creation = date_creation
-    #     self.logo = logo
-    #     self.day_streak = day_streak
-    #     self.classement = classement
-
 
 with app.app_context():
     """créer la table user"""

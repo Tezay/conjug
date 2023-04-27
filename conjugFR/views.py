@@ -7,7 +7,7 @@ from . import models
 from . import csvReader
 from . import csvReaderIrregular
 from .utils import listPronouns, correspondanceTime, correspondanceTimeIrregular, correspondanceVerb, \
-    correspondanceTermination
+    correspondanceTermination, classement
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -51,11 +51,12 @@ def before_request():
         session["erreur_verb"] = [session["erreur_verb"][-1]]
         session["erreur_type"] = [session["erreur_type"][-1]]
 
-    if not("reponseUser" in session):
+    if not ("reponseUser" in session):
         session["reponseUser"] = ""
 
     if not ("reponseVerb" in session):
         session["reponseVerb"] = ""
+
 
 # Home page
 
@@ -142,7 +143,8 @@ def es():
                 session["reponseVerb"] += chr
 
         if ("irregular" in session and session["irregular"] is True) or (
-                session["erreur_type"] != [] and session["erreur_type"][0] == "irreguliers" and "compteur" in session and session["compteur"] == 3):
+                session["erreur_type"] != [] and session["erreur_type"][
+            0] == "irreguliers" and "compteur" in session and session["compteur"] == 3):
 
             correction = correspondanceTimeIrregular[session["time"]]()[listPronouns.index(session['pronouns'])][
                 correspondanceVerb.index(session["verb"])]
@@ -171,14 +173,16 @@ def es():
 
             if (session["reponseVerb"] == session["verb"][:-2] + correction and session["time"] != "Futuro" and session[
                 "time"] != "Conditional") or (
-                    (session["time"] == "Futuro" or session["time"] == "Conditional") and session["reponseVerb"] == session[
-                "verb"] + correction):
+                    (session["time"] == "Futuro" or session["time"] == "Conditional") and session["reponseVerb"] ==
+                    session[
+                        "verb"] + correction):
 
                 session["reponseUser"] = True
                 models.addPoint(session["username"], 1)
 
-            elif (session["time"] == "Futuro" or session["time"] == "Conditional") and session["reponseVerb"] != session[
-                "verb"] + correction:
+            elif (session["time"] == "Futuro" or session["time"] == "Conditional") and session["reponseVerb"] != \
+                    session[
+                        "verb"] + correction:
 
                 session["reponseUser"] = str(session["verb"] + correction)
 
@@ -199,8 +203,10 @@ def es():
 
     if request.form.get("continue") is not None or verb_type is not None:
 
-        if verb_type == "tous" or (verb_type != "reguliers" and verb_type != "irreguliers" and "tous" in session and session["tous"] is True):
-    
+        if verb_type == "tous" or (
+                verb_type != "reguliers" and verb_type != "irreguliers" and "tous" in session and session[
+            "tous"] is True):
+
             aleatoire = random.randint(0, 1)
             session["kiwi2"] = "checked"
             session["kiwi3"] = None
@@ -216,7 +222,8 @@ def es():
                 session["tous"] = True
                 session["irregular"] = False
 
-        elif verb_type == "irreguliers" or (verb_type != "reguliers" and "irregular" in session and session["irregular"] is True):
+        elif verb_type == "irreguliers" or (
+                verb_type != "reguliers" and "irregular" in session and session["irregular"] is True):
 
             session["kiwi3"] = "checked"
             session["kiwi"] = None
@@ -235,7 +242,6 @@ def es():
             session["verb"] = csvReader.verbChoice()
             session["tous"] = False
             session["irregular"] = False
-
 
         if "compteur" in session and session["compteur"] == 2:
 
@@ -310,7 +316,8 @@ def signup():
     usernameBase = request.form.get("username").lower()
     username = ""
     for chr in usernameBase:
-        if chr != " " and (ord(chr) == 45 or ord(chr) == 46 or 48 <= ord(chr) <= 57 or ord(chr) == 95 or 97 <= ord(chr) <= 122):
+        if chr != " " and (
+                ord(chr) == 45 or ord(chr) == 46 or 48 <= ord(chr) <= 57 or ord(chr) == 95 or 97 <= ord(chr) <= 122):
             username += chr
 
     password = hashing.hash_value(request.form.get("password"), salt='abcd')
@@ -370,7 +377,7 @@ def logout():
 @app.route("/profile/<username>", methods=['GET', 'POST'])
 def username_route(username):
     """fonction qui renvoie la page de profil de l'utilisateur rechercher"""
-    
+
     before_request()
 
     user = models.User.query.all()
@@ -402,3 +409,6 @@ def partager():
     """fonction qui permet de copié le l'url de la page et de partager sont profil"""
     flash("Le lien du profil a bien été copié")
     return redirect(url_for("username_route", username=session["username"]))
+
+
+
