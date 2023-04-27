@@ -1,8 +1,18 @@
+  .sticky {
+    position: sticky;
+    top:0px;
+    z-index: 10;
+  }
+
 /*Header*/
    
     .navbar {
       background: linear-gradient(to right, #f97316, #fb923c);
-      display: flex;
+      position: fixed;
+      display:flex;
+      top: 0;
+      left: 0;
+      width: 100%;
       justify-content: space-between;
       align-items: center;
       padding: 15px;
@@ -61,6 +71,7 @@
     .interactionButtons {
       display: flex;
       align-items: center;
+      margin-right: 20px;
     }
 
 
@@ -122,6 +133,7 @@
 }
 
 .menu-burger {
+  margin-right: 40px;
   display: none;
 }
 

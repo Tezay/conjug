@@ -1,113 +1,202 @@
 <!DOCTYPE html>
-<html lang="fr">
 
-<head>
-  
-  {% include 'heritage_template/meta.html' %}
+<html>
+    <head>
+          
+        {% include 'heritage_template/meta.html' %}
 
-  <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
-  <link rel="stylesheet" href="{{url_for('static', filename='css/header.css')}}">
-  <link rel="shortcut icon" href="{{url_for('static', filename='img/logo.png')}}">
-  <title>Espagnol - conjug.fr</title>
-</head>
+        <link rel="stylesheet" href="{{url_for('static', filename='css/exercice.css')}}">
 
-<body>
+        <title>Espagnol - conjug.fr</title>
 
-  {% include 'heritage_template/header.html' %}
+    </head>
+    <body>
 
-      <div class="main">
+        {% include 'heritage_template/header.html' %}
 
-        <div class="times">
-          <form id="initialisation" action="{{url_for('es')}}" method="post" name="form1">
-            <h2>Sélectionner les temps à réviser</h2>
+        <div class="main-container">
 
-            <input type="checkbox" name="temps[]" value="Futuro" id="1" {{banane}}>
-            <label for="futuro">Futuro</label><br>
+            <div class="parameters-container">
 
-            <input type="checkbox" name="temps[]" value="Conditional" id="2" {{banane2}}>
-            <label for="conditional">Condicional</label><br>
+                <form id="initialisation" action="{{url_for('es')}}" method="post" name="form1">
 
-            <input type="checkbox" name="temps[]" value="Presente de indicativo" id="3" {{banane3}}>
-            <label for="presente-indicativo">Presente de indicativo</label><br>
+                    <div class="times-container">
+                        <div class="parameter-title">
+                            <h2>Séléctionner les temps à réviser</h2>
+                        </div>
+                        <div class="times-list">
+                            <div class="time-input">
+                                <input type="checkbox" name="temps[]" value="Futuro" id="1" {{banane}}>
+                                <label for="futuro">Futuro</label>
+                            </div>
+                            <div class="time-input">
+                                <input type="checkbox" name="temps[]" value="Conditional" id="2" {{banane2}}>
+                                <label for="conditional">Condicional</label>
+                            </div>
+                            <div class="time-input">
+                                <input type="checkbox" name="temps[]" value="Presente de indicativo" id="3" {{banane3}}>
+                                <label for="presente-indicativo">Presente de indicativo</label>
+                            </div>
+                            <div class="time-input">
+                                <input type="checkbox" name="temps[]" value="Presente de subjonctivo" id="4" {{banane4}}>
+                                <label for="presente-subjonctivo">Presente de subjuntivo</label>
+                            </div>
+                            <div class="time-input">
+                                <input type="checkbox" name="temps[]" value="Pretérito imperfecto de indicativo" id="5" {{banane5}}>
+                                <label for="preterito-imperfecto-indicativo">Pretérito imperfecto de indicativo</label>
+                            </div>
+                            <div class="time-input">
+                                <input type="checkbox" name="temps[]" value="Pretérito indefinido" id="6" {{banane6}}>
+                                <label for="preterito-indefinido">Pretérito indefinido</label>
+                            </div>
+                            <div class="time-input">
+                                <input type="checkbox" name="temps[]" value="Prétero imperfecto de subjonctivo" id="7" {{banane7}}>
+                                <label for="preterito-imperfecto-subjonctivo">Pretérito imperfecto de subjuntivo</label>
+                            </div>
+                        </div>
+                    </div>
 
-            <input type="checkbox" name="temps[]" value="Presente de subjonctivo" id="4" {{banane4}}>
-            <label for="presente-subjonctivo">Presente de subjuntivo</label><br>
+                    <div class="switch-container">
+                        <div class="parameter-title">
+                            <h2>Séléctionner les verbes à conjuguer</h2>
+                        </div>
+                        <div class="switch-toggle">
+                            <input type="radio" name="drone" value="reguliers" id="reguliers" {{kiwi}}>
+                            <label for="reguliers">Réguliers</label>
+              
+                            <input type="radio" name="drone" value="tous" id="tous" {{kiwi2}}>
+                            <label for="tous">Tous</label>
+              
+                            <input type="radio" name="drone" value="irreguliers" id="irreguliers" {{kiwi3}}>
+                            <label for="irreguliers">Irréguliers</label>
+                        </div>
+                    </div>
 
-            <input type="checkbox" name="temps[]" value="Pretérito imperfecto de indicativo" id="5" {{banane5}}>
-            <label for="preterito-imperfecto-indicativo">Pretérito imperfecto de indicativo</label><br>
+                    <div class="parameters-button-container">
+                        <button class="submit-button">
+                            <span class="button-content">Confirmer les paramètres</span>
+                        </button>
+                    </div>
+                
+                </form>
 
-            <input type="checkbox" name="temps[]" value="Pretérito indefinido" id="6" {{banane6}}>
-            <label for="preterito-indefinido">Pretérito indefinido</label><br>
-
-            <input type="checkbox" name="temps[]" value="Prétero imperfecto de subjonctivo" id="7" {{banane7}}>
-            <label for="preterito-imperfecto-subjonctivo">Pretérito imperfecto de subjuntivo</label><br>
-
-            <button type="submit" >Valider la sélection  ➡</button>
-        </div>
-
-        <div class="right-div">
-
-         <div class="switch">
-            <h2>Séléctionner les verbes à conjuguer</h2>
-            <div class="switch-toggle">
-              <input type="radio" name="drone" value="reguliers" id="reguliers" {{kiwi}}>
-              <label for="reguliers">Réguliers</label>
-
-              <input type="radio" name="drone" value="tous" id="tous" {{kiwi2}}>
-              <label for="tous">Tous</label>
-
-              <input type="radio" name="drone" value="irreguliers" id="irreguliers" {{kiwi3}}>
-              <label for="irreguliers">Irréguliers</label>
             </div>
-         </div>
-          </form>
 
-        <div class="exercice">
-          <h2>Conjuguer le verbe suivant au temps indiqué</h2>
-          <form id="actualisation" action="{{url_for('es')}}" method="post" name="form2">
-            <input type="hidden" id="reponse-correcte">
-            <label for="reponse">
-              <div class="displayPerson">
-                <p>{{pronouns}}</p>
-              </div>
-              <div class="displayVerb">
-                <p id=verbe>({{verb}})</p>
-              </div>
-              <div class="displayTime">
-                <p>[{{time}}]</p>
-              </div>
-            </label>
-            <div class="div-input">
-              <div class="text-input">
-                <input type="text" id="reponse" name="reponse" placeholder="Entrer le verbe conjugué" autocomplete="off">
-              </div>
+            <div class="exercice-container">
+                <div class="exercice-title">
+                    <h1>Conjugue le verbe en espagnol</h1>
+                </div>
+                <div class="exercice-section">
+                    <div class="exercice-question">
+                        <div class="exercice-image">
+                            <img src="https://cdn.discordapp.com/attachments/1098726716798673016/1099104373650497647/mexicain.png">
+                        </div>
+                        <div class="exercice-verb">
+                            <span>({{pronouns}}) {{verb}} [{{time}}]</span>
+                        </div>
+                    </div>
+                    <form id="actualisation" action="{{url_for('es')}}" method="post" name="form2">
+                        <div class="exercice-input">
+                            <input value="{{reponseVerb}}" type="text" id="response" name="reponse" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" lang="es" placeholder="Entrer le verbe conjugué">
+                        </div>
+                    </form>
+                    <div class="exercice-special-characters">
+                        <button id="a" onclick="insertCharacter('á')">á</button>
+                        <button id="i" onclick="insertCharacter('í')">í</button>
+                        <button id="o" onclick="insertCharacter('ó')">ó</button>
+                        <button id="u" onclick="insertCharacter('ú')">ú</button>
+                        <button id="n" onclick="insertCharacter('ñ')">ñ</button>
+                    </div>
+                </div>
             </div>
-            <p>{{rappel}}</p>
-            <button type="submit">Valider</button>
-
-
-          </form>
-
-          <div class="special-characters">
-            <button id="a" onclick="insertCharacter('á')">á</button>
-            <button id="i" onclick="insertCharacter('í')">í</button>
-            <button id="o" onclick="insertCharacter('ó')">ó</button>
-            <button id="u" onclick="insertCharacter('ú')">ú</button>
-            <button id="n" onclick="insertCharacter('ñ')">ñ</button>
-          </div>
-
-          <div class="correction">
-            <p>{{reponseUser}}</p>
-          </div>
-
         </div>
 
+        {% if reponseUser == "" %}
+
+        <div class="interaction-container" id="interaction-default">
+            <div class="interaction-grid">
+                <div class="skip-container">
+                    <button class="skip-button" name="skip">
+                        <span class="button-content">Passer</span>
+                    </button>
+                </div>
+                <div class="lesson-container">
+                    <button class="lesson-button">
+                        <span class="button-content">Un doute ? Revoir la leçon !</span>
+                    </button>
+                </div>
+                <div class="confirm-container">
+                    <button class="submit-button" type="submit" form="actualisation">
+                        <span class="button-content">Valider</span>
+                    </button>
+                </div>
+            </div>
         </div>
 
-      </div>
+        {% elif reponseUser == True %}
 
-    {% include 'heritage_template/footer.html' %}
+        <div class="interaction-container" id="right-answer">
+            <div class="interaction-grid">
+                <div class="correction-left-container">
+                    <div class="image-container">
+                        <img src="{{ url_for('static', filename='assets/right-answer.svg') }}" class="interaction-image" alt="Wrong response Image">
+                    </div>
+                    <div class="correction-container">
+                        <div class="correction-title-container">
+                            <h3>Bonne réponse !</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="lesson-container">
+                    <button class="lesson-button">
+                        <span class="button-content">Un doute ? Revoir la leçon !</span>
+                    </button>
+                </div>
+                <div class="pass-button">
+                    <form action="{{url_for('es')}}" method="post">
+                        <button name="continue" class="submit-button" type="submit">
+                            <span class="button-content">Continuer</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
 
-</body>
+        {%else%}
 
+        <div class="interaction-container" id="wrong-answer">
+            <div class="interaction-grid">
+                <div class="correction-left-container">
+                    <div class="image-container">
+                        <img src="{{ url_for('static', filename='assets/wrong-answer.svg') }}" class="interaction-image" alt="Wrong response Image">
+                    </div>
+                    <div class="correction-container">
+                        <div class="correction-title-container">
+                            <h3>La réponse était :</h3>
+                        </div>
+                        <div class="correction-texte-container">
+                            <p>➡️ {{reponseUser}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="lesson-container">
+                    <button class="lesson-button">
+                        <span class="button-content">Un doute ? Revoir la leçon !</span>
+                    </button>
+                </div>
+                <div class="pass-button">
+                    <form action="{{url_for('es')}}" method="post">
+                        <button name="continue" class="submit-button" type="submit">
+                            <span class="button-content">Continuer</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        {%endif%}
+
+        {% include 'heritage_template/footer.html' %}
+
+    </body>
 </html>

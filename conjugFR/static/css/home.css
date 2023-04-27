@@ -1,0 +1,122 @@
+.main {
+    display:flex;
+    margin: 20px;
+}
+
+/**Landing page**/
+
+.sloganBox {
+    display: flex;
+    justify-content: center;
+}
+  
+  .slogan {
+    display: inline-block;
+    padding: 0px 25px;
+    margin-top: 50px;
+    border-radius: 10px;
+    background-image: linear-gradient(to left, #fb923ca9, #fb923c84);;
+    color: #fff;
+}
+  
+/**Times boxs selectors**/
+
+.languageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    gap: 20px;
+  
+}
+  
+  .languageBox {
+    width: calc(100% / 3 - 20px);
+    max-width: 300px;
+    height: calc(100% / 4 * 3);
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    margin: 10px;
+    background-color: #fff;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  
+  .languageBox:hover {
+    transform: scale(1.1);
+  }
+  
+  .languageBox h2 {
+    margin: 0 0 20px;
+  }
+  
+  .languageBox p {
+    margin: 20px 15px;
+    text-align: left;
+  }
+  
+  .languageBox .redirectButton {
+    background-color: #fb923c;
+    color: #fff;
+    border: none;
+    border-radius: 24px;
+    padding: 10px 20px;
+    cursor: pointer;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, box-shadow 0.2s ease;
+  }
+  
+    .languageBox .redirectButton:hover {
+      box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.3);
+    }
+  
+  .languageBox img {
+    height: 100px;
+  }
+  
+  .languageBox a {
+    text-decoration: none;
+    color: #fff;
+  }
+
+
+
+@media screen and (max-width:930px){
+
+    html {
+      font-size:14px;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+    }
+
+    .main {
+      display:flex;
+      margin: 0px;
+      flex-direction: column;
+    }
+
+    /**Time selector**/
+
+    .languageContainer {
+        display: flex;
+        flex-direction: column;
+    }
+  
+    .languageBox {
+        width:100%;
+        max-width: 70%;
+        height: 90%;
+        border: 1px solid #ddd;
+        border-radius: 16px;
+        padding: 20px;
+        text-align: center;
+        margin: 10px;
+        background-color: #fff;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+}

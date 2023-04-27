@@ -22,7 +22,6 @@
               <a id="openBtn" onclick="toggleNav()"><img src="{{url_for('static', filename='img/menu.png')}}" alt="Menu"></a>
             </div>
           </div>
-
         </nav>
 
         <div id="menu" class="menu">
@@ -37,5 +36,4 @@
             <div class="connexion-button-burger">{% if username == "Connexion" %} <a href="{{('connexion')}}">{{username}}</a> {%else%} <a href="{{url_for('username_route', username = username)}}">{{username}}</a> {%endif%}</a></div>
           </div>
         </div>
-
-      </header>
+    </header>

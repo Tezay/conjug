@@ -28,30 +28,10 @@ form.addEventListener("submit", function(e){
     
 });
 
- 
-form2.addEventListener("submit", function(e){
-    
-  var zoneDeTexte = document.getElementById("reponse");
-  var verb = document.getElementById("verbe").textContent;
-
-  if(zoneDeTexte.value == '' || zoneDeTexte.value == null){
-    e.preventDefault();
-    alert("Entrer un verbe conjugué");
-    return false;
-  } else if(verb == "(verbe)") {
-    alert("Choisir et valider un ou plusieurs temps");
-    return false;  
-  } else {
-    return true;
-
-  }
-  
-});
-
 
 function insertCharacter(lettre){
   
-  document.getElementById("reponse").value += lettre;
+  document.getElementById("response").value += lettre;
   
 };
 
