@@ -197,6 +197,9 @@ def es():
     verb_type = request.form.get("drone")
 
     if request.form.get("continue") is not None or verb_type is not None:
+        
+        session["reponseUser"] = ""
+        session["reponseVerb"] = ""
 
         if verb_type == "tous" or (verb_type != "reguliers" and verb_type != "irreguliers" and "tous" in session and session["tous"] is True):
     
@@ -232,7 +235,6 @@ def es():
             session["verb"] = csvReader.verbChoice()
             session["tous"] = False
             session["irregular"] = False
-
 
         if "compteur" in session and session["compteur"] == 2:
 
