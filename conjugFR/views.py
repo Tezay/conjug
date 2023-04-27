@@ -45,7 +45,7 @@ def before_request():
         session["erreur_verb"] = []
         session["erreur_type"] = []
 
-    if "erreur_verb" in session and len(session["erreur_verb"]) >= 8:
+    if "erreur_verb" in session and len(session["erreur_verb"]) >= 5:
         session["erreur_time"] = [session["erreur_time"][-1]]
         session["erreur_pronouns"] = [session["erreur_pronouns"][-1]]
         session["erreur_verb"] = [session["erreur_verb"][-1]]
