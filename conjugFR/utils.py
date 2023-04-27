@@ -30,7 +30,7 @@ correspondanceVerb = ["dar", "decir", "estar", "haber", "hacer", "ir", "poder", 
 correspondanceTermination = ["ar", "er", "ir"]  # liste des terminaisons possibles à l'infinitif
 
 
-def classement():
+def classements():
     user = models.User.query.all()
     dict_classement_base = {}
 
@@ -43,7 +43,12 @@ def classement():
     for k, v in sorted(dict_classement_base.items(), key=lambda
             item: item[1], reverse=True):
         i += 1
-        dict_classement_final.update({i: {k: v}})
+        dict_classement_final.update({i: (k,v)})
 
     return dict_classement_final
 
+"""
+Fonction : Récuperer les colonnes d'une table 
+def getColumn():
+    return User.query.with_entities(ICI LES COLONNES).all()
+"""
