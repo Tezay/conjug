@@ -171,6 +171,27 @@ input[type="checkbox"] {
     border-radius: 14px;
 }
 
+    /**Reminder **/
+
+    .exercice-reminder {
+        margin-left: 30px;
+        padding:5px 20px;
+        border: 2px solid #8dbc00;
+        border-bottom: none;
+        border-top-left-radius: 14px;
+        border-top-right-radius: 14px;
+        background-color: #d8fcbc;
+        color: #8dbc00;
+    }
+
+    .exercice-verb-reminder {
+        margin-left: 30px;
+        padding:20px;
+        border: 2px solid #c5c4c4;
+        border-bottom-left-radius: 14px;
+        border-bottom-right-radius: 14px;
+    }
+
 .exercice-container input[type="text"] {
     border: 2px solid #c5c4c4;
     background-color: #f7f7f7;
@@ -372,6 +393,16 @@ input[type="checkbox"] {
     .exercice-verb {
         padding: 10px;
     }
+
+        /**Reminder**/
+
+        .exercice-verb-reminder {
+            padding: 10px;
+        }
+
+        .exercice-reminder {
+            padding: 5px;
+        }
 
     .exercice-special-characters {
         text-align: center;
