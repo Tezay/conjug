@@ -363,15 +363,6 @@ def logout():
     return redirect(url_for("home"))
 
 
-# @app.route("/settings", methods=['GET', 'POST'])
-# def profile():
-#     """fonction qui renvoie la page de profil pour chaque utilisateur avec sont mot de passe, sa date de création..."""
-#
-#     before_request()
-#
-#     return render_template("heritage_template/profile.html", username=session["username"])
-
-
 @app.route("/profile/<username>", methods=['GET', 'POST'])
 def username_route(username):
     """fonction qui renvoie la page de profil de l'utilisateur rechercher"""
