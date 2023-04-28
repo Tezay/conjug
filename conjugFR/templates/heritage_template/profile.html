@@ -17,7 +17,7 @@
   {% include 'heritage_template/header.html' %}
 
   {% with messages = get_flashed_messages() %}
-  		{% if messages %}
+  	{% if messages %}
 		<ul class=flashes>
     	{% for message in messages %}
             <p class="alert alert-success">{{ message }}</p>
