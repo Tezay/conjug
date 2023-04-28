@@ -6,8 +6,7 @@ from datetime import datetime
 from . import models
 from . import csvReader
 from . import csvReaderIrregular
-from .utils import listPronouns, correspondanceTime, correspondanceTimeIrregular, correspondanceVerb, \
-    correspondanceTermination, classement
+from .utils import *
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -368,6 +367,7 @@ def username_route(username):
     """fonction qui renvoie la page de profil de l'utilisateur rechercher"""
 
     before_request()
+    models.modifyClassement(classements())
 
     user = models.User.query.all()
     session["url"] = request.path
@@ -389,6 +389,7 @@ def username_route(username):
                                    username2=username,
                                    level=level,
                                    classement=classement,
+                                   classementJoueurs=classements(),
                                    username=session["username"])
     return "User Not Found"
 

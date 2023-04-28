@@ -48,3 +48,16 @@ def addPoint(username, point):
         if val.username == username:
             val.xp += point
             db.session.commit()
+
+def modifyClassement(dico):
+    "Modifier le classement en fonction le xp"
+    user = User.query.all()
+    for rang, data in dico.items():
+        username = data[0]
+        classement = rang
+        for val in user:
+            if val.username == username:
+                val.classement = classement
+
+    db.session.commit()
+
