@@ -1,6 +1,6 @@
 function searchUsername() {
     let input = document.getElementById('searchbar').value
-    input = input.toLowerCase();
+    input = input.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     let userBox = document.getElementsByClassName('userBox');
       
     for (i = 0; i < userBox.length; i++) { 
