@@ -47,6 +47,16 @@ def classements():
 
     return dict_classement_final
 
+
+def utilisateurs():
+    user = models.User.query.all()
+    utilisateurs = {}
+
+    for val in user:
+        utilisateurs.update({val.username: val.logo})
+
+    return utilisateurs
+
 """
 Fonction : Récuperer les colonnes d'une table 
 def getColumn():

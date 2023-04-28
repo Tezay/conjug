@@ -61,3 +61,11 @@ def modifyClassement(dico):
                 val.classement = classement
 
     db.session.commit()
+
+def editLogo(lien):
+    """modifier le logo de l'utilisateur"""
+    user = User.query.all()
+
+    for val in user:
+        val.logo = "https://cdn.discordapp.com/attachments/1098726716798673016/1099109424590757929/mexicain.png"
+    db.session.commit()

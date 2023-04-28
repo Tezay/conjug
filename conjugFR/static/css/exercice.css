@@ -392,16 +392,19 @@ input[type="checkbox"] {
 
     .exercice-verb {
         padding: 10px;
+        margin-left: 10px;
     }
 
         /**Reminder**/
 
         .exercice-verb-reminder {
+            margin-left: 10px;
             padding: 10px;
         }
 
         .exercice-reminder {
-            padding: 5px;
+            margin-left: 10px;
+            padding: 8px;
         }
 
     .exercice-special-characters {

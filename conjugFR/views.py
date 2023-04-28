@@ -63,6 +63,7 @@ def before_request():
 def home():
     """fonction qui renvoie la page d'acceuil du site"""
 
+    models.editLogo("link") #A supprimer après modif
     before_request()
 
     return render_template("home.html",
@@ -320,7 +321,7 @@ def signup():
     password = hashing.hash_value(request.form.get("password"), salt='abcd')
     etablissement = request.form.get("etablissement")
     date_creation = datetime.now().strftime('%d/%m/%Y')
-    logo = "banana"
+    logo = "https://cdn.discordapp.com/attachments/1098726716798673016/1099109424590757929/mexicain.png"
     models.addUser(email, firstname, lastname, username, password, etablissement, 0, 0, date_creation, logo, 1, 0)
     session["username"] = username
     flash("Bienvenue et bonne conjugaison")
@@ -394,11 +395,17 @@ def username_route(username):
     return "User Not Found"
 
 
-@app.route("/partager", methods=['GET', 'POST'])
+@app.route("/share", methods=['GET', 'POST'])
 def partager():
     """fonction qui permet de copié le l'url de la page et de partager sont profil"""
     flash("Le lien du profil a bien été copié")
     return redirect(url_for("username_route", username=session["username"]))
 
 
+@app.route("/search", methods=['GET', 'POST'])
+def search():
+    """fonction qui renvoie la page de recherche du site"""
 
+    before_request()
+
+    return render_template("search.html", username=session["username"], utilisateurs=utilisateurs())
