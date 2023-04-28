@@ -53,7 +53,8 @@ def utilisateurs():
     utilisateurs = {}
 
     for val in user:
-        utilisateurs.update({val.username: val.logo})
+        if val.username != "test":
+            utilisateurs.update({val.username: val.logo})
 
     return utilisateurs
 
