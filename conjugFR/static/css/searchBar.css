@@ -18,14 +18,12 @@ input[type=search] {
      transition: width 0.15s ease-in-out, transform 0.2s ease;
 }
 
-  /* When the input field gets focus,
-       change its width to 100% */
 input[type=search]:focus {
     
 }
 
 input[type=search]:hover {
-    transform: scale(1.1);
+    transform: scale(1.03);
 }
 
 ol {
