@@ -5,9 +5,27 @@
 
   {% include 'heritage_template/meta.html' %}
 
-  <link rel="stylesheet" href="{{url_for('static', filename='css/home.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/home/homeNew.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/home/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/home/flex-slider.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/home/owl-carousel.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/home/homeMain.css')}}">
 
-  <title>conjug.fr</title>
+    <!-- jQuery -->
+    <script defer="defer" language="JavaScript" src="{{ url_for('static', filename='js/home/jquery-2.1.0.min.js')}}"></script>
+
+    <!-- Bootstrap -->
+    <script defer="defer" language="JavaScript" src="{{ url_for('static', filename='js/home/bootstrap.min.js')}}"></script>
+  
+    <!-- Plugins -->
+    <script defer="defer" language="JavaScript" src="{{ url_for('static', filename='js/home/owl-carousel.js')}}"></script>
+    <script defer="defer" language="JavaScript" src="{{ url_for('static', filename='js/home/imgfix.min.js')}}"></script>
+
+    <!-- Global Init -->
+    <script defer="defer" language="JavaScript" src="{{ url_for('static', filename='js/home/custom.js')}}"></script>
+
+    <title>conjug.fr</title>
+
 </head>
 
 <body>
@@ -24,40 +42,172 @@
 		{% endif %}
 	{% endwith %}
 
-    <div class="sloganBox">
-        <div class="slogan">
-            <h1>✨ Plus d’excuse pour conjuguer, c’est gagné !</h1>
+
+    <!-- ***** Welcome Area Start ***** -->
+    <div class="welcome-area" id="welcome">
+
+        <!-- ***** Header Text Start ***** -->
+        <div class="header-text">
+            <div class="container">
+                <div class="row">
+                    <div class="left-text col-lg-6 col-md-12 col-sm-12 col-xs-12"
+                        data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
+                        <h1>Plus d'excuse pour <em>conjuguer</em>, des bonnes notes <em>assurées</em></h1>
+                            <p>Conjug.fr est un site de conjugaison dédié aux étudiants.
+                                Révisez toutes vos conjugaisons dans plusieurs langues étrangères,
+                                et améliorez votre score avec notre système d'XP.</p> 
+                        <a href="{{url_for('connexion')}}" class="main-button-slider">Créer ton compte</a>
+                    </div>
+                    <div class="language-selector">
+                        <a href="{{url_for('es')}}">
+                            <div class="flag">
+                            <img src="{{ url_for('static', filename='img/flags/spainFlag.png') }}" alt="Spain Flag">
+                            <span>Espagnol</span>
+                            </div>
+                        </a>
+                        <a href="{{url_for('de')}}">
+                            <div class="flag">
+                            <img src="{{ url_for('static', filename='img/flags/germanyFlag.png') }}" alt="Germany Flag">
+                            <span>Allemand</span>
+                            </div>
+                        </a>
+                        <a href="{{url_for('it')}}">
+                            <div class="flag">
+                            <img src="{{ url_for('static', filename='img/flags/italyFlag.png') }}" alt="Italy Flag">
+                            <span>Italien</span>
+                            </div>
+                        </a>
+                      </div>
+                </div>
+            </div>
         </div>
+        <!-- ***** Header Text End ***** -->
     </div>
+    <!-- ***** Welcome Area End ***** -->
 
-    <div class="languageContainer">
-        <div class="languageBox">
-            <div class="boxHeader">
-                <img src="{{ url_for('static', filename='img/flags/spainFlag.png') }}"><h2>Espagnol</h2>
+    <!-- ***** Features Big Item Start ***** -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12"
+                    data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
+                    <div class="features-item">
+                        <div class="features-icon">
+                            <img src="{{ url_for('static', filename='assets/pen.svg') }}" alt="">
+                            <h4>Exercices d'entrainement</h4>
+                            <p>Des exercices ludiques et interactifs pour s'entrainer à la conjugaison dans tous les temps !</p>
+                            <a href="{{url_for('es')}}" class="main-button">
+                                Commencer à s'entrainer
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12"
+                    data-scroll-reveal="enter bottom move 30px over 0.6s after 0.4s">
+                    <div class="features-item">
+                        <div class="features-icon">
+                            <img src="{{ url_for('static', filename='assets/lesson.svg') }}" alt="">
+                            <h4>Pages de révision</h4>
+                            <p>Diverses leçons et rappels pour chaque temps, pour ne plus oublier ses terminaisons et irréguliers</p>
+                            <a href="" class="main-button">
+                                Voir nos leçons
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12"
+                    data-scroll-reveal="enter right move 30px over 0.6s after 0.4s">
+                    <div class="features-item">
+                        <div class="features-icon">
+                            <img src="{{ url_for('static', filename='assets/leaderboard.svg') }}" alt="">
+                            <h4>Classement interactif</h4>
+                            <p>Un classement évolutif pour savoir qui est le meilleur entre vous et vos amis !</p>
+                            <a href="{{url_for('leaderboard')}}" class="main-button">
+                                Découvrir le classement
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <p>Révisez toutes les conjugaisons de verbes réguliers et irréguliers en espagnol, et améliorez votre grammaire.</p>
-            <div class="redirectButton"><a href="{{url_for('es')}}">S'entrainer</a></div>
         </div>
-            
-        <div class="languageBox">
-            <div class="boxHeader">
-                <img src="{{ url_for('static', filename='img/flags/germanyFlag.png') }}"><h2>Allemand</h2>
+    </section>
+    <!-- ***** Features Big Item End ***** -->
+
+    <div class="left-image-decor"></div>
+
+    
+
+    <div class="right-image-decor"></div>
+
+    <!-- ***** Testimonials Starts ***** -->
+    <section class="section" id="testimonials">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="center-heading">
+                        <h2>Notre <em>équipe</em></h2>
+                        <p>
+                            Nous sommes une équipe passionnée qui aspire à découvrir de nouvelles méthodes d'apprentissage des langues, même si nous ne sommes pas des experts dans ce domaine... Nous espérons que notre projet vous plaira !</p>
+                    </div>
+                </div>
+                <div class="col-lg-10 col-md-12 col-sm-12 mobile-bottom-fix-big"
+                    data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
+                    <div class="owl-carousel owl-theme">
+                        <div class="item service-item">
+                            <div class="author">
+                                <i><img src="https://cdn.discordapp.com/avatars/518823564921798658/8d0694c71e2a8b610fc0de3baeff658c.png?size=1024" alt="Author One"></i>
+                            </div>
+                            <div class="testimonial-content">
+                                <h4>Cédric</h4>
+                                <p>Aime un peu trop python, fanatique de maths et d'info sur les bords (et j'aime pas les documentations 😭)</p>
+                                <span>cedric.soyer</span>
+                            </div>
+                        </div>
+                        <div class="item service-item">
+                            <div class="author">
+                                <i><img src="https://cdn.discordapp.com/avatars/414106691672604673/5be10ec5ddc446098427773e10810af2.png?size=1024" alt="Second Author"></i>
+                            </div>
+                            <div class="testimonial-content">
+                                <h4>Eliot</h4>
+                                <p>Description</p>
+                                <span>eliot.msi</span>
+                            </div>
+                        </div>
+                        <div class="item service-item">
+                            <div class="author">
+                                <i><img src="https://cdn.discordapp.com/avatars/675392286342774805/971e28068768ea7fc3ea16c2df0711fd.png?size=1024" alt="Author Third"></i>
+                            </div>
+                            <div class="testimonial-content">
+                                <h4>Julien</h4>
+                                <p>Fanatique de linux, des jeux RTS et de la cybersécurité.</p>
+                                <span>justjulien</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <p>Prochainement disponible !</p>
-            <div class="redirectButton"><a href="{{url_for('de')}}">S'entrainer</a></div>
         </div>
+    </section>
+    <!-- ***** Testimonials Ends ***** -->
 
-        <div class="languageBox">
-            <div class="boxHeader">
-                <img src="{{ url_for('static', filename='img/flags/italyFlag.png') }}"><h2>Italien</h2>
+
+    <!-- ***** Footer Start ***** -->
+    <footer id="contact-us">
+        <div class="container">
+            <div class="footer-content">
+                <!-- Footer content -->
             </div>
-            <p>Prochainement disponible !</p>
-            <div class="redirectButton"><a href="{{url_for('it')}}">S'entrainer</a></div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="sub-footer">
+                        <p>conjug.fr &copy; 2023
+
+                        | crée par le lycée <a rel="nofollow" href="https://templatemo.com">Jules Ferry</a></p>
+                    </div>
+                </div>
+            </div>
         </div>
-
-    </div>
-
-    {% include 'heritage_template/footer.html' %}
+    </footer>
 
 </body>
 

@@ -63,7 +63,6 @@ def before_request():
 def home():
     """fonction qui renvoie la page d'acceuil du site"""
 
-    models.editLogo("link") #A supprimer après modif
     before_request()
 
     return render_template("home.html",
@@ -409,3 +408,11 @@ def search():
     before_request()
 
     return render_template("search.html", username=session["username"], utilisateurs=utilisateurs())
+
+@app.route("/leaderboard", methods=['GET', 'POST'])
+def leaderboard():
+    """fonction qui renvoie la page de classement du site"""
+
+    before_request()
+
+    return render_template("leaderboard.html", username=session["username"], utilisateurs=utilisateurs())
