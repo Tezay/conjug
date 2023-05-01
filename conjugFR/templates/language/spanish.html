@@ -96,7 +96,7 @@
                         
                         <div>
                             <div class="exercice-reminder">
-                                <span>Vous vous êtes trompé la dernière fois sur ce verbe, conjuguez le à nouveau :</span>
+                                <span>Erreur récente sur ce verbe, essaye à nouveau !</span>
                             </div>
                             <div class="exercice-verb-reminder">
                                 <span>({{pronouns}}) {{verb}} [{{time}}]</span>
@@ -114,7 +114,11 @@
                     </div>
                     <form id="actualisation" action="{{url_for('es')}}" method="post" name="form2">
                         <div class="exercice-input">
+                            {% if reponseUser == "" %}
                             <input value="{{reponseVerb}}" type="text" id="response" name="reponse" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" lang="es" placeholder="Entrer le verbe conjugué">
+                            {% else %}
+                            <input value="{{reponseVerb}}" type="text" id="response" name="reponse" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" lang="es" placeholder="Entrer le verbe conjugué" readonly>
+                            {% endif %}
                         </div>
                     </form>
                     <div class="exercice-special-characters">

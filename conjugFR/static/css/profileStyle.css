@@ -4,12 +4,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
     padding-top: 60px;
     padding-bottom: 60px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-    text-align: center;
 }
 
 .userInfos h1, h2 {
@@ -39,8 +39,8 @@
     margin-right: 60px;
     border-radius: 50%;
     vertical-align: middle;
-
 }
+
 .userInfoFields {
     display: inline-block;
     vertical-align: middle;
@@ -101,10 +101,6 @@
     vertical-align: middle;
   }
 
-  
-
-
-
 
 .bottomContainer {
     margin: 0 auto;
@@ -163,4 +159,69 @@
     width:350px;
     height:500px;
     background-color: #928e8e;
+}
+
+
+/**Responsive**/
+
+@media screen and (max-width:930px){
+
+    /**User profile**/
+
+    .userInfos {
+        flex-direction: column;
+        padding-top: 30px;
+        padding-bottom: 30px;
+
+    }
+
+    .userInfosContainer {
+        width: 100%;
+    }
+
+    .userInfoFields {
+        margin-top: 20px;
+    }
+
+    #userIcon {
+        margin-right: 0px;
+        border-radius: 50%;
+        vertical-align: middle;
+    }
+
+    .userInfosContainer .icon {
+        height: 20px;
+        margin-right: 10px;
+    }
+
+
+    .bottomContainer {
+        flex-direction: column;
+    }
+
+    /**Statistics**/
+
+    .statsUp, .statsDown {
+        flex-direction: column;
+    }
+
+    .statElement {
+        padding: 20px;
+        border: 1px solid #c8c8c8;
+        border-radius: 22px;
+        margin-right: 0px;
+        width: 250px;
+        text-align: left;
+    }
+
+    .statElement + .statElement {
+        margin-top: 20px;
+    }
+
+    /**Leaderboard**/
+
+    .leaderboard {
+        display: none;
+    }
+
 }

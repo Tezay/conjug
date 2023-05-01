@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+  {% include 'heritage_template/meta.html' %}
+
+  <link rel="stylesheet" href="{{url_for('static', filename='css/searchBar.css')}}">
+  <script defer="defer" language="JavaScript" src="{{ url_for('static', filename='js/searchBar.js') }}"></script>
+
+  <title>Recherche - conjug.fr</title>
+</head>
+
+<body>
+
+    {% include 'heritage_template/header.html' %}
+
+    <h1>Prochainement disponible</h1>
+
+    {% include 'heritage_template/footer.html' %}
+
+</body>
+
+</html>
