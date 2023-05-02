@@ -13,24 +13,29 @@ function searchUsername() {
     }
 }
 
-// On récupère les éléments des onglets
-const tabs = document.querySelectorAll('.leaderboard-tab');
-// On leur ajoute un écouteur d'événement au clic
-tabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    // On récupère l'identifiant de la tab cliquée
-    const tabId = tab.dataset.tab;
-    // On cache tous les contenus de leaderboard
-    document.querySelectorAll('.leaderboard-content').forEach(content => {
-      content.classList.remove('active-content');
-    });
-    // On affiche le contenu du leaderboard correspondant
-    document.getElementById(tabId).classList.add('active-content');
-    // On désactive toutes les tabs
-    tabs.forEach(tab => {
-      tab.classList.remove('active-tab');
-    });
-    // On active la tab cliquée
-    tab.classList.add('active-tab');
-  });
+
+//Tabs
+
+// Récupération des éléments du DOM
+const monthTab = document.querySelector('.leaderboard-tab[data-tab="month"]');
+const globalTab = document.querySelector('.leaderboard-tab[data-tab="global"]');
+const monthContainer = document.querySelector('.month-leaderboard-container');
+const globalContainer = document.querySelector('.global-leaderboard-container');
+
+// Écoute des clics sur les onglets
+monthTab.addEventListener('click', () => {
+  // Affichage du classement du mois
+  monthTab.classList.add('active-tab');
+  globalTab.classList.remove('active-tab');
+  monthContainer.style.display = 'block';
+  globalContainer.style.display = 'none';
 });
+
+globalTab.addEventListener('click', () => {
+  // Affichage du classement général
+  monthTab.classList.remove('active-tab');
+  globalTab.classList.add('active-tab');
+  monthContainer.style.display = 'none';
+  globalContainer.style.display = 'block';
+});
+

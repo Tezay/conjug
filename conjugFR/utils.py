@@ -61,7 +61,13 @@ def classements():
     for k, v in sorted(dict_classement_base.items(), key=lambda
             item: item[1], reverse=True):
         i += 1
-        dict_classement_final.update({i: (k, v)})
+        dict_classement_final.update({i: [k, v]})
+
+    for val in user:
+        if val.username != "test":
+            for place in dict_classement_final:
+                if val.username == dict_classement_final[place][0]:
+                    dict_classement_final[place].append(val.logo)
 
     return dict_classement_final
 
@@ -79,7 +85,14 @@ def classement_month():
     for k, v in sorted(dict_classement_base.items(), key=lambda
             item: item[1], reverse=True):
         i += 1
-        dict_classement_final.update({i: (k, v)})
+        dict_classement_final.update({i: [k, v]})
+
+    i = 0
+    for val in user:
+        if val.username != "test":
+            for place in dict_classement_final:
+                if val.username == dict_classement_final[place][0]:
+                    dict_classement_final[place].append(val.logo)
 
     return dict_classement_final
 
@@ -97,9 +110,15 @@ def classement_week():
     for k, v in sorted(dict_classement_base.items(), key=lambda
             item: item[1], reverse=True):
         i += 1
-        dict_classement_final.update({i: (k, v)})
+        dict_classement_final.update({i: [k, v]})
 
-    print(dict_classement_final)
+    i = 0
+    for val in user:
+        if val.username != "test":
+            for place in dict_classement_final:
+                if val.username == dict_classement_final[place][0]:
+                    dict_classement_final[place].append(val.logo)
+
     return dict_classement_final
 
 

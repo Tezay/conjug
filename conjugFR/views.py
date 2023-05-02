@@ -629,6 +629,6 @@ def leaderboard():
     return render_template("leaderboard.html",
                            username=session["username"],
                            utilisateurs=utilisateurs(),
-                           classementJoueurs=classements(),
+                           classementPlayers=classements(),
                            classementWeek=classement_week(),
                            classementMonth=classement_month())
