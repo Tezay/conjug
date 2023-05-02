@@ -3,9 +3,6 @@ from flask_hashing import Hashing
 import random
 from datetime import datetime
 
-from . import models
-from . import csvReader
-from . import csvReaderIrregular
 from .utils import *
 
 app = Flask(__name__)
@@ -301,13 +298,6 @@ def signup():
     before_request()
 
     user = models.User.query.all()
-    for val in user:
-        if request.form.get("email") == val.email:
-            flash("Adresse email déjà utilisé")
-            return redirect(url_for("connexion"))
-        elif request.form.get("username") == val.username:
-            flash("Nom d'utilisateur déjà utilisé")
-            return redirect(url_for("connexion"))
 
     email = request.form.get("email")
     firstname = request.form.get("firstname")
@@ -318,6 +308,14 @@ def signup():
         if chr != " " and (
                 ord(chr) == 45 or ord(chr) == 46 or 48 <= ord(chr) <= 57 or ord(chr) == 95 or 97 <= ord(chr) <= 122):
             username += chr
+
+    for val in user:
+        if email == val.email:
+            flash("Adresse email déjà utilisé")
+            return redirect(url_for("connexion"))
+        if username == val.username:
+            flash("Nom d'utilisateur déjà utilisé")
+            return redirect(url_for("connexion"))
 
     password = hashing.hash_value(request.form.get("password"), salt='abcd')
     etablissement = request.form.get("etablissement")

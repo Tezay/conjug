@@ -1,5 +1,4 @@
-from . import csvReader
-from . import csvReaderIrregular
+from .csvReader.espagnol import csvReaderIrregular, csvReader
 from . import models
 
 # espagnol

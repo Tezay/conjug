@@ -3,8 +3,8 @@ import csv
 
 
 def verbChoice():
-    """retoune un verbe au hasard parmi la liste des verbes irréguliers"""
-    with open('conjugFR/timesIrregular/Infinitif.csv', newline='', encoding='utf8', errors='ignore') as csvfile:
+    """retourne un verbe aléatoire parmi les 720 dans un fichier csv"""
+    with open('conjugFR/times/espagnol/spanishVerbsList.csv', newline='', encoding='utf8', errors='ignore') as csvfile:
         reader = csv.reader(csvfile)
         rows = [row for row in reader]
         random_verbe = random.choice(rows)[0]
@@ -12,13 +12,11 @@ def verbChoice():
         return random_verbe
 
 
-"""Toutes les fonctions suivantes retoune une liste des corrections selon le temps(nom de la fonction) à partir de fichier csv
-    pour les verbes irréguliers"""
+"""Toutes les fonctions suivante retoune une liste des terminasions selon le temps(nom de la fonction) à partir de fichier csv"""
 
 
 def Presente_de_indicativo():
-    with open('conjugFR/timesIrregular/Presente de indicativo.csv', newline='', encoding='utf8',
-              errors='ignore') as csvfile:
+    with open('conjugFR/times/espagnol/Presente de indicativo.csv', newline='', encoding='utf8', errors='ignore') as csvfile:
         reader = csv.reader(csvfile, delimiter=';')
         rows = [row for row in reader]
 
@@ -26,8 +24,7 @@ def Presente_de_indicativo():
 
 
 def Presente_de_subjonctivo():
-    with open('conjugFR/timesIrregular/Presente de subjonctivo.csv', newline='', encoding='utf8',
-              errors='ignore') as csvfile:
+    with open('conjugFR/times/espagnol/Presente de subjonctivo.csv', newline='', encoding='utf8', errors='ignore') as csvfile:
         reader = csv.reader(csvfile, delimiter=';')
         rows = [row for row in reader]
 
@@ -35,7 +32,7 @@ def Presente_de_subjonctivo():
 
 
 def Preterito_imperfecto_de_indicativo():
-    with open('conjugFR/timesIrregular/Pretérito imperfecto de indicativo.csv', newline='', encoding='utf8',
+    with open('conjugFR/times/espagnol/Pretérito imperfecto de indicativo.csv', newline='', encoding='utf8',
               errors='ignore') as csvfile:
         reader = csv.reader(csvfile, delimiter=';')
         rows = [row for row in reader]
@@ -44,8 +41,7 @@ def Preterito_imperfecto_de_indicativo():
 
 
 def Preterito_indefinido():
-    with open('conjugFR/timesIrregular/Pretérito indefinido.csv', newline='', encoding='utf8',
-              errors='ignore') as csvfile:
+    with open('conjugFR/times/espagnol/Pretérito indefinido.csv', newline='', encoding='utf8', errors='ignore') as csvfile:
         reader = csv.reader(csvfile, delimiter=';')
         rows = [row for row in reader]
 
@@ -53,7 +49,7 @@ def Preterito_indefinido():
 
 
 def Pretero_imperfecto_de_subjonctivo():
-    with open('conjugFR/timesIrregular/Prétero imperfecto de subjonctivo.csv', newline='', encoding='utf8',
+    with open('conjugFR/times/espagnol/Prétero imperfecto de subjonctivo.csv', newline='', encoding='utf8',
               errors='ignore') as csvfile:
         reader = csv.reader(csvfile, delimiter=';')
         rows = [row for row in reader]
@@ -62,7 +58,7 @@ def Pretero_imperfecto_de_subjonctivo():
 
 
 def Futuro():
-    with open('conjugFR/timesIrregular/Futuro.csv', newline='', encoding='utf8', errors='ignore') as csvfile:
+    with open('conjugFR/times/espagnol/Futuro.csv', newline='', encoding='utf8', errors='ignore') as csvfile:
         reader = csv.reader(csvfile, delimiter=';')
         rows = [row for row in reader]
 
@@ -70,7 +66,7 @@ def Futuro():
 
 
 def Conditional():
-    with open('conjugFR/timesIrregular/Conditional.csv', newline='', encoding='utf8', errors='ignore') as csvfile:
+    with open('conjugFR/times/espagnol/Conditional.csv', newline='', encoding='utf8', errors='ignore') as csvfile:
         reader = csv.reader(csvfile, delimiter=';')
         rows = [row for row in reader]
 
