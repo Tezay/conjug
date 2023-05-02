@@ -12,8 +12,8 @@ hashing = Hashing(app)
 
 def before_request():
     """fonction qui initialise les sessions de flask"""
-    models.addReset()
-    models.reset_xp()
+    # models.addReset() #Supprimer après execution
+    # models.reset_xp()
 
     if not ("username" in session):
         session["username"] = "Connexion"
@@ -420,5 +420,5 @@ def leaderboard():
                            username=session["username"],
                            utilisateurs=utilisateurs(),
                            classementJoueurs=classements(),
-                           classementWeek=classements_week(),
-                           classementMonth=classements_month())
+                           classementWeek=classement_week(),
+                           classementMonth=classement_month())

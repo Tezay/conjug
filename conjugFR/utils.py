@@ -84,6 +84,7 @@ def classement_week():
         i += 1
         dict_classement_final.update({i: (k, v)})
 
+    print(dict_classement_final)
     return dict_classement_final
 
 

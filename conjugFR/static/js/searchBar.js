@@ -12,3 +12,25 @@ function searchUsername() {
         }
     }
 }
+
+// On récupère les éléments des onglets
+const tabs = document.querySelectorAll('.leaderboard-tab');
+// On leur ajoute un écouteur d'événement au clic
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    // On récupère l'identifiant de la tab cliquée
+    const tabId = tab.dataset.tab;
+    // On cache tous les contenus de leaderboard
+    document.querySelectorAll('.leaderboard-content').forEach(content => {
+      content.classList.remove('active-content');
+    });
+    // On affiche le contenu du leaderboard correspondant
+    document.getElementById(tabId).classList.add('active-content');
+    // On désactive toutes les tabs
+    tabs.forEach(tab => {
+      tab.classList.remove('active-tab');
+    });
+    // On active la tab cliquée
+    tab.classList.add('active-tab');
+  });
+});
