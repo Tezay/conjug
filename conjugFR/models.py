@@ -46,7 +46,7 @@ def addUser(email, firstname, lastname, username, password, etablissement, xp, l
     newUser = User(email=email, firstname=firstname, lastname=lastname, username=username,
                    password=password, etablissement=etablissement, xp=xp, level=level,
                    date_creation=date_creation, logo=logo, day_streak=day_streak, classement=classement,
-                   xp_week=XP_week, xp_month=XP_month)
+                   XP_week=XP_week, XP_month=XP_month)
     db.session.add(newUser)
     db.session.commit()
 

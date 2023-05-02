@@ -44,19 +44,23 @@
               {%for place, user in classementMonth.items() %}
               <a href="{{url_for('username_route', username=user[0])}}">
               <li class="userBox">
-                  <div class="userBoxRank">
-                    <span>
-                      {{place}}.
-                    </span>
+                  <div class="userBox-left">
+                      <div class="userBoxRank">
+                        <span>
+                          {{place}}.
+                        </span>
+                      </div>
+                      <div class="userBoxImage">
+                          <img src={{user[2]}}>
+                      </div>
+                      <div class="userBoxName">
+                          <span class="username">{{user[0]}}</span>
+                      </div>
                   </div>
-                  <div class="userBoxImage">
-                      <img src={{user[2]}}>
-                  </div>
-                  <div class="userBoxName">
-                      <span class="username">{{user[0]}}</span>
-                  </div>
-                  <div class="userBoxXP">
-                      <span class="username">{{user[1]}}</span>
+                  <div class="userBox-right">
+                      <div class="userBoxXP">
+                          <span class="username">{{user[1]}} ✨</span>
+                      </div>
                   </div>
               </li>
               </a>
@@ -72,19 +76,23 @@
               {%for place, user in classementPlayers.items() %}
               <a href="{{url_for('username_route', username=user[0])}}">
               <li class="userBox">
-                  <div class="userBoxRank">
-                    <span>
-                      {{place}}.
-                    </span>
+                  <div class="userBox-left">
+                      <div class="userBoxRank">
+                        <span>
+                          {{place}}.
+                        </span>
+                      </div>
+                      <div class="userBoxImage">
+                          <img src={{user[2]}}>
+                      </div>
+                      <div class="userBoxName">
+                          <span class="username">{{user[0]}}</span>
+                      </div>
                   </div>
-                  <div class="userBoxImage">
-                      <img src={{user[2]}}>
-                  </div>
-                  <div class="userBoxName">
-                      <span class="username">{{user[0]}}</span>
-                  </div>
-                  <div class="userBoxXP">
-                      <span class="username">{{user[1]}}</span>
+                  <div class="userBox-right">
+                      <div class="userBoxXP">
+                          <span class="username">{{user[1]}} ✨</span>
+                      </div>
                   </div>
               </li>
               </a>

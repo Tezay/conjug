@@ -65,15 +65,20 @@ ol {
     display: flex;
     padding: 10px 25px;
     border-radius: 24px;
-    align-items: center;
     cursor: pointer;
+    justify-content: space-between;
 }
 
 .userBox:hover {
     background-color: #ebe9e9;
 }
 
-.userBox .userBoxRank {
+.userBox-left, .userBox-right {
+    display: flex;
+    align-items: center;
+}
+
+.userBoxRank {
     display: flex;
     align-items: center;
     justify-content: center;
