@@ -20,7 +20,7 @@ class User(db.Model):
     password = db.Column(db.String(length=100), nullable=False)
     etablissement = db.Column(db.String(length=100))
     xp = db.Column(db.Integer)
-    type = db.Column(db.String(length=100))
+    level = db.Column(db.String(length=100))
     date_creation = db.Column(db.String(length=100))
     logo = db.Column(db.String(length=100))
     day_streak = db.Column(db.Integer)

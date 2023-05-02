@@ -531,7 +531,7 @@ def signup():
     etablissement = request.form.get("etablissement")
     date_creation = datetime.now().strftime('%d/%m/%Y')
     logo = "https://cdn.discordapp.com/attachments/1098726716798673016/1099109424590757929/mexicain.png"
-    models.addUser(email, firstname, lastname, username, password, etablissement, 0, 0, date_creation, logo, 1, 0, 0, 0)
+    models.addUser(email, firstname, lastname, username, password, etablissement, 0, "0", date_creation, logo, 1, 0, 0, 0)
     session["username"] = username
     flash("Bienvenue et bonne conjugaison")
 
