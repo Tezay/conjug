@@ -126,7 +126,7 @@ def it():
 
     verif = request.form.get("temps[]")
 
-    if verif == "Futuro" or verif == "Conditional" or verif == "Presente de indicativo" or verif == "Presente de subjonctivo" or verif == "Pretérito imperfecto de indicativo" or verif == "Pretérito indefinido" or verif == "Prétero imperfecto de subjonctivo":
+    if verif == "futur" or verif == "conditionnel" or verif == "présent" or verif == "imparfait" or verif == "passé simple":
 
         session["listActiveTimesItalian"] = request.form.getlist("temps[]")
         session["timeItalian"] = random.choice(session["listActiveTimesItalian"])

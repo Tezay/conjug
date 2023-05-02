@@ -33,7 +33,7 @@ correspondanceTerminationSpanish = ["ar", "er", "ir"]  # liste des terminaisons 
 
 # italien
 
-listPronounsItalian = ["yo", "tú", "él", "nosotros", "vosotros", "ellos"]
+listPronounsItalian = ["io", "tu", "lui", "noi", "voi", "loro"]
 
 correspondanceTimeItalian = {
     "conditionnel": csvReaderItalian.conditionnel,
