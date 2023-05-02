@@ -25,8 +25,8 @@ class User(db.Model):
     logo = db.Column(db.String(length=100))
     day_streak = db.Column(db.Integer)
     classement = db.Column(db.Integer)
-    xp_week = db.Column(db.Integer)
-    xp_month = db.Column(db.Integer)
+    XP_week = db.Column(db.Integer)
+    XP_month = db.Column(db.Integer)
 
 
 class LeaderboardReset(db.Model):
@@ -41,12 +41,12 @@ with app.app_context():
 
 
 def addUser(email, firstname, lastname, username, password, etablissement, xp, level, date_creation, logo, day_streak,
-            classement, xp_week, xp_month):
+            classement, XP_week, XP_month):
     """ajoute les utilisateurs à la base de données avec les infos données à la création d'un compte(Nom, Prénom ...)"""
     newUser = User(email=email, firstname=firstname, lastname=lastname, username=username,
                    password=password, etablissement=etablissement, xp=xp, level=level,
                    date_creation=date_creation, logo=logo, day_streak=day_streak, classement=classement,
-                   xp_week=xp_week, xp_month=xp_month)
+                   xp_week=XP_week, xp_month=XP_month)
     db.session.add(newUser)
     db.session.commit()
 
@@ -57,8 +57,8 @@ def addPoint(username, point):
     for val in user:
         if val.username == username:
             val.xp += point
-            val.xp_week += point
-            val.xp_month += point
+            val.XP_week += point
+            val.XP_month += point
             db.session.commit()
 
 

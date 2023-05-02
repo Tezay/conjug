@@ -78,7 +78,7 @@ def classement_month():
 
     for val in user:
         if val.username != "test":
-            dict_classement_base.update({val.username: val.xp_month})
+            dict_classement_base.update({val.username: val.XP_month})
 
     dict_classement_final = {}
     i = 0
@@ -103,7 +103,7 @@ def classement_week():
 
     for val in user:
         if val.username != "test":
-            dict_classement_base.update({val.username: val.xp_week})
+            dict_classement_base.update({val.username: val.XP_week})
 
     dict_classement_final = {}
     i = 0

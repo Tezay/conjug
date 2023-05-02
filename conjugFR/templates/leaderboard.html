@@ -42,7 +42,7 @@
           <h2>Classement du mois</h2>
           <ol>
               {%for place, user in classementMonth.items() %}
-              <a href="{{url_for('username_route', username=user)}}">
+              <a href="{{url_for('username_route', username=user[0])}}">
               <li class="userBox">
                   <div class="userBoxRank">
                     <span>
@@ -54,6 +54,9 @@
                   </div>
                   <div class="userBoxName">
                       <span class="username">{{user[0]}}</span>
+                  </div>
+                  <div class="userBoxXP">
+                      <span class="username">{{user[1]}}</span>
                   </div>
               </li>
               </a>
@@ -67,7 +70,7 @@
           <h2>Classement général</h2>
           <ol>
               {%for place, user in classementPlayers.items() %}
-              <a href="{{url_for('username_route', username=user)}}">
+              <a href="{{url_for('username_route', username=user[0])}}">
               <li class="userBox">
                   <div class="userBoxRank">
                     <span>
@@ -79,6 +82,9 @@
                   </div>
                   <div class="userBoxName">
                       <span class="username">{{user[0]}}</span>
+                  </div>
+                  <div class="userBoxXP">
+                      <span class="username">{{user[1]}}</span>
                   </div>
               </li>
               </a>
