@@ -65,8 +65,6 @@ def before_request():
         session["banane3Italian"] = None
         session["banane4Italian"] = None
         session["banane5Italian"] = None
-        session["banane6Italian"] = None
-        session["banane7Italian"] = None
         session["kiwiItalian"] = None
         session["kiwi2Italian"] = None
         session["kiwi3Italian"] = None
@@ -279,8 +277,6 @@ def it():
                            banane3=session["banane3Italian"],
                            banane4=session["banane4Italian"],
                            banane5=session["banane5Italian"],
-                           banane6=session["banane6Italian"],
-                           banane7=session["banane7Italian"],
                            kiwi=session["kiwiItalian"],
                            kiwi2=session["kiwi2Italian"],
                            kiwi3=session["kiwi3Italian"],
