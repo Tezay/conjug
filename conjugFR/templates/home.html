@@ -54,8 +54,14 @@
                         <h1>Plus d'excuse pour <em>conjuguer</em>, des bonnes notes <em>assurées</em></h1>
                             <p>Conjug.fr est un site de conjugaison dédié aux étudiants.
                                 Révisez toutes vos conjugaisons dans plusieurs langues étrangères,
-                                et améliorez votre score avec notre système d'XP.</p> 
+                                et améliorez votre score avec notre système d'XP.</p>
+
+                        {% if username == "Connexion" %}
                         <a href="{{url_for('connexion')}}" class="main-button-slider">Créer ton compte</a>
+                        {%else%}
+                        <a href="{{url_for('username_route', username = username)}}" class="main-button-slider">Voir ton compte</a>
+                        {%endif%}
+
                     </div>
                     <div class="language-selector">
                         <a href="{{url_for('es')}}">
