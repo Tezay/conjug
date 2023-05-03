@@ -15,7 +15,7 @@ def verbChoice():
 """Toutes les fonctions suivante retoune une liste des terminasions selon le temps(nom de la fonction) à partir de fichier csv"""
 
 
-def Presente_de_indicativo():
+def present():
     with open('conjugFR/times/italien/présent.csv', newline='', encoding='utf8', errors='ignore') as csvfile:
         reader = csv.reader(csvfile, delimiter=';')
         rows = [row for row in reader]
