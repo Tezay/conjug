@@ -25,3 +25,9 @@ form.addEventListener("submit", function(e){
   }
 
 });
+
+function insertCharacter(lettre){
+
+  document.getElementById("response").value += lettre;
+
+};
