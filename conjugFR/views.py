@@ -132,10 +132,9 @@ def it():
         session["timeItalian"] = random.choice(session["listActiveTimesItalian"])
         session["pronounsItalian"] = random.choice(listPronounsItalian)
 
-        bananes = {"Futuro": "bananeItalian", "Conditional": "banane2Italian",
-                   "Presente de indicativo": "banane3Italian",
-                   "Presente de subjonctivo": "banane4Italian", "Pretérito imperfecto de indicativo": "banane5Italian",
-                   "Pretérito indefinido": "banane6Italian", "Prétero imperfecto de subjonctivo": "banane7Italian"}
+        bananes = {"futur": "bananeItalian", "conditionnel": "banane2Italian",
+                   "présent": "banane3Italian", "imparfait": "banane4Italian",
+                   "passé simple": "banane5Italian"}
 
         for time in bananes:
             if time in session["listActiveTimesItalian"]:
@@ -143,8 +142,7 @@ def it():
             else:
                 session[bananes[time]] = None
 
-    if (request.form.get("reponse") is not None or request.form.get("skip") is not None) and session[
-        "verbItalian"] != "verbe":
+    if request.form.get("reponse") is not None and session["verbItalian"] != "verbe":
 
         if request.form.get("reponse") is not None:
             reponse = request.form.getlist("reponse")
@@ -164,12 +162,14 @@ def it():
                 correspondanceVerbItalian.index(session["verbItalian"])]
 
             if session["reponseVerbItalian"] == correction:
+
                 session["reponseUserItalian"] = True
                 models.addPoint(session["username"], 2)
 
             else:
 
                 session["reponseUserItalian"] = str(correction)
+
                 session["erreur_timeItalian"] += [session["timeItalian"]]
                 session["erreur_verbItalian"] += [session["verbItalian"]]
                 session["erreur_pronounsItalian"] += [session["pronounsItalian"]]
@@ -180,35 +180,21 @@ def it():
 
         else:
 
-            termination = str(session["verbItalian"][-2:])
+            termination = str(session["verbItalian"][-3:])
 
             correction = \
             correspondanceTimeItalian[session["timeItalian"]]()[listPronounsItalian.index(session['pronounsItalian'])][
                 correspondanceTerminationItalian.index(termination)]
 
-            if (session["reponseVerbItalian"] == session["verbItalian"][:-2] + correction and session[
-                "timeItalian"] != "Futuro" and session[
-                    "timeItalian"] != "Conditional") or (
-                    (session["timeItalian"] == "Futuro" or session["timeItalian"] == "Conditional") and session[
-                "reponseVerbItalian"] ==
-                    session[
-                        "verbItalian"] + correction):
+            if session["reponseVerbItalian"] == session["verbItalian"][:-3] + correction:
 
                 session["reponseUserItalian"] = True
                 models.addPoint(session["username"], 1)
 
-            elif (session["timeItalian"] == "Futuro" or session["timeItalian"] == "Conditional") and session[
-                "reponseVerbItalian"] != \
-                    session[
-                        "verbItalian"] + correction:
-
-                session["reponseUserItalian"] = str(session["verbItalian"] + correction)
-
             else:
 
-                session["reponseUserItalian"] = str(session["verbItalian"][:-2] + correction)
+                session["reponseUserItalian"] = str(session["verbItalian"][:-3] + correction)
 
-            if session["reponseUserItalian"] is not True:
                 session["erreur_timeItalian"] += [session["timeItalian"]]
                 session["erreur_verbItalian"] += [session["verbItalian"]]
                 session["erreur_pronounsItalian"] += [session["pronounsItalian"]]
@@ -337,7 +323,7 @@ def es():
             else:
                 session[bananes[time]] = None
 
-    if (request.form.get("reponse") is not None or request.form.get("skip") is not None) and session["verbSpanish"] != "verbe":
+    if request.form.get("reponse") is not None and session["verbSpanish"] != "verbe":
 
         if request.form.get("reponse") is not None:
             reponse = request.form.getlist("reponse")
@@ -356,12 +342,14 @@ def es():
                 correspondanceVerbSpanish.index(session["verbSpanish"])]
 
             if session["reponseVerbSpanish"] == correction:
+
                 session["reponseUserSpanish"] = True
                 models.addPoint(session["username"], 2)
 
             else:
 
                 session["reponseUserSpanish"] = str(correction)
+
                 session["erreur_timeSpanish"] += [session["timeSpanish"]]
                 session["erreur_verbSpanish"] += [session["verbSpanish"]]
                 session["erreur_pronounsSpanish"] += [session["pronounsSpanish"]]
@@ -397,6 +385,7 @@ def es():
                 session["reponseUserSpanish"] = str(session["verbSpanish"][:-2] + correction)
 
             if session["reponseUserSpanish"] is not True:
+
                 session["erreur_timeSpanish"] += [session["timeSpanish"]]
                 session["erreur_verbSpanish"] += [session["verbSpanish"]]
                 session["erreur_pronounsSpanish"] += [session["pronounsSpanish"]]

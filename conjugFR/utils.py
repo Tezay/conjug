@@ -38,7 +38,7 @@ listPronounsItalian = ["io", "tu", "lui", "noi", "voi", "loro"]
 correspondanceTimeItalian = {
     "conditionnel": csvReaderItalian.conditionnel,
     "futur": csvReaderItalian.futur,
-    "présent": csvReaderItalian.Presente_de_indicativo,
+    "présent": csvReaderItalian.present,
     "imparfait": csvReaderItalian.imparfait,
     "passé simple": csvReaderItalian.passe_simple,
 }  # dictionnaire des temps correspondant à leurs terminasons pour les verbes réguliers

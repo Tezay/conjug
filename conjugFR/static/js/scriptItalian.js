@@ -27,7 +27,13 @@ form.addEventListener("submit", function(e){
 });
 
 function insertCharacter(lettre){
+<<<<<<< HEAD
   
   document.getElementById("response").value += lettre;
   
+=======
+
+  document.getElementById("response").value += lettre;
+
+>>>>>>> a3034fb5cb2db91ce81d63ec00ff0aaa56c1d0e5
 };
