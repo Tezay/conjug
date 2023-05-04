@@ -180,13 +180,24 @@ def it():
 
             termination = str(session["verbItalian"][-3:])
 
-            correction = \
-            correspondanceTimeItalian[session["timeItalian"]]()[listPronounsItalian.index(session['pronounsItalian'])][
-                correspondanceTerminationItalian.index(termination)]
+            if termination == "rre":
+                correction = \
+                    "c" + correspondanceTimeItalian[session["timeItalian"]]()[
+                        listPronounsItalian.index(session['pronounsItalian'])][1]
 
-            if session["reponseVerbItalian"] == session["verbItalian"][:-3] + correction:
+            else:
+                correction = \
+                correspondanceTimeItalian[session["timeItalian"]]()[listPronounsItalian.index(session['pronounsItalian'])][
+                    correspondanceTerminationItalian.index(termination)]
+
+            if session["reponseVerbItalian"] == session["verbItalian"][:-3] + correction and session["verbItalian"][-1] != "c":
 
                 session["reponseUserItalian"] = True
+                models.addPoint(session["username"], 1)
+
+            elif session["reponseVerbItalian"] == session["verbItalian"][:-3] + "h" + correction and session["verbItalian"][-1] == "c":
+
+                session["reponseUserItalian"] = str(session["verbItalian"][:-3] + "h" + correction)
                 models.addPoint(session["username"], 1)
 
             else:
