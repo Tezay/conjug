@@ -124,15 +124,42 @@ def addReset(point_reset):
     db.session.add(LeaderboardReset(point_reset=point_reset))
     db.session.commit()
 
-def verif(mailtoken):
+def verif(mailtoken, username):
 
     user = User.query.all()
 
     for val in user:
-        if mailtoken == val.mailtoken:
+        if mailtoken == val.mailtoken and username == val.username:
             val.verif = True
             db.session.commit()
             return True
 
     return False
 
+def changePassword(mailtoken, username, password):
+
+    user = User.query.all()
+
+    for val in user:
+        if mailtoken == val.mailtoken and username == val.username:
+            val.password = password
+            db.session.commit()
+            return True
+
+    return False
+
+
+def addToken(token, username):
+
+    user = User.query.all()
+
+    for val in user:
+        if username == val.username:
+            firstname = val.firstname
+            lastname = val.firstname
+            mail = val.email
+            val.mailtoken = token
+
+            db.session.commit()
+
+    return (firstname, lastname, mail)

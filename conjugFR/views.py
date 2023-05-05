@@ -2,9 +2,6 @@ from flask import Flask, render_template, request, session, redirect, flash, url
 from flask_hashing import Hashing
 import random
 import secrets
-import codecs
-import smtplib
-from email.message import EmailMessage
 
 from .utils import *
 
@@ -533,27 +530,7 @@ def signup():
     lastname = request.form.get("lastname")
     mailtoken = secrets.token_hex(12)
 
-    msg = EmailMessage()
-    msg['Subject'] = "Test Email"
-    msg['From'] = "contact@conjug.fr"
-    msg['To'] = email
-
-    with codecs.open('conjugFR/templates/mail.html', 'r', encoding='utf-8') as f:
-        mail = f.read()
-        mail = mail.format(prenom=firstname, nom=lastname, username=username, token=mailtoken)
-
-    msg.set_content(mail, subtype='html', charset='utf-8')
-
-    # with open('ConjugFR/static/css/mail.css') as f:
-    #     css = f.read()
-    #
-    # msg.add_alternative(css, subtype='css')
-
-    server = smtplib.SMTP_SSL('smtp.ionos.fr', port=465)
-    server.login("contact@conjug.fr", "C~njug@69JcE")
-    server.send_message(msg)
-    server.quit()
-
+    mail(email,"mailverif.html", firstname, lastname, username, mailtoken)
     password = hashing.hash_value(request.form.get("password"), salt='abcd')
     etablissement = request.form.get("etablissement")
     date_creation = models.datetime.now().strftime('%d/%m/%Y')
@@ -607,7 +584,7 @@ def username_route(username):
     models.modifyClassement(classements())
 
     user = models.User.query.all()
-    session["url"] = request.path
+
     for val in user:
         if val.username == username:
             date_creation = val.date_creation
@@ -660,14 +637,47 @@ def leaderboard():
                            classementWeek=classement_week(),
                            classementMonth=classement_month())
 
-@app.route("/verif/<mailtoken>", methods=['GET', 'POST'])
-def verif(mailtoken):
+@app.route("/verif/<username>/<mailtoken>", methods=['GET', 'POST'])
+def verif(mailtoken, username):
 
-    if models.verif(mailtoken) is True:
+    if models.verif(mailtoken, username) is True:
         flash("Compte vérifier")
 
         return redirect(url_for("home"))
 
-    return
+    flash("une erreur est survenu")
+    return redirect(url_for("home"))
 
+@app.route("/forgetpassword/<username>/<mailtoken>", methods=['GET', 'POST'])
+def passwordForget(username, mailtoken):
+
+    password = request.form.get("password")
+
+    if password is not None:
+
+        password = hashing.hash_value(password, salt='abcd')
+
+        if models.changePassword(mailtoken, username, password) is True:
+            flash("Changement de mot de passe effectué")
+
+            return redirect(url_for("home"))
+
+        flash("une erreur est survenu")
+        return redirect(url_for("home"))
+
+    return render_template("forgetPassword.html")
+
+@app.route("/forgetpassword", methods=['GET', 'POST'])
+def sendMailPassword():
+
+    username = session["username"]
+    mailtoken = secrets.token_hex(12)
+
+    fistLastName = addtoken(mailtoken, username)
+
+    firstname = fistLastName[0]
+    lastname = fistLastName[1]
+    mail = fistLastName[2]
+
+    sendmail(mail, "mailforgetpassword.html", firstname, lastname, username, mailtoken)
 
