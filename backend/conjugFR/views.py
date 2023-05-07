@@ -53,7 +53,6 @@ def before_request():
     if not ("reponseVerbSpanish" in session):
         session["reponseVerbSpanish"] = ""
 
-
     if not ('timeItalian' in session):
         session["timeItalian"] = "temps"
         session["pronounsItalian"] = "pronoms"
@@ -96,8 +95,9 @@ def home():
 
     before_request()
 
-    return render_template("home.html",
-                           username=session["username"])
+    return {
+        "username": session["username"],
+    }
 
 
 # German page
@@ -108,9 +108,9 @@ def de():
 
     before_request()
 
-    return render_template("language/german.html",
-                           username=session["username"])
-
+    return {
+        "username": session["username"],
+    }
 
 # Italian page
 
@@ -187,15 +187,18 @@ def it():
 
             else:
                 correction = \
-                correspondanceTimeItalian[session["timeItalian"]]()[listPronounsItalian.index(session['pronounsItalian'])][
-                    correspondanceTerminationItalian.index(termination)]
+                    correspondanceTimeItalian[session["timeItalian"]]()[
+                        listPronounsItalian.index(session['pronounsItalian'])][
+                        correspondanceTerminationItalian.index(termination)]
 
-            if session["reponseVerbItalian"] == session["verbItalian"][:-3] + correction and session["verbItalian"][-1] != "c":
+            if session["reponseVerbItalian"] == session["verbItalian"][:-3] + correction and session["verbItalian"][
+                -1] != "c":
 
                 session["reponseUserItalian"] = True
                 models.addPoint(session["username"], 1)
 
-            elif session["verbItalian"][-1] == "c" and session["reponseVerbItalian"] == session["verbItalian"][:-3] + "h" + correction:
+            elif session["verbItalian"][-1] == "c" and session["reponseVerbItalian"] == session["verbItalian"][
+                                                                                        :-3] + "h" + correction:
 
                 session["reponseUserItalian"] = str(session["verbItalian"][:-3] + "h" + correction)
                 models.addPoint(session["username"], 1)
@@ -234,7 +237,7 @@ def it():
             session["kiwiItalian"] = None
 
             if aleatoire == 0:
-                session["verbItalian"] = csvReaderIrregularItalian.verbChoice()
+                # session["verbItalian"] = csvReaderIrregularItalian.verbChoice()
                 session["irregularItalian"] = True
                 session["tousItalian"] = True
 
@@ -249,7 +252,7 @@ def it():
             session["kiwi3Italian"] = "checked"
             session["kiwiItalian"] = None
             session["kiwi2Italian"] = None
-            session["verbItalian"] = csvReaderIrregularItalian.verbChoice()
+            # session["verbItalian"] = csvReaderIrregularItalian.verbChoice()
             session["irregularItalian"] = True
             session["tousItalian"] = False
 
@@ -282,22 +285,23 @@ def it():
         if "compteurItalian" in session:
             session["compteurItalian"] += 1
 
-    return render_template("language/italian.html",
-                           time=session["timeItalian"],
-                           pronouns=session["pronounsItalian"],
-                           verb=session["verbItalian"],
-                           reponseUser=session["reponseUserItalian"],
-                           reponseVerb=session["reponseVerbItalian"],
-                           banane=session["bananeItalian"],
-                           banane2=session["banane2Italian"],
-                           banane3=session["banane3Italian"],
-                           banane4=session["banane4Italian"],
-                           banane5=session["banane5Italian"],
-                           kiwi=session["kiwiItalian"],
-                           kiwi2=session["kiwi2Italian"],
-                           kiwi3=session["kiwi3Italian"],
-                           username=session["username"],
-                           rappel=rappel)
+    return{
+        "time": session["timeItalian"],
+        "pronouns": session["pronounsItalian"],
+        "verb": session["verbItalian"],
+        "reponseUser": session["reponseUserItalian"],
+        "reponseVerb": session["reponseVerbItalian"],
+        "banane": session["bananeItalian"],
+        "banane2": session["banane2Italian"],
+        "banane3": session["banane3Italian"],
+        "banane4": session["banane4Italian"],
+        "banane5": session["banane5Italian"],
+        "kiwi": session["kiwiItalian"],
+        "kiwi2": session["kiwi2Italian"],
+        "kiwi3": session["kiwi3Italian"],
+        "username": session["username"],
+        "rappel": rappel,
+    }
 
 
 # Spanish page
@@ -325,7 +329,8 @@ def es():
         session["timeSpanish"] = random.choice(session["listActiveTimesSpanish"])
         session["pronounsSpanish"] = random.choice(listPronounsSpanish)
 
-        bananes = {"Futuro": "bananeSpanish", "Conditional": "banane2Spanish", "Presente de indicativo": "banane3Spanish",
+        bananes = {"Futuro": "bananeSpanish", "Conditional": "banane2Spanish",
+                   "Presente de indicativo": "banane3Spanish",
                    "Presente de subjonctivo": "banane4Spanish", "Pretérito imperfecto de indicativo": "banane5Spanish",
                    "Pretérito indefinido": "banane6Spanish", "Prétero imperfecto de subjonctivo": "banane7Spanish"}
 
@@ -350,7 +355,8 @@ def es():
 
         if "irregularSpanish" in session and session["irregularSpanish"] is True:
 
-            correction = correspondanceTimeIrregularSpanish[session["timeSpanish"]]()[listPronounsSpanish.index(session['pronounsSpanish'])][
+            correction = correspondanceTimeIrregularSpanish[session["timeSpanish"]]()[
+                listPronounsSpanish.index(session['pronounsSpanish'])][
                 correspondanceVerbSpanish.index(session["verbSpanish"])]
 
             if session["reponseVerbSpanish"] == correction:
@@ -374,19 +380,23 @@ def es():
 
             termination = str(session["verbSpanish"][-2:])
 
-            correction = correspondanceTimeSpanish[session["timeSpanish"]]()[listPronounsSpanish.index(session['pronounsSpanish'])][
+            correction = \
+            correspondanceTimeSpanish[session["timeSpanish"]]()[listPronounsSpanish.index(session['pronounsSpanish'])][
                 correspondanceTerminationSpanish.index(termination)]
 
-            if (session["reponseVerbSpanish"] == session["verbSpanish"][:-2] + correction and session["timeSpanish"] != "Futuro" and session[
-                "timeSpanish"] != "Conditional") or (
-                    (session["timeSpanish"] == "Futuro" or session["timeSpanish"] == "Conditional") and session["reponseVerbSpanish"] ==
+            if (session["reponseVerbSpanish"] == session["verbSpanish"][:-2] + correction and session[
+                "timeSpanish"] != "Futuro" and session[
+                    "timeSpanish"] != "Conditional") or (
+                    (session["timeSpanish"] == "Futuro" or session["timeSpanish"] == "Conditional") and session[
+                "reponseVerbSpanish"] ==
                     session[
                         "verbSpanish"] + correction):
 
                 session["reponseUserSpanish"] = True
                 models.addPoint(session["username"], 1)
 
-            elif (session["timeSpanish"] == "Futuro" or session["timeSpanish"] == "Conditional") and session["reponseVerbSpanish"] != \
+            elif (session["timeSpanish"] == "Futuro" or session["timeSpanish"] == "Conditional") and session[
+                "reponseVerbSpanish"] != \
                     session[
                         "verbSpanish"] + correction:
 
@@ -530,12 +540,13 @@ def signup():
     lastname = request.form.get("lastname")
     mailtoken = secrets.token_hex(12)
 
-    mail(email,"mailverif.html", firstname, lastname, username, mailtoken)
+    mail(email, "mailverif.html", firstname, lastname, username, mailtoken)
     password = hashing.hash_value(request.form.get("password"), salt='abcd')
     etablissement = request.form.get("etablissement")
     date_creation = models.datetime.now().strftime('%d/%m/%Y')
     logo = "https://cdn.discordapp.com/attachments/1098726716798673016/1099109424590757929/mexicain.png"
-    models.addUser(email, False, mailtoken, firstname, lastname, username, password, etablissement, 0, "0", date_creation, logo, 1, 0, 0, 0)
+    models.addUser(email, False, mailtoken, firstname, lastname, username, password, etablissement, 0, "0",
+                   date_creation, logo, 1, 0, 0, 0)
     session["username"] = username
     flash("Bienvenue et bonne conjugaison")
 
@@ -637,9 +648,9 @@ def leaderboard():
                            classementWeek=classement_week(),
                            classementMonth=classement_month())
 
+
 @app.route("/verif/<username>/<mailtoken>", methods=['GET', 'POST'])
 def verif(mailtoken, username):
-
     if models.verif(mailtoken, username) is True:
         flash("Compte vérifier")
 
@@ -648,9 +659,9 @@ def verif(mailtoken, username):
     flash("une erreur est survenu")
     return redirect(url_for("home"))
 
+
 @app.route("/forgetpassword/<username>/<mailtoken>", methods=['GET', 'POST'])
 def passwordForget(username, mailtoken):
-
     password = request.form.get("password")
 
     if password is not None:
@@ -667,9 +678,9 @@ def passwordForget(username, mailtoken):
 
     return render_template("forgetPassword.html")
 
+
 @app.route("/forgetpassword", methods=['GET', 'POST'])
 def sendMailPassword():
-
     username = session["username"]
     mailtoken = secrets.token_hex(12)
 
@@ -679,5 +690,4 @@ def sendMailPassword():
     lastname = fistLastName[1]
     mail = fistLastName[2]
 
-    sendmail(mail, "mailforgetpassword.html", firstname, lastname, username, mailtoken)
-
+    mail(mail, "mailforgetpassword.html", firstname, lastname, username, mailtoken)
