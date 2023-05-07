@@ -52,7 +52,7 @@ correspondanceTerminationItalian = ["are", "ere", "ire"]  # liste des terminaiso
 
 def mail(email, type, object1, object2, object3, object4):
 
-    from backend.config import server
+    from config import server
 
     msg = EmailMessage()
     msg['Subject'] = "conjug.fr"

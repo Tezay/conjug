@@ -1,7 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date, timedelta, datetime
 
-from .views import app
+from conjugFR.views import app
 
 db = SQLAlchemy()
 

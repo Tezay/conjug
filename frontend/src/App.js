@@ -1,25 +1,24 @@
-import React, { useState, useEffect } from 'react'  //7.2K (gzipped: 3K)
+import { useState } from 'react';
 
 function App() {
+    //state (état, données)
+    const [compteur, setCompteur] = useState(1);
 
-    const [data, setData] = useState([{}])
+    // components
+    const handleclick = () => {
+        setCompteur(compteur + 1);
+    }
 
-    useEffect(() => {
-        fetch("home").then((res) =>
-            res.json().then((data) => {
-                setData({
-                    username: data.username,
-                });
-//                console.log(data)
-            })
-        );
-    }, [])
+    // affichage (render)
 
     return (
         <div className="App">
-            <p>{data.username}</p>
+            <h1>{compteur}</h1>
+            <button onClick={handleclick}>+</button>
         </div>
     );
+
 }
+
 
 export default App;

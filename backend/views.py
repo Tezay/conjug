@@ -90,15 +90,14 @@ def before_request():
 
 # Home page
 
-@app.route("/home", methods=['GET', 'POST'])
+@app.route("/", methods=['GET', 'POST'])
 def home():
     """fonction qui renvoie la page d'acceuil du site"""
 
     before_request()
 
-    return {
-        "username":  session["username"]
-    }
+    return render_template("home.html",
+                           username=session["username"])
 
 
 # German page
@@ -283,21 +282,22 @@ def it():
         if "compteurItalian" in session:
             session["compteurItalian"] += 1
 
-    return {"time": session["timeItalian"],
-            "pronouns": session["pronounsItalian"],
-            "verb": session["verbItalian"],
-            "reponseUser": session["reponseUserItalian"],
-            "reponseVerb": session["reponseVerbItalian"],
-            "banane": session["bananeItalian"],
-            "banane2": session["banane2Italian"],
-            "banane3": session["banane3Italian"],
-            "banane4": session["banane4Italian"],
-            "banane5": session["banane5Italian"],
-            "kiwi": session["kiwiItalian"],
-            "kiwi2": session["kiwi2Italian"],
-            "kiwi3": session["kiwi3Italian"],
-            "username": session["username"],
-            "rappel": rappel}
+    return render_template("language/italian.html",
+                           time=session["timeItalian"],
+                           pronouns=session["pronounsItalian"],
+                           verb=session["verbItalian"],
+                           reponseUser=session["reponseUserItalian"],
+                           reponseVerb=session["reponseVerbItalian"],
+                           banane=session["bananeItalian"],
+                           banane2=session["banane2Italian"],
+                           banane3=session["banane3Italian"],
+                           banane4=session["banane4Italian"],
+                           banane5=session["banane5Italian"],
+                           kiwi=session["kiwiItalian"],
+                           kiwi2=session["kiwi2Italian"],
+                           kiwi3=session["kiwi3Italian"],
+                           username=session["username"],
+                           rappel=rappel)
 
 
 # Spanish page
