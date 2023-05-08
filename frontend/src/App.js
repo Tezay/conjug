@@ -1,30 +1,30 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function App() {
     //state (état, données)
-    const [dataHome, setDataHome] = useState([{}])
+    const [data, setdata] = useState({
+        username: ""
+    });
 
     // components
     useEffect(() => {
-        alert("Please")
-        fetch('/home').then(
-            res => res.json()
-        ).then(
-            dataHome => {
-                setDataHome(dataHome)
-                console.log(dataHome)
-            }
-        )
-    }, [])
+        fetch('/home').then((res) =>
+            res.json().then((data) => {
+                setdata({
+                    username: data.username,
+                });
+//                alert("Success")
+            })
+        );
+    }, []);
 
     // affichage (render)
 
     return (
         <div className="App">
-            <h1>{dataHome}</h1>
+            <h1>The pseudo is {data.username}</h1>
         </div>
     );
-
 }
 
 export default App;

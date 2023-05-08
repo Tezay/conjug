@@ -89,7 +89,7 @@ def before_request():
 
 # Home page
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/home", methods=['GET', 'POST'])
 def home():
     """fonction qui renvoie la page d'acceuil du site"""
 
