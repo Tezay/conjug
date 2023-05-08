@@ -481,24 +481,25 @@ def es():
         if "compteurSpanish" in session:
             session["compteurSpanish"] += 1
 
-    return render_template("language/spanish.html",
-                           time=session["timeSpanish"],
-                           pronouns=session["pronounsSpanish"],
-                           verb=session["verbSpanish"],
-                           reponseUser=session["reponseUserSpanish"],
-                           reponseVerb=session["reponseVerbSpanish"],
-                           banane=session["bananeSpanish"],
-                           banane2=session["banane2Spanish"],
-                           banane3=session["banane3Spanish"],
-                           banane4=session["banane4Spanish"],
-                           banane5=session["banane5Spanish"],
-                           banane6=session["banane6Spanish"],
-                           banane7=session["banane7Spanish"],
-                           kiwi=session["kiwiSpanish"],
-                           kiwi2=session["kiwi2Spanish"],
-                           kiwi3=session["kiwi3Spanish"],
-                           username=session["username"],
-                           rappel=rappel)
+    return{
+        "time": session["timeSpanish"],
+        "pronouns": session["pronounsSpanish"],
+        "verb": session["verbSpanish"],
+        "reponseUser": session["reponseUserSpanish"],
+        "reponseVerb": session["reponseVerbSpanish"],
+        "banane": session["bananeSpanish"],
+        "banane2": session["banane2Spanish"],
+        "banane3": session["banane3Spanish"],
+        "banane4": session["banane4Spanish"],
+        "banane5": session["banane5Spanish"],
+        "banane6": session["banane6Spanish"],
+        "banane7": session["banane7Spanish"],
+        "kiwi": session["kiwiSpanish"],
+        "kiwi2": session["kiwi2Spanish"],
+        "kiwi3": session["kiwi3Spanish"],
+        "username": session["username"],
+        "rappel": rappel,
+    }
 
 
 @app.route("/connexion", methods=['GET', 'POST'])
@@ -507,8 +508,9 @@ def connexion():
 
     before_request()
 
-    return render_template("login.html",
-                           username=session["username"])
+    return {
+        "username": session["username"],
+    }
 
 
 @app.route("/signup", methods=['GET', 'POST'])
@@ -605,17 +607,20 @@ def username_route(username):
             day_streak = val.day_streak
             logo = val.logo
             classement = val.classement
-            return render_template("heritage_template/profile.html",
-                                   date_creation=date_creation,
-                                   xp=xp,
-                                   etablissement=etablissement,
-                                   day_streak=day_streak,
-                                   logo=logo,
-                                   username2=username,
-                                   level=level,
-                                   classement=classement,
-                                   classementJoueurs=classements(),
-                                   username=session["username"])
+
+            return{
+                "date_creation": date_creation,
+                "xp": xp,
+                "etablissement": etablissement,
+                "day_streak": day_streak,
+                "logo": logo,
+                "username2": username,
+                "level": level,
+                "classement": classement,
+                "classementJoueurs": classements(),
+                "username": session["username"],
+            }
+
     return "User Not Found"
 
 
@@ -632,7 +637,10 @@ def search():
 
     before_request()
 
-    return render_template("search.html", username=session["username"], utilisateurs=utilisateurs())
+    return{
+        "username": session["username"],
+        "utilisateurs": utilisateurs(),
+    }
 
 
 @app.route("/leaderboard", methods=['GET', 'POST'])
@@ -641,12 +649,13 @@ def leaderboard():
 
     before_request()
 
-    return render_template("leaderboard.html",
-                           username=session["username"],
-                           utilisateurs=utilisateurs(),
-                           classementPlayers=classements(),
-                           classementWeek=classement_week(),
-                           classementMonth=classement_month())
+    return{
+        "username": session["username"],
+        "utilisateurs": utilisateurs(),
+        "classementPlayers": classements(),
+        "classementWeek": classement_week(),
+        "classementMonth": classement_month(),
+    }
 
 
 @app.route("/verif/<username>/<mailtoken>", methods=['GET', 'POST'])
