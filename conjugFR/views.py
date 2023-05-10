@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, session, redirect, flash, url_for
 from flask_hashing import Hashing
 import random
-from datetime import datetime
+import secrets
 
 from .utils import *
 
@@ -12,7 +12,7 @@ hashing = Hashing(app)
 
 def before_request():
     """fonction qui initialise les sessions de flask"""
-    # models.addReset() #Supprimer après execution
+    # models.addReset(0) #Supprimer après execution
     # models.reset_xp()
 
     if not ("username" in session):
@@ -195,14 +195,19 @@ def it():
                 session["reponseUserItalian"] = True
                 models.addPoint(session["username"], 1)
 
-            elif session["reponseVerbItalian"] == session["verbItalian"][:-3] + "h" + correction and session["verbItalian"][-1] == "c":
+            elif session["verbItalian"][-1] == "c" and session["reponseVerbItalian"] == session["verbItalian"][:-3] + "h" + correction:
 
                 session["reponseUserItalian"] = str(session["verbItalian"][:-3] + "h" + correction)
                 models.addPoint(session["username"], 1)
 
-            else:
+            elif session["verbItalian"][-1] == "c":
 
+                session["reponseUserItalian"] = str(session["verbItalian"][:-3] + "h" + correction)
+
+            else:
                 session["reponseUserItalian"] = str(session["verbItalian"][:-3] + correction)
+
+            if session["reponseUserSpanish"] is not True:
 
                 session["erreur_timeItalian"] += [session["timeItalian"]]
                 session["erreur_verbItalian"] += [session["verbItalian"]]
@@ -506,8 +511,6 @@ def signup():
     user = models.User.query.all()
 
     email = request.form.get("email")
-    firstname = request.form.get("firstname")
-    lastname = request.form.get("lastname")
     usernameBase = request.form.get("username").lower()
     username = ""
     for chr in usernameBase:
@@ -523,11 +526,16 @@ def signup():
             flash("Nom d'utilisateur déjà utilisé")
             return redirect(url_for("connexion"))
 
+    firstname = request.form.get("firstname")
+    lastname = request.form.get("lastname")
+    mailtoken = secrets.token_hex(12)
+
+    mail(email,"mailverif.html", firstname, lastname, username, mailtoken)
     password = hashing.hash_value(request.form.get("password"), salt='abcd')
     etablissement = request.form.get("etablissement")
-    date_creation = datetime.now().strftime('%d/%m/%Y')
+    date_creation = models.datetime.now().strftime('%d/%m/%Y')
     logo = "https://cdn.discordapp.com/attachments/1098726716798673016/1099109424590757929/mexicain.png"
-    models.addUser(email, firstname, lastname, username, password, etablissement, 0, "0", date_creation, logo, 1, 0, 0, 0)
+    models.addUser(email, False, mailtoken, firstname, lastname, username, password, etablissement, 0, "0", date_creation, logo, 1, 0, 0, 0)
     session["username"] = username
     flash("Bienvenue et bonne conjugaison")
 
@@ -576,7 +584,7 @@ def username_route(username):
     models.modifyClassement(classements())
 
     user = models.User.query.all()
-    session["url"] = request.path
+
     for val in user:
         if val.username == username:
             date_creation = val.date_creation
@@ -628,3 +636,48 @@ def leaderboard():
                            classementPlayers=classements(),
                            classementWeek=classement_week(),
                            classementMonth=classement_month())
+
+@app.route("/verif/<username>/<mailtoken>", methods=['GET', 'POST'])
+def verif(mailtoken, username):
+
+    if models.verif(mailtoken, username) is True:
+        flash("Compte vérifier")
+
+        return redirect(url_for("home"))
+
+    flash("une erreur est survenu")
+    return redirect(url_for("home"))
+
+@app.route("/forgetpassword/<username>/<mailtoken>", methods=['GET', 'POST'])
+def passwordForget(username, mailtoken):
+
+    password = request.form.get("password")
+
+    if password is not None:
+
+        password = hashing.hash_value(password, salt='abcd')
+
+        if models.changePassword(mailtoken, username, password) is True:
+            flash("Changement de mot de passe effectué")
+
+            return redirect(url_for("home"))
+
+        flash("une erreur est survenu")
+        return redirect(url_for("home"))
+
+    return render_template("forgetPassword.html")
+
+@app.route("/forgetpassword", methods=['GET', 'POST'])
+def sendMailPassword():
+
+    username = session["username"]
+    mailtoken = secrets.token_hex(12)
+
+    fistLastName = addtoken(mailtoken, username)
+
+    firstname = fistLastName[0]
+    lastname = fistLastName[1]
+    mail = fistLastName[2]
+
+    sendmail(mail, "mailforgetpassword.html", firstname, lastname, username, mailtoken)
+

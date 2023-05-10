@@ -14,19 +14,21 @@ class User(db.Model):
     __tablename__ = "user"
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(length=100), nullable=False)
+    verif = db.Column(db.Boolean, nullable=False)
+    mailtoken = db.Column(db.String(length=24))
     firstname = db.Column(db.String(length=100), nullable=False)
     lastname = db.Column(db.String(length=100), nullable=False)
     username = db.Column(db.String(length=100), nullable=False)
     password = db.Column(db.String(length=100), nullable=False)
     etablissement = db.Column(db.String(length=100))
-    xp = db.Column(db.Integer)
-    level = db.Column(db.String(length=100))
-    date_creation = db.Column(db.String(length=100))
-    logo = db.Column(db.String(length=100))
-    day_streak = db.Column(db.Integer)
-    classement = db.Column(db.Integer)
-    XP_week = db.Column(db.Integer)
-    XP_month = db.Column(db.Integer)
+    xp = db.Column(db.Integer, nullable=False)
+    level = db.Column(db.String(length=100), nullable=False)
+    date_creation = db.Column(db.String(length=100), nullable=False)
+    logo = db.Column(db.String(length=255), nullable=False)
+    day_streak = db.Column(db.Integer, nullable=False)
+    classement = db.Column(db.Integer, nullable=False)
+    XP_week = db.Column(db.Integer, nullable=False)
+    XP_month = db.Column(db.Integer, nullable=False)
 
 
 class LeaderboardReset(db.Model):
@@ -40,10 +42,10 @@ with app.app_context():
     db.create_all()
 
 
-def addUser(email, firstname, lastname, username, password, etablissement, xp, level, date_creation, logo, day_streak,
+def addUser(email, verif, mailtoken, firstname, lastname, username, password, etablissement, xp, level, date_creation, logo, day_streak,
             classement, XP_week, XP_month):
     """ajoute les utilisateurs à la base de données avec les infos données à la création d'un compte(Nom, Prénom ...)"""
-    newUser = User(email=email, firstname=firstname, lastname=lastname, username=username,
+    newUser = User(email=email,verif=verif, mailtoken=mailtoken, firstname=firstname, lastname=lastname, username=username,
                    password=password, etablissement=etablissement, xp=xp, level=level,
                    date_creation=date_creation, logo=logo, day_streak=day_streak, classement=classement,
                    XP_week=XP_week, XP_month=XP_month)
@@ -118,6 +120,46 @@ def reset_xp():
     db.session.commit()
 
 
-def addReset():
-    db.session.add(LeaderboardReset())
+def addReset(point_reset):
+    db.session.add(LeaderboardReset(point_reset=point_reset))
     db.session.commit()
+
+def verif(mailtoken, username):
+
+    user = User.query.all()
+
+    for val in user:
+        if mailtoken == val.mailtoken and username == val.username:
+            val.verif = True
+            db.session.commit()
+            return True
+
+    return False
+
+def changePassword(mailtoken, username, password):
+
+    user = User.query.all()
+
+    for val in user:
+        if mailtoken == val.mailtoken and username == val.username:
+            val.password = password
+            db.session.commit()
+            return True
+
+    return False
+
+
+def addToken(token, username):
+
+    user = User.query.all()
+
+    for val in user:
+        if username == val.username:
+            firstname = val.firstname
+            lastname = val.firstname
+            mail = val.email
+            val.mailtoken = token
+
+            db.session.commit()
+
+    return (firstname, lastname, mail)

@@ -2,6 +2,9 @@ from .csvReader.espagnol import csvReaderIrregularSpanish, csvReaderSpanish
 from .csvReader.italien import csvReaderIrregularItalian, csvReaderItalian
 from . import models
 
+import codecs
+from email.message import EmailMessage
+
 # espagnol
 
 listPronounsSpanish = ["yo", "tú", "él", "nosotros", "vosotros", "ellos"]  # liste des pronoms personnels espagnol
@@ -44,6 +47,31 @@ correspondanceTimeItalian = {
 }  # dictionnaire des temps correspondant à leurs terminasons pour les verbes réguliers
 
 correspondanceTerminationItalian = ["are", "ere", "ire"]  # liste des terminaisons possibles à l'infinitif
+
+#mail
+
+def mail(email, type, object1, object2, object3, object4):
+
+    from config import server
+
+    msg = EmailMessage()
+    msg['Subject'] = "conjug.fr"
+    msg['From'] = "contact@conjug.fr"
+    msg['To'] = email
+
+    with codecs.open('conjugFR/templates/'+type, 'r', encoding='utf-8') as f:
+        mail = f.read()
+        mail = mail.format(prenom=object1, nom=object2, username=object3, token=object4)
+
+    msg.set_content(mail, subtype='html', charset='utf-8')
+
+    # with open('ConjugFR/static/css/mail.css') as f:
+    #     css = f.read()
+    #
+    # msg.add_alternative(css, subtype='css')
+
+    server.send_message(msg)
+    server.quit()
 
 
 # autre
