@@ -65,6 +65,11 @@ function App() {
         username: "",
     });
 
+    const [dataSearch, setdataSearch] = useState({
+        username:""
+        utilisateurs: ""
+    });
+
     const [dataLeaderboard, setdataLeaderboard] = useState({
         username: "",
         utilisateurs: "",
@@ -172,7 +177,18 @@ function App() {
                 });
             })
         );
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        fetch('/search').then((res) =>
+            res.json().then((data) => {
+                setdataSearch({
+                    username:data.username
+                    utilisateurs: data.utilisateurs
+                });
+            })
+        );
+    }, []);
 
     useEffect(() => {
         fetch('/leaderboard').then((res) =>
