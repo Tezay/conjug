@@ -1,0 +1,177 @@
+/**Search part**/
+
+.search-container {
+    background-color: #fff;
+    color: #585656;
+    display: flex;
+    position: sticky;
+    top: 80px;
+    z-index: 8;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.searchbar-container {
+    display: flex;
+    justify-content: center;
+    width: 80%;
+}
+
+.searchbar {
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-size: 1.2rem;
+}
+
+input[type=search] {
+     width: 100%;
+     -webkit-transition: width 0.15s ease-in-out;
+     transform: scale(1);
+     transition: width 0.15s ease-in-out, transform 0.2s ease;
+}
+
+/* input[type=search]:focus {
+    
+} */
+
+input[type=search]:hover {
+    transform: scale(1.03);
+}
+
+
+/**Tabs**/
+
+.leaderboard-tabs-container {
+    display: none;
+}
+
+
+/**Leaderboard model**/
+
+ol {
+    list-style-type: none;
+    flex:1;
+    padding: 0;
+}
+
+
+.userBox {
+    display: flex;
+    padding: 10px 25px;
+    border-radius: 24px;
+    cursor: pointer;
+    justify-content: space-between;
+}
+
+.userBox:hover {
+    background-color: #ebe9e9;
+}
+
+.userBox-left, .userBox-right {
+    display: flex;
+    align-items: center;
+}
+
+.userBoxRank {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.userBox span {
+    font-size: 1.3rem;
+    color: #585656;
+}
+
+.userBoxImage img {
+    height: 70px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+/**Leaderboard part**/
+
+.leaderboard-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+  
+.month-leaderboard-container {
+    margin-right: 2%;
+}
+
+.global-leaderboard-container, .month-leaderboard-container {
+    width: 100%;
+    max-width: 600px;
+    min-width: 400px;
+}
+
+.global-leaderboard-container h2, .month-leaderboard-container h2 {
+    text-align: center;
+    color: #f97316;
+}
+
+
+/**Responsive**/
+
+@media (max-width: 931px) {
+
+    .leaderboard-container {
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 0;
+    }
+    
+    .month-leaderboard-container,
+    .global-leaderboard-container {
+      max-width: 100%;
+      margin-right: 0;
+      margin-bottom: 20px;
+    }
+
+    .global-leaderboard-container {
+        display: none;
+    }
+
+      /* Styles pour les onglets */
+    .leaderboard-tabs-container {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px;
+    }
+
+    .leaderboard-tab {
+        background-color: #f5f5f5;
+        border-radius: 10px;
+        cursor: pointer;
+        flex-basis: 48%;
+        padding: 10px;
+        text-align: center;
+    }
+
+  .active-tab {
+    background-color: #ddd;
+  }
+
+  /* Styles pour les contenus des leaderboards */
+  .leaderboard-content {
+    display: none;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .active-content {
+    display: block;
+  }
+}

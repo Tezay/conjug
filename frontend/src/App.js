@@ -66,8 +66,8 @@ function App() {
     });
 
     const [dataSearch, setdataSearch] = useState({
-        username:""
-        utilisateurs: ""
+        username:"",
+        utilisateurs: "",
     });
 
     const [dataLeaderboard, setdataLeaderboard] = useState({
@@ -183,8 +183,8 @@ function App() {
         fetch('/search').then((res) =>
             res.json().then((data) => {
                 setdataSearch({
-                    username:data.username
-                    utilisateurs: data.utilisateurs
+                    username:data.username,
+                    utilisateurs: data.utilisateurs,
                 });
             })
         );
@@ -208,7 +208,7 @@ function App() {
 
     return (
         <div className="App">
-             <h1>The pseudo is {dataProfile.username}</h1>
+
         </div>
     );
 }
