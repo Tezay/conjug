@@ -71,7 +71,7 @@ def mail(email, type, object1, object2, object3, object4):
     # msg.add_alternative(css, subtype='css')
 
 #     server.send_message(msg)
-    server.quit()
+#     server.quit()
 
 
 # autre
