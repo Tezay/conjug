@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import Home from "./page/home"
+
+import "./static/css/style.css"
 
 function App() {
     //state (état, données)
@@ -208,7 +211,8 @@ function App() {
 
     return (
         <div className="App">
-             <h1>The pseudo is {dataIt.username}</h1>
+             {/* <h1>The pseudo is {dataIt.username}</h1> */}
+             <Home/>
         </div>
     );
 }

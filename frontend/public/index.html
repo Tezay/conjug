@@ -1,28 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <meta name="theme-color" content="#000000" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Conjug.fr est un site de conjugaison pour l'espagnol. Révisez toutes les conjugaisons de verbes réguliers et irréguliers en espagnol, et améliorez votre grammaire.">
+    <meta name="keywords" content="conjugaison, espagnol, verbes, grammaire, apprendre l'espagnol, conjugaison de verbes en espagnol, verbes réguliers en espagnol, verbes irréguliers en espagnol, temps verbaux en espagnol, pronoms en espagnol, conjugaison des verbes être et avoir en espagnol, participe passé en espagnol, conditionnel en espagnol, subjonctif en espagnol, impératif en espagnol, auxiliaires en espagnol, conjugaison en ligne, outil de conjugaison, exercices de conjugaison, pratiquer la conjugaison, exercice, révision, conjugaison">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="{{url_for('static', filename='img/tabLogo.png')}}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{url_for('static', filename='css/header.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/footer.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+
+    <script defer="defer" language="JavaScript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-M6PLZTJ');</script>
+        <!-- End Google Tag Manager -->
+
+    <!--Google AdSense Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1488704184953178"
+        crossorigin="anonymous"></script>
+
+    <script src='https://www.googleoptimize.com/optimize.js?id=OPT-5N6NJW6'></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K9CZSQSG6N"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+      
+        gtag('config', 'G-K9CZSQSG6N');
+    </script>
+
+    <title>conjug.fr</title>
+
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript>Vous devez activer le javascript pour utiliser conjug.fr. En cas de problème, contactez nous à contact@conjug.fr</noscript>
     <div id="root"></div>
     <!--
       This HTML file is a template.
