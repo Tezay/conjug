@@ -589,7 +589,7 @@ def logout():
     return redirect(url_for("home"))
 
 
-@app.route("/profile/<username>", methods=['GET', 'POST'])
+@app.route("/profile.jsx/<username>", methods=['GET', 'POST'])
 def username_route(username):
     """fonction qui renvoie la page de profil de l'utilisateur rechercher"""
 
@@ -616,7 +616,7 @@ def username_route(username):
                 "logo": logo,
                 "username2": username,
                 "level": level,
-                "classement": classement,
+                "classement.jsx": classement,
                 "classementJoueurs": classements(),
                 "username": session["username"],
             }
@@ -631,7 +631,7 @@ def partager():
     return redirect(url_for("username_route", username=session["username"]))
 
 
-@app.route("/search", methods=['GET', 'POST'])
+@app.route("/search.jsx", methods=['GET', 'POST'])
 def search():
     """fonction qui renvoie la page de recherche du site"""
 
@@ -645,7 +645,7 @@ def search():
 
 @app.route("/leaderboard", methods=['GET', 'POST'])
 def leaderboard():
-    """fonction qui renvoie la page de classement du site"""
+    """fonction qui renvoie la page de classement.jsx du site"""
 
     before_request()
 

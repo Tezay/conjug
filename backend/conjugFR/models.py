@@ -65,7 +65,7 @@ def addPoint(username, point):
 
 
 def modifyClassement(dico):
-    "Modifier le classement en fonction de l'xp"
+    "Modifier le classement.jsx en fonction de l'xp"
     user = User.query.all()
     for rang, data in dico.items():
         username = data[0]
