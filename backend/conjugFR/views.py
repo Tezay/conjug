@@ -589,7 +589,7 @@ def logout():
     return redirect(url_for("home"))
 
 
-@app.route("/profile.jsx/<username>", methods=['GET', 'POST'])
+@app.route("/profile/<username>", methods=['GET', 'POST'])
 def username_route(username):
     """fonction qui renvoie la page de profil de l'utilisateur rechercher"""
 
@@ -631,7 +631,7 @@ def partager():
     return redirect(url_for("username_route", username=session["username"]))
 
 
-@app.route("/search.jsx", methods=['GET', 'POST'])
+@app.route("/search", methods=['GET', 'POST'])
 def search():
     """fonction qui renvoie la page de recherche du site"""
 
