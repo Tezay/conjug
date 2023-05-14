@@ -39,7 +39,7 @@
 
 
 	// Scroll animation init
-	window.sr = new scrollReveal();
+//	window.sr = new scrollReveal();
 
 
 	// Menu Dropdown Toggle

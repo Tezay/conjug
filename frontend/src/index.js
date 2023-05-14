@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 
 import Home from './page/home';
+import Espagnol from "./page/espagnol"
 
 const router = createBrowserRouter([
   {
@@ -13,31 +14,31 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
-    path: '/de',
+    path: 'de',
     element: <Home />,
   },
   {
-    path: '/it',
+    path: 'it',
     element: <Home />,
   },
   {
     path: 'es',
-    element: <Home />,
+    element: <Espagnol />,
   },
   {
     path: 'connexion',
     element: <Home />,
   },
   {
-    path: '/profile/<username>',
+    path: 'profile/:username',
     element: <Home />,
   },
   {
-    path: '/search',
+    path: 'search',
     element: <Home />,
   },
   {
-    path: '/leaderboard',
+    path: 'leaderboard',
     element: <Home />,
   },
 ]);
