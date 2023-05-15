@@ -39,7 +39,6 @@ const Home = () => {
         );
     }, []);
 
-
     return (
     <>
         <Header

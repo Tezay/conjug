@@ -1,40 +1,37 @@
-var form = document.getElementById("initialisation");
-var form2 = document.getElementById("actualisation");
-
 function verifi() {
 
-  var checkBox1 = document.getElementById("1");
-  var checkBox2 = document.getElementById("2");
-  var checkBox3 = document.getElementById("3");
-  var checkBox4 = document.getElementById("4");
-  var checkBox5 = document.getElementById("5");
-  var checkBox6 = document.getElementById("6");
-  var checkBox7 = document.getElementById("7");
+    var checkBox1 = document.getElementById("1");
+    var checkBox2 = document.getElementById("2");
+    var checkBox3 = document.getElementById("3");
+    var checkBox4 = document.getElementById("4");
+    var checkBox5 = document.getElementById("5");
+    var checkBox6 = document.getElementById("6");
+    var checkBox7 = document.getElementById("7");
 
-  var tous = document.getElementById("tous");
-  var irregulier = document.getElementById("irreguliers");
-  var regulier = document.getElementById("reguliers");
+    var tous = document.getElementById("tous");
+    var irregulier = document.getElementById("irreguliers");
+    var regulier = document.getElementById("reguliers");
 
-  if (checkBox1.checked == false && checkBox2.checked == false && checkBox3.checked == false && checkBox4.checked == false && checkBox5.checked == false && checkBox6.checked == false && checkBox7.checked == false){
-//   verifi.preventDefault();
-    alert("Choisir et valider un ou plusieurs temps");
-    return false;
+    if (checkBox1.checked == false && checkBox2.checked == false && checkBox3.checked == false && checkBox4.checked == false && checkBox5.checked == false && checkBox6.checked == false && checkBox7.checked == false){
+    //   verifi.preventDefault();
+      alert("Choisir et valider un ou plusieurs temps");
+      return false;
 
-  } else if (tous.checked == false && irregulier.checked == false && regulier.checked == false){
-//   verifi.preventDefault();
-    alert("Choisir les verbes réguliers, irréguliers ou tous");
-    return false;
-  }
-    
+    } else if (tous.checked == false && irregulier.checked == false && regulier.checked == false){
+    //   verifi.preventDefault();
+      alert("Choisir les verbes réguliers, irréguliers ou tous");
+      return false;
+    }
+        
 };
 
-const ParametersContainer = ({dataEspagnol}) => {
+const ParametersContainer = ({dataEspagnol, reload}) => {
 
     return (
         <>
             <div class="parameters-container">
 
-                <form id="initialisation" action="localhost:5000/es" method="post" name="form1">
+                <form id="initialisation" action="http://127.0.0.1:5000/es" method="post" name="form1" onSubmit={reload}>
 
                     <div class="times-container">
                         <div class="parameter-title">
@@ -89,7 +86,7 @@ const ParametersContainer = ({dataEspagnol}) => {
                     </div>
 
                     <div class="parameters-button-container">
-                        <button class="submit-button" onClick={verifi}>
+                        <button class="submit-button" >
                             <span class="button-content">Confirmer les paramètres</span>
                         </button>
                     </div>

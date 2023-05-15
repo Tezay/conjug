@@ -481,7 +481,7 @@ def es():
         if "compteurSpanish" in session:
             session["compteurSpanish"] += 1
 
-    return{
+    return {
         "time": session["timeSpanish"],
         "pronouns": session["pronounsSpanish"],
         "verb": session["verbSpanish"],
