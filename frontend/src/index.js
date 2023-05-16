@@ -6,7 +6,8 @@ import {
 } from 'react-router-dom';
 
 import Home from './page/home';
-import Espagnol from "./page/espagnol"
+import Espagnol from "./page/espagnol";
+import Connexion from "./page/login";
 
 const router = createBrowserRouter([
   {
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
   },
   {
     path: 'connexion',
-    element: <Home />,
+    element: <Connexion />,
   },
   {
     path: 'profile/:username',

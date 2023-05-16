@@ -33,7 +33,7 @@ const ExerciceContainer = ({dataEspagnol}) => {
 
                             <div class="exercice-verb">
                                 <span>({dataEspagnol.pronouns}) {dataEspagnol.verb} [{dataEspagnol.time}]</span>
-                            </div>
+                            </div> 
                             
 
                         </div>

@@ -6,8 +6,7 @@ import ParametersContainer from "./components/espagnol/parametersContainer"
 import ExerciceContainer from "./components/espagnol/exerciceContainer"
 import BasPage from "./components/espagnol/basPage"
 
-//import "../static/css/style.css"
-//import "../static/css/exercice.css"
+import "../static/css/exercice.css"
 
 
 const Espagnol = () => {
@@ -63,6 +62,7 @@ const Espagnol = () => {
     }, []);
 
     const reload = (e) => {
+        e.preventDefault();
         fetch('/es').then((res) =>
             res.json().then((data) => {
                 setdataEs({
@@ -97,7 +97,7 @@ const Espagnol = () => {
 
                 <ParametersContainer 
                  dataEspagnol = {dataEs}
-                 reload={reload}/>
+                 reload = {reload}/>
 
                 <ExerciceContainer
                  dataEspagnol = {dataEs}/>

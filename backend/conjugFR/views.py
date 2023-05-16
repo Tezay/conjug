@@ -542,7 +542,7 @@ def signup():
     lastname = request.form.get("lastname")
     mailtoken = secrets.token_hex(12)
 
-    mail(email, "mailverif.html", firstname, lastname, username, mailtoken)
+    # mail(email, "mailverif.html", firstname, lastname, username, mailtoken)
     password = hashing.hash_value(request.form.get("password"), salt='abcd')
     etablissement = request.form.get("etablissement")
     date_creation = models.datetime.now().strftime('%d/%m/%Y')
@@ -552,7 +552,7 @@ def signup():
     session["username"] = username
     flash("Bienvenue et bonne conjugaison")
 
-    return redirect(url_for("home"))
+    return redirect("http://localhost:3000/")
 
 
 @app.route("/signin", methods=['GET', 'POST'])

@@ -53,7 +53,7 @@ correspondanceTerminationItalian = ["are", "ere", "ire"]  # liste des terminaiso
 # mail
 
 def mail(email, type, object1, object2, object3, object4):
-    from config import server
+    # from config import server
 
     msg = EmailMessage()
     msg['Subject'] = "conjug.fr"
@@ -71,8 +71,8 @@ def mail(email, type, object1, object2, object3, object4):
     #
     # msg.add_alternative(css, subtype='css')
 
-    server.send_message(msg)
-    server.quit()
+    # server.send_message(msg)
+    # server.quit()
 
 
 # autre
