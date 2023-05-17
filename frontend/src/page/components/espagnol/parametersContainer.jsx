@@ -25,13 +25,13 @@ function verifi() {
         
 };
 
-const ParametersContainer = ({dataEspagnol, reload}) => {
+const ParametersContainer = ({dataEspagnol, handleSubmit, handleChange}) => {
 
     return (
         <>
             <div class="parameters-container">
 
-                <form id="initialisation" action="http://127.0.0.1:5000/es" method="post" name="form1" onSubmit={reload}>
+                <form id="initialisation" action="" method="post" name="form1" onSubmit={handleSubmit}>
 
                     <div class="times-container">
                         <div class="parameter-title">
@@ -39,31 +39,31 @@ const ParametersContainer = ({dataEspagnol, reload}) => {
                         </div>
                         <div class="times-list">
                             <div class="time-input">
-                                <input type="checkbox" name="temps[]" value="Futuro" id="1" {...dataEspagnol.banane}/>
+                                <input type="checkbox" name="temps" value="Futuro" id="1" onChange={handleChange} {...dataEspagnol.banane}/>
                                 <label for="futuro">Futuro</label>
                             </div>
                             <div class="time-input">
-                                <input type="checkbox" name="temps[]" value="Conditional" id="2" {...dataEspagnol.banane2}/>
+                                <input type="checkbox" name="temps" value="Conditional" id="2" onChange={handleChange} {...dataEspagnol.banane2}/>
                                 <label for="conditional">Condicional</label>
                             </div>
                             <div class="time-input">
-                                <input type="checkbox" name="temps[]" value="Presente de indicativo" id="3" {...dataEspagnol.banane3}/>
+                                <input type="checkbox" name="temps" value="Presente de indicativo" id="3" onChange={handleChange} {...dataEspagnol.banane3}/>
                                 <label for="presente-indicativo">Presente de indicativo</label>
                             </div>
                             <div class="time-input">
-                                <input type="checkbox" name="temps[]" value="Presente de subjonctivo" id="4" {...dataEspagnol.banane4}/>
+                                <input type="checkbox" name="temps" value="Presente de subjonctivo" id="4" onChange={handleChange} {...dataEspagnol.banane4}/>
                                 <label for="presente-subjonctivo">Presente de subjuntivo</label>
                             </div>
                             <div class="time-input">
-                                <input type="checkbox" name="temps[]" value="Pretérito imperfecto de indicativo" id="5" {...dataEspagnol.banane5}/>
+                                <input type="checkbox" name="temps" value="Pretérito imperfecto de indicativo" id="5" onChange={handleChange} {...dataEspagnol.banane5}/>
                                 <label for="preterito-imperfecto-indicativo">Pretérito imperfecto de indicativo</label>
                             </div>
                             <div class="time-input">
-                                <input type="checkbox" name="temps[]" value="Pretérito indefinido" id="6" {...dataEspagnol.banane6}/>
+                                <input type="checkbox" name="temps" value="Pretérito indefinido" id="6" onChange={handleChange} {...dataEspagnol.banane6}/>
                                 <label for="preterito-indefinido">Pretérito indefinido</label>
                             </div>
                             <div class="time-input">
-                                <input type="checkbox" name="temps[]" value="Prétero imperfecto de subjonctivo" id="7" {...dataEspagnol.banane7}/>
+                                <input type="checkbox" name="temps" value="Prétero imperfecto de subjonctivo" id="7" onChange={handleChange} {...dataEspagnol.banane7}/>
                                 <label for="preterito-imperfecto-subjonctivo">Pretérito imperfecto de subjuntivo</label>
                             </div>
                         </div>
@@ -74,13 +74,13 @@ const ParametersContainer = ({dataEspagnol, reload}) => {
                             <h2>Séléctionner les verbes à conjuguer</h2>
                         </div>
                         <div class="switch-toggle">
-                            <input type="radio" name="drone" value="reguliers" id="reguliers" {...dataEspagnol.kiwi}/>
+                            <input type="radio" name="drone" value="reguliers" id="reguliers" onChange={handleChange} {...dataEspagnol.kiwi}/>
                             <label for="reguliers">Réguliers</label>
               
-                            <input type="radio" name="drone" value="tous" id="tous" {...dataEspagnol.kiwi2}/>
+                            <input type="radio" name="drone" value="tous" id="tous" onChange={handleChange} {...dataEspagnol.kiwi2}/>
                             <label for="tous">Tous</label>
               
-                            <input type="radio" name="drone" value="irreguliers" id="irreguliers" {...dataEspagnol.kiwi3}/>
+                            <input type="radio" name="drone" value="irreguliers" id="irreguliers" onChange={handleChange} {...dataEspagnol.kiwi3}/>
                             <label for="irreguliers">Irréguliers</label>
                         </div>
                     </div>

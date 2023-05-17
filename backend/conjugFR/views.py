@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect, flash, url_for
+from flask import Flask, render_template, request, session, redirect, flash, url_for, jsonify
 from flask_hashing import Hashing
 import random
 import secrets
@@ -122,11 +122,11 @@ def it():
 
     rappel = ""
 
-    verif = request.form.get("temps[]")
+    verif = request.form.get("temps")
 
     if verif == "futur" or verif == "conditionnel" or verif == "présent" or verif == "imparfait" or verif == "passé simple":
 
-        session["listActiveTimesItalian"] = request.form.getlist("temps[]")
+        session["listActiveTimesItalian"] = request.form.getlist("temps")
         session["timeItalian"] = random.choice(session["listActiveTimesItalian"])
         session["pronounsItalian"] = random.choice(listPronounsItalian)
 
@@ -318,14 +318,16 @@ def es():
     renvoie aussi un verbe ou l'utilisateur c'est déjà trompé(système de rappel d'erreur) 3 verbes après que l'utilisateur se soient trompé"""
 
     before_request()
-
+    if request.method == 'POST':
+        print("miam")
     rappel = ""
 
-    verif = request.form.get("temps[]")
+    verif = request.form.get("temps")
+    print(request.form.getlist("temps"))
 
     if verif == "Futuro" or verif == "Conditional" or verif == "Presente de indicativo" or verif == "Presente de subjonctivo" or verif == "Pretérito imperfecto de indicativo" or verif == "Pretérito indefinido" or verif == "Prétero imperfecto de subjonctivo":
 
-        session["listActiveTimesSpanish"] = request.form.getlist("temps[]")
+        session["listActiveTimesSpanish"] = request.form.getlist("temps")
         session["timeSpanish"] = random.choice(session["listActiveTimesSpanish"])
         session["pronounsSpanish"] = random.choice(listPronounsSpanish)
 

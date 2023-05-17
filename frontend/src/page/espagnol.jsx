@@ -33,6 +33,8 @@ const Espagnol = () => {
         rappel: "",
     });
 
+    const [inputValues, setInputValues] = useState([]);
+
     // components
 
     useEffect(() => {
@@ -61,10 +63,27 @@ const Espagnol = () => {
         );
     }, []);
 
-    const reload = (e) => {
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setInputValues(prevValues => ({
+            ...prevValues,
+            [name]: value
+        }));
+      };
+   
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        fetch('/es').then((res) =>
+
+        const response = await fetch('/es', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams(inputValues).toString()
+        })
+        .then((res) =>
             res.json().then((data) => {
+                console.log(data.pronous)
                 setdataEs({
                     time: data.time,
                     pronouns: data.pronouns,
@@ -84,6 +103,7 @@ const Espagnol = () => {
                     username: data.username,
                     rappel: data.rappel,
                 });
+                console.log(data.pronouns)
             })
         );
     };
@@ -97,7 +117,8 @@ const Espagnol = () => {
 
                 <ParametersContainer 
                  dataEspagnol = {dataEs}
-                 reload = {reload}/>
+                 handleSubmit = {handleSubmit}
+                 handleChange = {handleChange} />
 
                 <ExerciceContainer
                  dataEspagnol = {dataEs}/>
