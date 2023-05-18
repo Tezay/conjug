@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 
-import "../../static/css/header.css";
-
 import spainFlag from "../../static/img/flags/spainFlag.png";
 import germanyFlag from "../../static/img/flags/germanyFlag.png";
 import italianFlag from "../../static/img/flags/italyFlag.png";
@@ -10,6 +8,7 @@ import burgerMenu from "../../static/img/menu.png";
 import logo from "../../static/img/logo.png";
 import profileOrange from "../../static/assets/profile-orange.svg"
 
+import "../../static/css/header.css";
 
 function toggleNav() {
   var menu = document.getElementById("menu");

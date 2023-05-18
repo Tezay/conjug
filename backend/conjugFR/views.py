@@ -318,14 +318,12 @@ def es():
     renvoie aussi un verbe ou l'utilisateur c'est déjà trompé(système de rappel d'erreur) 3 verbes après que l'utilisateur se soient trompé"""
 
     before_request()
-    if request.method == 'POST':
-        print("miam")
+
     rappel = ""
 
     verif = request.form.get("temps")
-    print(request.form.getlist("temps"))
 
-    if verif == "Futuro" or verif == "Conditional" or verif == "Presente de indicativo" or verif == "Presente de subjonctivo" or verif == "Pretérito imperfecto de indicativo" or verif == "Pretérito indefinido" or verif == "Prétero imperfecto de subjonctivo":
+    if verif is not None:
 
         session["listActiveTimesSpanish"] = request.form.getlist("temps")
         session["timeSpanish"] = random.choice(session["listActiveTimesSpanish"])

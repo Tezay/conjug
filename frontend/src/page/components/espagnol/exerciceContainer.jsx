@@ -1,10 +1,10 @@
-function insertCharacter(lettre){
-  
-  document.getElementById("response").value += lettre;
-  
-};
+const ExerciceContainer = ({dataEspagnol, inputText, handleSubmit, handleInputChange}) => {
 
-const ExerciceContainer = ({dataEspagnol}) => {
+    const insertCharacter = (lettre) => {
+  
+        document.getElementById("response").value += lettre;
+  
+    };
 
     return (
         <>
@@ -18,31 +18,31 @@ const ExerciceContainer = ({dataEspagnol}) => {
                                 <img src="https://cdn.discordapp.com/attachments/1098726716798673016/1099104373650497647/mexicain.png"/>
                             </div>
                             
-                            {/*{% if rappel != "" %}
+                            { dataEspagnol.rappel != "" ? (
                                                         
                                 <div>
                                     <div class="exercice-reminder">
                                         <span>Erreur récente sur ce verbe, essaye à nouveau !</span>
-                                        </div>
-                             <div class="exercice-verb-reminder">
-                            <span>({{pronouns}}) {{verb}} [{{time}}]</span>
-                                      </div>
+                                    </div>
+                                    <div class="exercice-verb-reminder">
+                                        <span>({dataEspagnol.pronouns}) {dataEspagnol.verb} [{dataEspagnol.time}]</span>
+                                    </div>
                                </div>
-                                                        
-                                 {% else %}*/}
-
-                            <div class="exercice-verb">
-                                <span>({dataEspagnol.pronouns}) {dataEspagnol.verb} [{dataEspagnol.time}]</span>
-                            </div> 
-                            
+                            ) : (
+                                                
+                                <div class="exercice-verb">
+                                    <span>({dataEspagnol.pronouns}) {dataEspagnol.verb} [{dataEspagnol.time}]</span>
+                                </div> 
+                            )}
 
                         </div>
-                        <form id="actualisation" action="localhost:5000/es" method="post" name="form2">
+                        <form id="actualisation" action="" method="post" name="form2" onSubmit={handleSubmit} >
                             <div class="exercice-input">
-                                {/*{% if reponseUser == "" %}
-                                <input value="{{reponseVerb}}" type="text" id="response" name="reponse" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" lang="es" placeholder="Entrer le verbe conjugué" readonly>
-                                {% else %}*/}
-                                <input value="{dataEspagnol.reponseVerb}" type="text" id="response" name="reponse" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" lang="es" placeholder="Entrer le verbe conjugué"/>
+                                {dataEspagnol.reponseUser == "" ? (
+                                    <input value={inputText} type="text" id="response" name="reponse" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" lang="es" placeholder="Entrer le verbe conjugué" onChange={handleInputChange} />
+                                ) : (
+                                    <input value={dataEspagnol.reponseVerb} type="text" id="response" name="reponse" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" lang="es" placeholder="Entrer le verbe conjugué" readonly/>
+                                )}
                             </div>
                         </form>
                         <div class="exercice-special-characters">

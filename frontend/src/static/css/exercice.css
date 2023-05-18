@@ -40,8 +40,6 @@ button:hover {
     left: 0;
     position: fixed!important;
     z-index: 1;
-    height: 
-    100vh;
     padding: 0 25px;
     border-right: 2px solid #c5c4c4;
     box-sizing: border-box;
@@ -332,7 +330,6 @@ input[type="checkbox"] {
 
     .parameters-container {
         position: block;
-        height: 400px;
         width: 100%;
         padding: 0 25px;
         padding-bottom: 230px;

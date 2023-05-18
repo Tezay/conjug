@@ -8,7 +8,6 @@ import BasPage from "./components/espagnol/basPage"
 
 import "../static/css/exercice.css"
 
-
 const Espagnol = () => {
 
     //state
@@ -33,7 +32,7 @@ const Espagnol = () => {
         rappel: "",
     });
 
-    const [inputValues, setInputValues] = useState([]);
+    const [inputText, setInputText] = useState('');    
 
     // components
 
@@ -63,27 +62,46 @@ const Espagnol = () => {
         );
     }, []);
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setInputValues(prevValues => ({
-            ...prevValues,
-            [name]: value
-        }));
-      };
-   
+    const handleInputChange = (e) => {
+        setInputText(e.target.value);
+    };
+
+    //submit to flask
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const formData = new FormData();
+
+        const formElements = e.target.elements
+
+
+        for (let i = 0; i < formElements.length; i++){
+            const element = formElements[i];
+
+            if (element.checked) {
+                const name = element.name;
+                const value = element.value;
+                formData.append(name, value) 
+
+            } else if (element.type === "text") {
+
+                const name = element.name;
+                const value = element.value;
+                formData.append(name, value)
+
+            } else if (element.type === "submit" && element.value == "continue") {
+                const name = element.name;
+                const value = element.value;
+                formData.append(name, value)
+            }
+        }
+
         const response = await fetch('/es', {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: new URLSearchParams(inputValues).toString()
-        })
-        .then((res) =>
+            body: formData
+        }).then((res) =>
             res.json().then((data) => {
-                console.log(data.pronous)
                 setdataEs({
                     time: data.time,
                     pronouns: data.pronouns,
@@ -103,9 +121,10 @@ const Espagnol = () => {
                     username: data.username,
                     rappel: data.rappel,
                 });
-                console.log(data.pronouns)
             })
         );
+
+        setInputText('')
     };
 
     return (
@@ -117,15 +136,19 @@ const Espagnol = () => {
 
                 <ParametersContainer 
                  dataEspagnol = {dataEs}
-                 handleSubmit = {handleSubmit}
-                 handleChange = {handleChange} />
+                 handleSubmit = {handleSubmit} />
 
                 <ExerciceContainer
-                 dataEspagnol = {dataEs}/>
+                 dataEspagnol = {dataEs}
+                 inputText = {inputText}
+                 handleSubmit = {handleSubmit}
+                 handleInputChange={handleInputChange}/>
 
              </div>
 
-             <BasPage />
+             <BasPage
+              dataEspagnol = {dataEs}
+              handleSubmit = {handleSubmit} />
 
         <Footer />
 
