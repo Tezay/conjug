@@ -310,11 +310,11 @@ def it():
 def es():
     """fonction qui traite plusieurs chose:
     -renvoie la page d'espagnol du site
-    -les temps et types de verbes chosie par l'utilisateur(qui viennent d'un formulaire du html): renvoie la page d'espagnol 
+    -les temps et types de verbes chosie par l'utilisateur(qui viennent d'un formulaire du html): renvoie la page d'espagnol
     du site avec des verbes du bon type (réguliers, irréguliers, tous) à conjuguer avec un pronom personnel et le temps auquel le conjugué.
     -la réponse de l'utilisateur avec un verbe conjuguer: si il est juste renvoie que la page d'espagnol du site avec écrit
     que c'est une bonne réponse sinon renvoie la correction
-    
+
     renvoie aussi un verbe ou l'utilisateur c'est déjà trompé(système de rappel d'erreur) 3 verbes après que l'utilisateur se soient trompé"""
 
     before_request()
@@ -532,11 +532,13 @@ def signup():
 
     for val in user:
         if email == val.email:
-            flash("Adresse email déjà utilisé")
-            return redirect(url_for("connexion"))
+            return {
+                "retour": "falseEmail"
+            }
         if username == val.username:
-            flash("Nom d'utilisateur déjà utilisé")
-            return redirect(url_for("connexion"))
+            return {
+                "retour": "falseUsername"
+            }
 
     firstname = request.form.get("firstname")
     lastname = request.form.get("lastname")
@@ -552,7 +554,9 @@ def signup():
     session["username"] = username
     flash("Bienvenue et bonne conjugaison")
 
-    return redirect("http://localhost:3000/")
+    return{
+        "retour": "trueCreation"
+    }
 
 
 @app.route("/signin", methods=['GET', 'POST'])
@@ -566,16 +570,20 @@ def signin():
     for val in user:
         if request.form.get("email") == val.email and hashing.check_value(val.password, request.form.get("password"),
                                                                           salt='abcd'):
-            flash("Connexion réussi")
             session["username"] = val.username
-            return redirect(url_for("home"))
+            return {
+                "retour": "trueConnect"
+            }
+
 
         elif request.form.get("email") == val.email:
-            flash("Mot de passe incorrect")
-            return redirect(url_for("connexion"))
+            return {
+                "retour": "falseAuth"
+            }
 
-    flash("Pas de compte utilisateur pour cette adresse email")
-    return redirect(url_for("connexion"))
+    return{
+        "retour": "falseAuth"
+    }
 
 
 @app.route("/logout", methods=['GET', 'POST'])
