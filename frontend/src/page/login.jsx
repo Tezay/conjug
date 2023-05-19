@@ -14,8 +14,6 @@ const Connexion = () => {
 
     const [dataConnexion, setdataConnexion] = useState({
         username: "",
-        redirect: false
-
     });
 
     //Navigation

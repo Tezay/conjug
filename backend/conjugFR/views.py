@@ -593,8 +593,10 @@ def logout():
     before_request()
 
     session["username"] = "Connexion"
-    flash("Déconnection réussi")
-    return redirect(url_for("home"))
+
+    return{
+        "redirect": "true"
+    }
 
 
 @app.route("/profile/<username>", methods=['GET', 'POST'])
@@ -624,7 +626,7 @@ def username_route(username):
                 "logo": logo,
                 "username2": username,
                 "level": level,
-                "classement.jsx": classement,
+                "classement": classement,
                 "classementJoueurs": classements(),
                 "username": session["username"],
             }

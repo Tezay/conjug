@@ -50,12 +50,15 @@ const Header = ({dataHeader}) => {
                   <Link to="/leaderboard">
                     <div class="github-button">Classement</div>
                   </Link>
-                  <Link to="/connexion">
-                    <div class="connexion-button">{dataHeader.username}</div>
-                  </Link>
-                {  /*<Link to={`/profile/${dataHeader.username}`}>
-                                    <div class="connexion-button"><img src={profileOrange} class="icon" alt="Profile Icon"/>{dataHeader.username}</div>
-                                  </Link>*/}
+                  {dataHeader.username === "Connexion" ? (
+                    <Link to="/connexion">
+                      <div class="connexion-button">{dataHeader.username}</div>
+                    </Link>
+                  ) : (
+                    <Link to={`/profile/${dataHeader.username}`}>
+                      <div class="connexion-button"><img src={profileOrange} class="icon" alt="Profile Icon"/>{dataHeader.username}</div>
+                    </Link>
+                  )}
                 </span>
 
                 <div class="menu-burger">
@@ -72,8 +75,16 @@ const Header = ({dataHeader}) => {
                 <li><Link to="/it"><img src={italianFlag}/><span>Italien</span></Link></li>
               </ul>
               <div class="interactionButtons-burger">
-                <div class="github-button-burger"><Link to="/leaderboard" target="blank">Classement</Link></div>
-                <div class="connexion-button-burger"><Link to={`/profile/${dataHeader.username}`}>{dataHeader.username}</Link></div>
+                <div class="github-button-burger">
+                  <Link to="/leaderboard" target="blank">Classement</Link>
+                </div>
+                <div class="connexion-button-burger">
+                {dataHeader.username === "Connexion" ? (
+                  <Link to="/connexion">{dataHeader.username}</Link>
+                ) : (
+                  <Link to={`/profile/${dataHeader.username}`}>{dataHeader.username}</Link>
+                )}
+                </div>
               </div>
             </div>
         </header>

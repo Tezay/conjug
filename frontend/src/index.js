@@ -8,6 +8,8 @@ import {
 import Home from './page/home';
 import Espagnol from "./page/espagnol";
 import Connexion from "./page/login";
+import Profile from "./page/profile";
+import Classement from "./page/classement";
 
 const router = createBrowserRouter([
   {
@@ -32,7 +34,7 @@ const router = createBrowserRouter([
   },
   {
     path: 'profile/:username',
-    element: <Home />,
+    element: <Profile />,
   },
   {
     path: 'search',
@@ -40,7 +42,7 @@ const router = createBrowserRouter([
   },
   {
     path: 'leaderboard',
-    element: <Home />,
+    element: <Classement />,
   },
 ]);
 

@@ -23,18 +23,7 @@
     });
 
 
-    const [dataProfile, setdataProfile] = useState({
-        date_creation: "",
-        xp: "",
-        etablissement: "",
-        day_streak: "",
-        logo: "",
-        username2: "",
-        level: "",
-        classement: "",
-        classementJoueurs: "",
-        username: "",
-    });
+
 
     const [dataSearch, setdataSearch] = useState({
         username:"",
@@ -87,24 +76,7 @@
 
 
 
-    useEffect(() => {
-        fetch('/profile/<username>').then((res) =>
-            res.json().then((data) => {
-                setdataProfile({
-                    date_creation: data.date_creation,
-                    xp: data.xp,
-                    etablissement: data.etablissement,
-                    day_streak: data.day_streak,
-                    logo: data.logo,
-                    username2: data.username2,
-                    level: data.level,
-                    classement: data.classement,
-                    classementJoueurs: data.classementJoueurs,
-                    username: data.username,
-                });
-            })
-        );
-    }, []);
+
 
     useEffect(() => {
         fetch('/search').then((res) =>

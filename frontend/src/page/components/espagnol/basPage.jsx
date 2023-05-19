@@ -5,7 +5,7 @@ const BasPage = ({dataEspagnol, handleSubmit, handleChange}) => {
 
     return(
         <>
-        { dataEspagnol.reponseUser == '' ? (
+        { dataEspagnol.reponseUser === '' ? (
 
             <div class="interaction-container" id="interaction-default">
                 <div class="interaction-grid">
@@ -26,7 +26,7 @@ const BasPage = ({dataEspagnol, handleSubmit, handleChange}) => {
                     </div>
                 </div>
             </div>
-        ) : dataEspagnol.reponseUser == true ? (
+        ) : dataEspagnol.reponseUser === true ? (
 
             <div class="interaction-container" id="right-answer">
                 <div class="interaction-grid">
