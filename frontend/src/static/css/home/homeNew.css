@@ -995,22 +995,22 @@ promotion
 /**Footer**/
 
 @media (max-width: 992px) {
-  footer {
+  .homeFooter {
     padding-top: 0px!important;
     margin-top: 0px!important;
   }
   .contact-form {
     margin-bottom: 45px;
   }
-  footer .right-content {
+  .homeFooter .right-content {
     text-align: center;
   }
-  footer .footer-content {
+  .homeFooter .footer-content {
     padding: 60px 0px!important;
   }
 }
 
-footer {
+.homeFooter {
   margin-top: 200px;
   padding-top: 120px;
   background-image: url("../../img/home/footer-bg.png");
@@ -1021,21 +1021,21 @@ footer {
 }
 
 
-footer .social {
+.homeFooter .social {
   overflow: hidden;
   margin-top: 30px;
 }
 
-footer .social li:first-child {
+.homeFooter .social li:first-child {
   margin-left: 0px;
 }
 
-footer .social li {
+.homeFooter .social li {
   margin: 0px 7.5px;
   display: inline-block;
 }
 
-footer .social li a {
+.homeFooter .social li a {
   color: #fff;
   text-align: center;
   background-color: transparent;
@@ -1052,13 +1052,13 @@ footer .social li a {
   transition: all 0.3s ease 0s;
 }
 
-footer .social li a:hover {
+.homeFooter .social li a:hover {
   background-color: #fba70b;
   border-color: #fba70b;
   color: #fff;
 }
 
-footer .copyright {
+.homeFooter .copyright {
   margin-top: 10px;
   font-weight: 400;
   font-size: 15px;
@@ -1067,21 +1067,21 @@ footer .copyright {
   text-transform: capitalize;
 }
 
-footer .sub-footer {
+.homeFooter .sub-footer {
   padding: 30px 0px;
   border-top: 1px solid rgba(250,250,250,0.3);
   text-align: center;
 }
 
-footer .sub-footer a {
+.homeFooter .sub-footer a {
 	color: #FFF;
 }
 
-footer .sub-footer a:hover {
+.homeFooter .sub-footer a:hover {
 	color: #FC3;
 }
 
-footer .sub-footer p {
+.homeFooter .sub-footer p {
   color: #fff;
   font-size: 15px;
   font-weight: 300;
@@ -1090,10 +1090,10 @@ footer .sub-footer p {
 }
 
 @media (max-width: 991px) {
-  footer .copyright {
+  .homeFooter .copyright {
     text-align: center;
   }
-  footer .social {
+  .homeFooter .social {
     text-align: center;
   }
 }

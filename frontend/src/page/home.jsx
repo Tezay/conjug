@@ -8,9 +8,9 @@ import Footer from "./components/home/footerHome";
 
 import "../static/css/style.css";
 //import "../static/css/home/bootstrap.min.css";
-import "../static/css/home/flex-slider.css"
-import "../static/css/home/owl-carousel.css";
-import "../static/css/home/homeNew.css";
+//import "../static/css/home/flex-slider.css"
+//import "../static/css/home/owl-carousel.css";
+//import "../static/css/home/homeNew.css";
 
 //import "../static/js/home/custom.js";
 //import "../static/js/home/imgfix.min.js";
