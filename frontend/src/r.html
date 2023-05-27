@@ -22,22 +22,6 @@
         rappel: "",
     });
 
-
-
-
-    const [dataSearch, setdataSearch] = useState({
-        username:"",
-        utilisateurs: "",
-    });
-
-    const [dataLeaderboard, setdataLeaderboard] = useState({
-        username: "",
-        utilisateurs: "",
-        classementPlayers: "",
-        classementWeek: "",
-        classementMonth: "",
-    });
-
     // components
 
     useEffect(() => {
@@ -69,35 +53,6 @@
                     kiwi3: data.kiwi3,
                     username: data.username,
                     rappel: data.rappel,
-                });
-            })
-        );
-    }, []);
-
-
-
-
-
-    useEffect(() => {
-        fetch('/search').then((res) =>
-            res.json().then((data) => {
-                setdataSearch({
-                    username:data.username,
-                    utilisateurs: data.utilisateurs,
-                });
-            })
-        );
-    }, []);
-
-    useEffect(() => {
-        fetch('/leaderboard').then((res) =>
-            res.json().then((data) => {
-                setdataLeaderboard({
-                    username: data.username,
-                    utilisateurs: data.utilisateurs,
-                    classementPlayers: data.classementPlayers,
-                    classementWeek: data.classementWeek,
-                    classementMonth: data.classementMonth,
                 });
             })
         );

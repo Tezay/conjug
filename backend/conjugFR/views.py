@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect, flash, url_for, jsonify
+from flask import Flask, render_template, request, session, redirect, flash, url_for
 from flask_hashing import Hashing
 import random
 import secrets
@@ -112,6 +112,7 @@ def de():
         "username": session["username"],
     }
 
+
 # Italian page
 
 @app.route("/it", methods=['GET', 'POST'])
@@ -167,14 +168,7 @@ def it():
             else:
 
                 session["reponseUserItalian"] = str(correction)
-
-                session["erreur_timeItalian"] += [session["timeItalian"]]
-                session["erreur_verbItalian"] += [session["verbItalian"]]
-                session["erreur_pronounsItalian"] += [session["pronounsItalian"]]
                 session["erreur_typeItalian"] += [True]
-
-                if not ("compteurItalian" in session):
-                    session["compteurItalian"] = 0
 
         else:
 
@@ -200,25 +194,26 @@ def it():
             elif session["verbItalian"][-1] == "c" and session["reponseVerbItalian"] == session["verbItalian"][
                                                                                         :-3] + "h" + correction:
 
-                session["reponseUserItalian"] = str(session["verbItalian"][:-3] + "h" + correction)
+                session["reponseUserItalian"] = True
                 models.addPoint(session["username"], 1)
 
             elif session["verbItalian"][-1] == "c":
 
                 session["reponseUserItalian"] = str(session["verbItalian"][:-3] + "h" + correction)
+                session["erreur_typeItalian"] += [False]
 
             else:
                 session["reponseUserItalian"] = str(session["verbItalian"][:-3] + correction)
-
-            if session["reponseUserSpanish"] is not True:
-
-                session["erreur_timeItalian"] += [session["timeItalian"]]
-                session["erreur_verbItalian"] += [session["verbItalian"]]
-                session["erreur_pronounsItalian"] += [session["pronounsItalian"]]
                 session["erreur_typeItalian"] += [False]
 
-                if not ("compteurItalian" in session):
-                    session["compteurItalian"] = 0
+        if session["reponseUserItalian"] is not True:
+
+            session["erreur_timeItalian"] += [session["timeItalian"]]
+            session["erreur_verbItalian"] += [session["verbItalian"]]
+            session["erreur_pronounsItalian"] += [session["pronounsItalian"]]
+
+            if not ("compteurItalian" in session):
+                session["compteurItalian"] = 0
 
     verb_type = request.form.get("drone")
 
@@ -285,7 +280,7 @@ def it():
         if "compteurItalian" in session:
             session["compteurItalian"] += 1
 
-    return{
+    return {
         "time": session["timeItalian"],
         "pronouns": session["pronounsItalian"],
         "verb": session["verbItalian"],
@@ -368,21 +363,16 @@ def es():
 
                 session["reponseUserSpanish"] = str(correction)
 
-                session["erreur_timeSpanish"] += [session["timeSpanish"]]
-                session["erreur_verbSpanish"] += [session["verbSpanish"]]
-                session["erreur_pronounsSpanish"] += [session["pronounsSpanish"]]
                 session["erreur_typeSpanish"] += [True]
-
-                if not ("compteurSpanish" in session):
-                    session["compteurSpanish"] = 0
 
         else:
 
             termination = str(session["verbSpanish"][-2:])
 
             correction = \
-            correspondanceTimeSpanish[session["timeSpanish"]]()[listPronounsSpanish.index(session['pronounsSpanish'])][
-                correspondanceTerminationSpanish.index(termination)]
+                correspondanceTimeSpanish[session["timeSpanish"]]()[
+                    listPronounsSpanish.index(session['pronounsSpanish'])][
+                    correspondanceTerminationSpanish.index(termination)]
 
             if (session["reponseVerbSpanish"] == session["verbSpanish"][:-2] + correction and session[
                 "timeSpanish"] != "Futuro" and session[
@@ -401,20 +391,21 @@ def es():
                         "verbSpanish"] + correction:
 
                 session["reponseUserSpanish"] = str(session["verbSpanish"] + correction)
+                session["erreur_typeSpanish"] += [False]
 
             else:
 
                 session["reponseUserSpanish"] = str(session["verbSpanish"][:-2] + correction)
-
-            if session["reponseUserSpanish"] is not True:
-
-                session["erreur_timeSpanish"] += [session["timeSpanish"]]
-                session["erreur_verbSpanish"] += [session["verbSpanish"]]
-                session["erreur_pronounsSpanish"] += [session["pronounsSpanish"]]
                 session["erreur_typeSpanish"] += [False]
 
-                if not ("compteurSpanish" in session):
-                    session["compteurSpanish"] = 0
+        if session["reponseUserSpanish"] is not True:
+
+            session["erreur_timeSpanish"] += [session["timeSpanish"]]
+            session["erreur_verbSpanish"] += [session["verbSpanish"]]
+            session["erreur_pronounsSpanish"] += [session["pronounsSpanish"]]
+
+            if not ("compteurSpanish" in session):
+                session["compteurSpanish"] = 0
 
     verb_type = request.form.get("drone")
 
@@ -554,7 +545,7 @@ def signup():
     session["username"] = username
     flash("Bienvenue et bonne conjugaison")
 
-    return{
+    return {
         "retour": "trueCreation"
     }
 
@@ -581,7 +572,7 @@ def signin():
                 "retour": "falseAuth"
             }
 
-    return{
+    return {
         "retour": "falseAuth"
     }
 
@@ -594,7 +585,7 @@ def logout():
 
     session["username"] = "Connexion"
 
-    return{
+    return {
         "redirect": "true"
     }
 
@@ -618,7 +609,7 @@ def username_route(username):
             logo = val.logo
             classement = val.classement
 
-            return{
+            return {
                 "date_creation": date_creation,
                 "xp": xp,
                 "etablissement": etablissement,
@@ -647,7 +638,7 @@ def search():
 
     before_request()
 
-    return{
+    return {
         "username": session["username"],
         "utilisateurs": utilisateurs(),
     }
@@ -659,7 +650,7 @@ def leaderboard():
 
     before_request()
 
-    return{
+    return {
         "username": session["username"],
         "utilisateurs": utilisateurs(),
         "classementPlayers": classements(),
