@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  {% include 'heritage_template/meta.html' %}
+
+  <title>QCM ES chap4 - conjug.fr</title>
+</head>
+
+<body>
+  {% include 'heritage_template/header.html' %}
+
+  <div class="google-doc-content">
+    {% include 'static/esQcmChap4.html' %}
+  </div>
+
+  {% include 'heritage_template/footer.html' %}
+
+</body>
+</html>
