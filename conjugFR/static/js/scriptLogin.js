@@ -26,9 +26,9 @@ form3.addEventListener("submit", function(e){
       return false;
     };
 
-    if(username.match( /[^-.0-9_a-z]/g) || username.match( /[ \t\n\x0B\f\r]/g) || username.length < 3 || username.length > 15){
+    if(username.match( /[^-.0-9A-Z_a-z]/g) || username.match( /[ \t\n\x0B\f\r]/g) || username.length < 3 || username.length > 15){
       e.preventDefault();
-      alert("Votre nom d'utilisateur doit faire entre 3 et 15 caractères et ne peut contenir que des . _ - ,des chiffres et des lettres en minuscules");
+      alert("Votre nom d'utilisateur doit faire entre 3 et 15 caractères et ne peut contenir que des . _ - ,des chiffres et des lettres en minuscules ou majuscules");
       return false;
     };
 
