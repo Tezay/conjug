@@ -539,6 +539,9 @@ def signup():
     session["username"] = username
     flash("Bienvenue et bonne conjugaison")
 
+    if "qcm" in session:
+        return redirect("qcm")
+
     return redirect(url_for("home"))
 
 
@@ -553,6 +556,8 @@ def signin():
     for val in user:
         if request.form.get("email") == val.email and hashing.check_value(val.password, request.form.get("password"),
                                                                           salt='abcd'):
+            if "qcm" in session:
+                return redirect("qcm")
             flash("Connexion réussi")
             session["username"] = val.username
             return redirect(url_for("home"))
@@ -562,6 +567,7 @@ def signin():
             return redirect(url_for("connexion"))
 
     flash("Pas de compte utilisateur pour cette adresse email")
+
     return redirect(url_for("connexion"))
 
 
@@ -688,6 +694,8 @@ def qcm():
 
     before_request()
 
+    session["qcm"] = "ok"
+
     return render_template("qcm.html",
                            username=session["username"])
 
@@ -698,7 +706,7 @@ def esQcmChap4():
     before_request()
 
     if session["username"] == "Connexion":
-        redirect("qcm")
+        return redirect(url_for("qcm"))
 
     else:
         return render_template("esQcmChap4.html",

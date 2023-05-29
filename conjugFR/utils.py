@@ -29,8 +29,9 @@ correspondanceTimeIrregularSpanish = {
     "Prétero imperfecto de subjonctivo": csvReaderIrregularSpanish.Pretero_imperfecto_de_subjonctivo,
 }  # dictionnaire des temps correspondant à leurs corrections pour les verbes irréguliers
 
-correspondanceVerbSpanish = ["dar", "decir", "estar", "haber", "hacer", "ir", "poder", "poner", "querer", "saber", "salir",
-                      "ser", "tener", "venir", "ver"]  # liste de tout les verbes irréguliers des fichiers csv
+correspondanceVerbSpanish = ["dar", "decir", "estar", "haber", "hacer", "ir", "poder", "poner", "querer", "saber",
+                             "salir",
+                             "ser", "tener", "venir", "ver"]  # liste de tout les verbes irréguliers des fichiers csv
 
 correspondanceTerminationSpanish = ["ar", "er", "ir"]  # liste des terminaisons possibles à l'infinitif
 
@@ -48,8 +49,8 @@ correspondanceTimeItalian = {
 
 correspondanceTerminationItalian = ["are", "ere", "ire"]  # liste des terminaisons possibles à l'infinitif
 
-#mail
 
+# mail
 def mail(email, type, object1, object2, object3, object4):
 
     from config import server
@@ -59,7 +60,7 @@ def mail(email, type, object1, object2, object3, object4):
     msg['From'] = "contact@conjug.fr"
     msg['To'] = email
 
-    with codecs.open('conjugFR/templates/'+type, 'r', encoding='utf-8') as f:
+    with codecs.open('conjugFR/templates/' + type, 'r', encoding='utf-8') as f:
         mail = f.read()
         mail = mail.format(prenom=object1, nom=object2, username=object3, token=object4)
 
@@ -69,6 +70,7 @@ def mail(email, type, object1, object2, object3, object4):
     #     css = f.read()
     #
     # msg.add_alternative(css, subtype='css')
+
 
 #     server.send_message(msg)
 #     server.quit()
