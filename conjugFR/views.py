@@ -683,7 +683,7 @@ def sendMailPassword():
 
 
     @app.route("/qcm", methods=['GET', 'POST'])
-def logout():
+def qcm():
     """fonction permettant d'accéder à la page QCM """
 
     before_request()
