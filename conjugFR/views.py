@@ -556,10 +556,11 @@ def signin():
     for val in user:
         if request.form.get("email") == val.email and hashing.check_value(val.password, request.form.get("password"),
                                                                           salt='abcd'):
-            if "qcm" in session:
-                return redirect("qcm")
             flash("Connexion réussi")
             session["username"] = val.username
+            if "qcm" in session:
+                return redirect("qcm")
+            
             return redirect(url_for("home"))
 
         elif request.form.get("email") == val.email:
