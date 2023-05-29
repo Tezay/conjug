@@ -682,8 +682,6 @@ def sendMailPassword():
     sendmail(mail, "mailforgetpassword.html", firstname, lastname, username, mailtoken)
 
 
-
-
 @app.route("/qcm", methods=['GET', 'POST'])
 def qcm():
     """fonction permettant d'accéder à la page QCM """
@@ -692,4 +690,17 @@ def qcm():
 
     return render_template("qcm.html",
                            username=session["username"])
-    # return redirect(url_for("qcm"))
+
+
+@app.route("/esQcmChap4", methods=['GET', 'POST'])
+def esQcmChap4():
+
+    before_request()
+
+    if session["username"] == "Connexion":
+        redirect("qcm")
+
+    else:
+        return render_template("esQcmChap4.html",
+                               username=session["username"])
+
