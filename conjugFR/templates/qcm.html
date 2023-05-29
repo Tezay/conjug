@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  {% include 'heritage_template/meta.html' %}
+  <link rel="stylesheet" href="{{url_for('static', filename='css/qcmStyle.css')}}">
+  <title>QCM ES chap4 - conjug.fr</title>
+</head>
+
+<body>
+  {% include 'heritage_template/header.html' %}
+
+  <div class="qcm-container">
+    <div class="message">
+      <h1>Correction QCM d'Enseignement Scientifique - chapitre 4</h1>
+      <p>Conjug.fr est un site de révision de conjugaison pour les langues étrangères, crée pour le lycée. Créer un compte permet de faire évoluer la plateforme gratuitement, et vous donne accès aux réponses du QCM.</p>
+    </div>
+    {% if username == "Connexion" %}
+    <div class="buttons">
+      <a href="{{('connexion')}}"><button class="create-account-button">Créer mon compte maintenant ⚡</button></a>
+      <a href="{{('connexion')}}"><button class="login-button">Déjà un compte ? Connectez-vous !</button></a>
+    </div>
+    {% else %}
+    <div class="buttons">
+      <a href="{{('qcm')}}"><button class="access-answers-button">Accéder aux réponses du QCM ↪</button></a>
+    </div>
+    {% endif %}
+  </div>
+
+  {% include 'heritage_template/footer.html' %}
+
+</body>
+</html>
