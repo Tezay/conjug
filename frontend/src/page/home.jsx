@@ -10,14 +10,7 @@ import "../static/css/style.css";
 //import "../static/css/home/bootstrap.min.css";
 //import "../static/css/home/flex-slider.css"
 //import "../static/css/home/owl-carousel.css";
-//import "../static/css/home/homeNew.css";
-
-//import "../static/js/home/custom.js";
-//import "../static/js/home/imgfix.min.js";
-//import "../static/js/home/jquery-2.1.0.min.js";
-//import "../static/js/home/owl-carousel.js";
-//import "../static/js/home/scrollreveal.min.js";
-
+import "../static/css/home/homeNew.css";
 
 const Home = () => {
 

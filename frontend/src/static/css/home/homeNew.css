@@ -1,6 +1,3 @@
-@import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
-
-
 .clearfix:after {
   content: ".";
   display: block;
@@ -36,16 +33,6 @@ header, nav, section, article, aside, footer, hgroup {
   box-sizing: border-box;
 }
 
-html, body {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 400;
-  background-color: #fff;
-  font-size: 16px;
-  -ms-text-size-adjust: 100%;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 a {
   text-decoration: none !important;
 }
@@ -57,12 +44,6 @@ h1, h2, h3, h4, h5, h6 {
 
 ul {
   margin-bottom: 0px;
-}
-
-p {
-  font-size: 15px;
-  line-height: 25px;
-  color: #888;
 }
 
 /**Global style**/
@@ -515,7 +496,7 @@ button.main-button:hover {
     box-shadow: none;
     text-align: center;
   }
-  .header-area .container {
+  .header-area .  {
     padding: 0px;
   }
   .header-area .logo {
@@ -638,7 +619,7 @@ button.main-button:hover {
   color: #7a7a7a;
   line-height: 30px;
   letter-spacing: 0.25px;
-  margin-bottom: 40px;
+
   position: relative;
 }
 
@@ -646,7 +627,7 @@ button.main-button:hover {
   display: flex;
   flex-direction: column;
   width: 50%;
-  padding-top: 5%;
+  margin-left: 40px;
 }
 
 /**Language selector**/
