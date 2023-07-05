@@ -10,25 +10,26 @@ import profileOrange from "../../static/assets/profile-orange.svg"
 
 import "../../static/css/header.css";
 
-function toggleNav() {
-  var menu = document.getElementById("menu");
-  if (menu.classList.contains("active")) {
-     closeNav();
-  } else {
-     openNav();
-  }
-};
-
-function openNav() {
-  document.getElementById("menu").classList.add("active");
-};
-
-function closeNav() {
-  document.getElementById("menu").classList.remove("active");
-};
-
 
 const Header = ({dataHeader}) => {
+
+    const toggleNav = () => {
+      var menu = document.getElementById("menu");
+      if (menu.classList.contains("active")) {
+         closeNav();
+      } else {
+         openNav();
+      }
+    };
+
+    const openNav = () =>{
+      document.getElementById("menu").classList.add("active");
+    };
+
+    const closeNav = () => {
+      document.getElementById("menu").classList.remove("active");
+    };
+    
     return (
     <>
         <header class='sticky'>

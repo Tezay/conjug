@@ -18,26 +18,3 @@
         );
     }, []);
 
-    useEffect(() => {
-        fetch('/it').then((res) =>
-            res.json().then((data) => {
-                setdataIt({
-                    time: data.time,
-                    pronouns: data.pronouns,
-                    verb: data.verb,
-                    reponseUser: data.reponseUser,
-                    reponseVerb: data.reponseVerb,
-                    banane: data.banane,
-                    banane2: data.banane2,
-                    banane3: data.banane3,
-                    banane4: data.banane4,
-                    banane5: data.banane5,
-                    kiwi: data.kiwi,
-                    kiwi2: data.kiwi2,
-                    kiwi3: data.kiwi3,
-                    username: data.username,
-                    rappel: data.rappel,
-                });
-            })
-        );
-    }, []);
