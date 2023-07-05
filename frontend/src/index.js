@@ -7,9 +7,10 @@ import {
 
 import Home from './page/home';
 import Espagnol from "./page/espagnol";
+import Italien from "./page/italien";
 import Connexion from "./page/login";
 import Profile from "./page/profile";
-import Search from "./page/search"
+import Search from "./page/search";
 import Classement from "./page/classement";
 
 const router = createBrowserRouter([
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
   },
   {
     path: 'it',
-    element: <Home />,
+    element: <Italien />,
   },
   {
     path: 'es',

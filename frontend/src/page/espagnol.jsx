@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 
 import Header from "./components/header"
 import Footer from "./components/footer"
-import ParametersContainer from "./components/espagnol/parametersContainer"
-import ExerciceContainer from "./components/espagnol/exerciceContainer"
-import BasPage from "./components/espagnol/basPage"
+import ParametersContainer from "./components/langue/parametersContainerEs"
+import ExerciceContainer from "./components/langue/exerciceContainer"
+import BasPage from "./components/langue/basPage"
 
 import "../static/css/exercice.css"
 
@@ -82,6 +82,7 @@ const Espagnol = () => {
             if (element.checked) {
                 const name = element.name;
                 const value = element.value;
+                console.log(name,value)
                 formData.append(name, value) 
 
             } else if (element.type === "text") {
@@ -135,11 +136,11 @@ const Espagnol = () => {
              <div class="main-container">
 
                 <ParametersContainer 
-                 dataEspagnol = {dataEs}
+                 dataLangue = {dataEs}
                  handleSubmit = {handleSubmit} />
                     
                 <ExerciceContainer
-                 dataEspagnol = {dataEs}
+                 dataLangue = {dataEs}
                  inputText = {inputText}
                  handleSubmit = {handleSubmit}
                  handleInputChange={handleInputChange}/>
@@ -147,7 +148,7 @@ const Espagnol = () => {
              </div>
 
              <BasPage
-              dataEspagnol = {dataEs}
+              dataLangue = {dataEs}
               handleSubmit = {handleSubmit} />
 
         <Footer />

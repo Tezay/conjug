@@ -1,4 +1,4 @@
-const ExerciceContainer = ({dataEspagnol, inputText, handleSubmit, handleInputChange}) => {
+const ExerciceContainer = ({dataLangue, inputText, handleSubmit, handleInputChange}) => {
 
     const insertCharacter = (lettre) => {
   
@@ -10,7 +10,7 @@ const ExerciceContainer = ({dataEspagnol, inputText, handleSubmit, handleInputCh
         <>
             <div class="exercice-container">
                     <div class="exercice-title">
-                        <h1>Conjugue le verbe en espagnol</h1>
+                        <h1>Conjugue le verbe</h1>
                     </div>
                     <div class="exercice-section">
                         <div class="exercice-question">
@@ -18,30 +18,30 @@ const ExerciceContainer = ({dataEspagnol, inputText, handleSubmit, handleInputCh
                                 <img src="https://cdn.discordapp.com/attachments/1098726716798673016/1099104373650497647/mexicain.png"/>
                             </div>
                             
-                            { dataEspagnol.rappel != "" ? (
+                            { dataLangue.rappel != "" ? (
                                                         
                                 <div>
                                     <div class="exercice-reminder">
                                         <span>Erreur récente sur ce verbe, essaye à nouveau !</span>
                                     </div>
                                     <div class="exercice-verb-reminder">
-                                        <span>({dataEspagnol.pronouns}) {dataEspagnol.verb} [{dataEspagnol.time}]</span>
+                                        <span>({dataLangue.pronouns}) {dataLangue.verb} [{dataLangue.time}]</span>
                                     </div>
                                </div>
                             ) : (
                                                 
                                 <div class="exercice-verb">
-                                    <span>({dataEspagnol.pronouns}) {dataEspagnol.verb} [{dataEspagnol.time}]</span>
+                                    <span>({dataLangue.pronouns}) {dataLangue.verb} [{dataLangue.time}]</span>
                                 </div> 
                             )}
 
                         </div>
                         <form id="actualisation" action="" method="post" name="form2" onSubmit={handleSubmit} >
                             <div class="exercice-input">
-                                {dataEspagnol.reponseUser == "" ? (
+                                {dataLangue.reponseUser == "" ? (
                                     <input value={inputText} type="text" id="response" name="reponse" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" lang="es" placeholder="Entrer le verbe conjugué" onChange={handleInputChange} />
                                 ) : (
-                                    <input value={dataEspagnol.reponseVerb} type="text" id="response" name="reponse" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" lang="es" placeholder="Entrer le verbe conjugué" readonly/>
+                                    <input value={dataLangue.reponseVerb} type="text" id="response" name="reponse" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" lang="es" placeholder="Entrer le verbe conjugué" readonly/>
                                 )}
                             </div>
                         </form>

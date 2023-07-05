@@ -1,20 +1,20 @@
 import { useState, useEffect } from 'react';
 
-const ParametersContainer = ({dataEspagnol, handleSubmit}) => {
+const ParametersContainerEs = ({dataLangue, handleSubmit}) => {
 
     //state
 
     const [tempsValues, setTempsValues] = useState({
-        temps1: dataEspagnol.banane,
-        temps2: dataEspagnol.banan2,
-        temps3: dataEspagnol.banane3,
-        temps4: dataEspagnol.banane4,
-        temps5: dataEspagnol.banane5,
-        temps6: dataEspagnol.banane6,
-        temps7: dataEspagnol.banane7,
-        type1: dataEspagnol.kiwi,
-        type2: dataEspagnol.kiwi2, 
-        type3: dataEspagnol.kiwi3,
+        temps1: dataLangue.banane,
+        temps2: dataLangue.banan2,
+        temps3: dataLangue.banane3,
+        temps4: dataLangue.banane4,
+        temps5: dataLangue.banane5,
+        temps6: dataLangue.banane6,
+        temps7: dataLangue.banane7,
+        type1: dataLangue.kiwi,
+        type2: dataLangue.kiwi2, 
+        type3: dataLangue.kiwi3,
     });
 
     //components
@@ -22,18 +22,18 @@ const ParametersContainer = ({dataEspagnol, handleSubmit}) => {
     useEffect(() => {
         setTempsValues((prevValues) => ({
             ...prevValues,
-            temps1: dataEspagnol.banane,
-            temps2: dataEspagnol.banane2,
-            temps3: dataEspagnol.banane3,
-            temps4: dataEspagnol.banane4,
-            temps5: dataEspagnol.banane5,
-            temps6: dataEspagnol.banane6,
-            temps7: dataEspagnol.banane7,
-            type1: dataEspagnol.kiwi,
-            type2: dataEspagnol.kiwi2, 
-            type3: dataEspagnol.kiwi3,
+            temps1: dataLangue.banane,
+            temps2: dataLangue.banane2,
+            temps3: dataLangue.banane3,
+            temps4: dataLangue.banane4,
+            temps5: dataLangue.banane5,
+            temps6: dataLangue.banane6,
+            temps7: dataLangue.banane7,
+            type1: dataLangue.kiwi,
+            type2: dataLangue.kiwi2, 
+            type3: dataLangue.kiwi3,
         }));
-    }, [dataEspagnol]);
+    }, [dataLangue]);
 
     const handleChange = (e) => {
         const { id, checked } = e.target;
@@ -156,4 +156,4 @@ const ParametersContainer = ({dataEspagnol, handleSubmit}) => {
 
 };
 
-export default ParametersContainer;
+export default ParametersContainerEs;

@@ -123,9 +123,11 @@ def it():
 
     rappel = ""
 
-    verif = request.form.get("temps")
 
-    if verif == "futur" or verif == "conditionnel" or verif == "présent" or verif == "imparfait" or verif == "passé simple":
+    verif = request.form.get("temps")
+    print(verif)
+
+    if verif is not None:
 
         session["listActiveTimesItalian"] = request.form.getlist("temps")
         session["timeItalian"] = random.choice(session["listActiveTimesItalian"])
