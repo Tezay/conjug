@@ -125,7 +125,6 @@ def it():
 
 
     verif = request.form.get("temps")
-    print(verif)
 
     if verif is not None:
 
@@ -214,9 +213,6 @@ def it():
             session["erreur_verbItalian"] += [session["verbItalian"]]
             session["erreur_pronounsItalian"] += [session["pronounsItalian"]]
 
-            if not ("compteurItalian" in session):
-                session["compteurItalian"] = 0
-
     verb_type = request.form.get("drone")
 
     if request.form.get("continue") is not None or verb_type is not None:
@@ -281,6 +277,9 @@ def it():
 
         if "compteurItalian" in session:
             session["compteurItalian"] += 1
+
+        elif len(session["erreur_verbItalian"]) > 0:
+            session["compteurItalian"] = 0
 
     return {
         "time": session["timeItalian"],
@@ -406,9 +405,6 @@ def es():
             session["erreur_verbSpanish"] += [session["verbSpanish"]]
             session["erreur_pronounsSpanish"] += [session["pronounsSpanish"]]
 
-            if not ("compteurSpanish" in session):
-                session["compteurSpanish"] = 0
-
     verb_type = request.form.get("drone")
 
     if request.form.get("continue") is not None or verb_type is not None:
@@ -473,6 +469,9 @@ def es():
 
         if "compteurSpanish" in session:
             session["compteurSpanish"] += 1
+
+        elif len(session["erreur_verbSpanish"]) > 0:
+            session["compteurSpanish"] = 0
 
     return {
         "time": session["timeSpanish"],
