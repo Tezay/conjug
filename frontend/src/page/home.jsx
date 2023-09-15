@@ -45,9 +45,6 @@ const Home = () => {
 
                 <div class="right-image-decor"></div>
 
-
-            <Carrousel/>
-
         <Footer />
 
    </>

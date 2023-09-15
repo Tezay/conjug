@@ -6,7 +6,7 @@
 	align-items: center;
 }
 
-.container {
+#login-container {
 	background: #f6f5f7;
 	margin-top: 100px;
 	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
@@ -45,7 +45,7 @@
 	padding:3px;
 }
 
-button.ghost .connexionButton, .connexionButton {
+button.ghost #signIn, button.ghost #signUp, #signIn, #signUp {
 	border-radius: 24px;
 	border: 1px solid #fb923c;
 	background-color: #fb923c;
@@ -74,7 +74,7 @@ button:hover {
     box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.3);
 }
 
-button.ghost .connexionButton {
+button.ghost #signIn, button.ghost #signUp {
 	background-color: transparent;
 	border-color: #FFFFFF;
 }
