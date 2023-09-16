@@ -544,7 +544,6 @@ def signup():
     models.addUser(email, False, mailtoken, firstname, lastname, username, password, etablissement, 0, "0",
                    date_creation, logo, 1, 0, 0, 0)
     session["username"] = username
-    flash("Bienvenue et bonne conjugaison")
 
     return {
         "retour": "trueCreation"
