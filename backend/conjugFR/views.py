@@ -312,7 +312,7 @@ def es():
     que c'est une bonne réponse sinon renvoie la correction
 
     renvoie aussi un verbe ou l'utilisateur c'est déjà trompé(système de rappel d'erreur) 3 verbes après que l'utilisateur se soient trompé"""
-
+    print("test")
     before_request()
 
     rappel = ""
