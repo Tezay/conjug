@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Header from "./components/header";
 import WelcomeArea from "./components/home/welcomeArea";
 import Card from "./components/home/card";
-import Carrousel from "./components/home/carrousel";
+// import Carrousel from "./components/home/carrousel";
 import Footer from "./components/home/footerHome";
 
 import "../static/css/style.css";
