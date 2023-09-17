@@ -6,13 +6,12 @@ const Footer = () => {
             <footer class="footer">
                 <div class="container">
                     <div class="copyright">
-                        <p>© 2023 Conjug.fr</p>
+                        <p>conjug.fr © 2023</p>
                     </div>
                     <div class="complementary-links">
                         <ul class="list-inline text-right">
-                            <li><a href="">Contact</a></li>
-                            <li><a href="">Equipe</a></li>
-                            <li><a href="https://julesferry-cannes.fr/" target="blank">Jules Ferry</a></li>
+                            <li><a href=""><p>Contact</p></a></li>
+                            <li><a href="https://julesferry-cannes.fr/" target="blank"><p>Jules Ferry</p></a></li>
                         </ul>
                     </div>
                 </div>

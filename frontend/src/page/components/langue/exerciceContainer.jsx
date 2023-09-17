@@ -10,7 +10,7 @@ const ExerciceContainer = ({dataLangue, inputText, handleSubmit, handleInputChan
         <>
             <div class="exercice-container">
                     <div class="exercice-title">
-                        <h1>Conjugue le verbe</h1>
+                        <h1 class="instruction">Conjugue le verbe suivant</h1>
                     </div>
                     <div class="exercice-section">
                         <div class="exercice-question">
@@ -41,7 +41,7 @@ const ExerciceContainer = ({dataLangue, inputText, handleSubmit, handleInputChan
                                 {dataLangue.reponseUser == "" ? (
                                     <input value={inputText} type="text" id="response" name="reponse" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" lang="es" placeholder="Entrer le verbe conjugué" onChange={handleInputChange} />
                                 ) : (
-                                    <input value={dataLangue.reponseVerb} type="text" id="response" name="reponse" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" lang="es" placeholder="Entrer le verbe conjugué" readonly/>
+                                    <input value={dataLangue.reponseVerb} type="text" id="response" name="reponse" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" lang="es" placeholder="Entrer le verbe conjugué" readonly disabled={true}/>
                                 )}
                             </div>
                         </form>

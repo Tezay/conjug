@@ -14,7 +14,7 @@ const Footer = () => {
                             <div class="sub-footer">
                                 <p>conjug.fr &copy; 2023
 
-                                | créé par le lycée <Link target="blank" to="https://julesferry-cannes.fr/">Jules Ferry</Link></p>
+                                | créé par Cédric & Eliot pour le lycée <Link target="blank" to="https://julesferry-cannes.fr/">Jules Ferry</Link></p>
                             </div>
                         </div>
                     </div>

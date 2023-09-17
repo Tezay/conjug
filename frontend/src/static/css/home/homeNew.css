@@ -616,7 +616,7 @@ button.main-button:hover {
 .welcome-area .header-text p {
   font-weight: 200;
   font-size: 22px;
-  color: #7a7a7a;
+  color: #5b5b5b;
   line-height: 30px;
   letter-spacing: 0.25px;
 
@@ -638,7 +638,7 @@ button.main-button:hover {
   align-items: center;
   border-radius: 20px;
   background-color: #edebeb;
-  margin: 50px;
+  margin: 50px 0px;
   width: 70%;
   justify-content: space-between;
 }
@@ -717,13 +717,20 @@ button.main-button:hover {
 }
 
 @media (max-width: 810px) {
+
+  .welcome-area .row {
+    margin-left: 0px;
+  }
+
   .welcome-area {
     background-image: none;
+    min-height: 500px;
+    width: 300px;
   }
 
   .welcome-area .header-text {
-    padding-top: 10%;
-    margin-left: 0;
+    padding-top: 0;
+    margin-left: 10%;
     text-shadow: none;
   }
 
@@ -775,18 +782,6 @@ about
   gap: 20px;
 }
 
-@media (max-width: 992px) {
-  .features-item {
-    margin-bottom: 45px;
-  }
-
-  #about .row {
-    display: flex;
-    flex-direction: column;
-    padding: 100px 0px;
-  }
-}
-
 .features-item {
   border-radius: 16px;
   padding: 60px 30px;
@@ -825,6 +820,23 @@ about
   display: inline-block;
 }
 
+
+@media (max-width: 992px) {
+  .features-item {
+    margin-bottom: 0px;
+    padding: 40px 10px;
+  }
+
+  #about .row {
+    display: flex;
+    flex-direction: column;
+    padding: 100px 0px;
+  }
+
+  #about {
+    padding: 0px 0px 0px 0px;
+  }
+}
 
 /*
 ---------------------------------------------

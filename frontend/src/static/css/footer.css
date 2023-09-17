@@ -2,7 +2,7 @@
 
 .footer {
     background-color: #ECEFF4;
-    color: #8d929a;
+    color: #333;
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -20,16 +20,13 @@
     height: 100%;
 }
   
-.footer p, .footer li {
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    font-weight: bold;
+.footer p {
+    font-size: 0.7rem;
+    margin-right: 20px;
 }
-  
-  
+
 .footer ul li {
     display: inline-block;
-    margin-left: 20px;
 }
   
 .footer ul li:first-child {
