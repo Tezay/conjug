@@ -1,0 +1,2 @@
+# Ignore les fichier javascript importés pour la page d'accueil
+conjugFR/static/js/home/** linguist-vendored
