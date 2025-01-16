@@ -540,7 +540,7 @@ def signup():
     password = hashing.hash_value(request.form.get("password"), salt='abcd')
     etablissement = request.form.get("etablissement")
     date_creation = models.datetime.now().strftime('%d/%m/%Y')
-    logo = "https://i.ibb.co/6ydMJYc/mexicain.png"
+    logo = "/static/media/mexicain.a7c4569edfe66c602692.png"
     models.addUser(email, False, mailtoken, firstname, lastname, username, password, etablissement, 0, "0",
                    date_creation, logo, 1, 0, 0, 0)
     session["username"] = username
