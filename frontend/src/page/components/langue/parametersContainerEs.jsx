@@ -6,7 +6,7 @@ const ParametersContainerEs = ({dataLangue, handleSubmit}) => {
 
     const [tempsValues, setTempsValues] = useState({
         temps1: dataLangue.banane,
-        temps2: dataLangue.banan2,
+        temps2: dataLangue.banane2,
         temps3: dataLangue.banane3,
         temps4: dataLangue.banane4,
         temps5: dataLangue.banane5,

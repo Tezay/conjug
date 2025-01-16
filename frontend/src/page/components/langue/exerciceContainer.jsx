@@ -15,7 +15,7 @@ const ExerciceContainer = ({dataLangue, inputText, handleSubmit, handleInputChan
                     <div class="exercice-section">
                         <div class="exercice-question">
                             <div class="exercice-image">
-                                <img src="https://cdn.discordapp.com/attachments/1098726716798673016/1099104373650497647/mexicain.png"/>
+                                <img src="https://i.ibb.co/6ydMJYc/mexicain.png"/>
                             </div>
                             
                             { dataLangue.rappel != "" ? (
