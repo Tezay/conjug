@@ -1,3 +1,5 @@
+import logo from "../../../static/img/mexicain.png"
+
 const ExerciceContainer = ({dataLangue, inputText, handleSubmit, handleInputChange}) => {
 
     const insertCharacter = (lettre) => {
@@ -15,7 +17,7 @@ const ExerciceContainer = ({dataLangue, inputText, handleSubmit, handleInputChan
                     <div class="exercice-section">
                         <div class="exercice-question">
                             <div class="exercice-image">
-                                <img src="https://i.ibb.co/6ydMJYc/mexicain.png"/>
+                                <img src={logo}/>
                             </div>
                             
                             { dataLangue.rappel != "" ? (

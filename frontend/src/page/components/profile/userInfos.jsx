@@ -1,10 +1,9 @@
-import { Link } from "react-router-dom";
-
 import profile from "../../../static/assets/profile.svg"
 import clock from "../../../static/assets/clock.svg"
 import pin from "../../../static/assets/pin.svg"
 import share from "../../../static/assets/share.svg"
 import logout from "../../../static/assets/logout.svg"
+import logo from "../../../static/img/mexicain.png"
 
 const UserInfos = ({dataProfile, handleSubmit}) => {
 
@@ -12,7 +11,7 @@ const UserInfos = ({dataProfile, handleSubmit}) => {
         <>
             <div class="userInfos">
                 <div class="userInfosContainer">
-                    <img src="https://i.ibb.co/6ydMJYc/mexicain.png" alt="Logo" id="userIcon" />
+                    <img src={logo} alt="Logo" id="userIcon" />
                     <div class="userInfoFields">
                         <div class="userInfosProfile">
                             <img src={profile} class="icon" alt="Profile Icon" />
