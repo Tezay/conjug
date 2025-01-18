@@ -5,7 +5,7 @@ import {
   RouterProvider
 } from 'react-router-dom';
 
-import Home from './page/home';
+import Home from "./page/home";
 import Espagnol from "./page/espagnol";
 import Italien from "./page/italien";
 import Connexion from "./page/login";
