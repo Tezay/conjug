@@ -5,7 +5,7 @@ from flask_hashing import Hashing
 
 db = SQLAlchemy()
 login_manager = LoginManager()
-hashing = Hashing(app)
+hashing = Hashing()
 
 def create_app():
     app = Flask(__name__)
@@ -13,6 +13,7 @@ def create_app():
 
     db.init_app(app)
     login_manager.init_app(app)
+    hashing.init_app(app)
 
     from .Views.main_views import home_bp
     from .Views.auth_views import auth_bp
