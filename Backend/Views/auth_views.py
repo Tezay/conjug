@@ -1,13 +1,12 @@
 from flask import Blueprint, request
 from flask_login import login_user, logout_user, login_required
 
+from Backend import login_manager, hashing
 from Backend.Models import User
 from Backend.Services.auth_services import create_user, verify_signup, verify_login, verify_email, change_password, \
-    add_token
-from Backend import login_manager, hashing
+    add_token, mail
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
-
 
 ### Connexion ###
 

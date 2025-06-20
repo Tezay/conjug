@@ -32,3 +32,43 @@ def update_leaderboard():
         entry.rank = rank
 
     db.session.commit()
+
+
+def classement_joueur():
+
+    leaderboard_entries = Leaderboard.query.filter(Leaderboard.xp>0).order_by(Leaderboard.xp.desc()).all()
+
+    classement_joueur = {}
+
+    for rank, entry  in enumerate(leaderboard_entries, start=1):
+
+        classement_joueur[entry.user.username] = rank
+
+    return classement_joueur
+
+def classement_semaine():
+
+    leaderboard_entries = Leaderboard.query.filter(Leaderboard.xp_week>0).order_by(Leaderboard.xp_week.desc()).all()
+
+    classement_semaine = {}
+
+    for rank, entry  in enumerate(leaderboard_entries, start=1):
+
+        classement_semaine[entry.user.username] = rank
+
+    return classement_semaine
+
+def classement_mois():
+
+    leaderboard_entries = Leaderboard.query.filter(Leaderboard.xp_month>0).order_by(Leaderboard.xp_month.desc()).all()
+
+    classement_mois = {}
+
+    for rank, entry  in enumerate(leaderboard_entries, start=1):
+
+        classement_mois[entry.user.username] = rank
+
+    return classement_mois
+
+
+

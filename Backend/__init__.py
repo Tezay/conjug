@@ -15,6 +15,8 @@ def create_app():
     login_manager.init_app(app)
     hashing.init_app(app)
 
+    login_manager.login_view = '/home'
+
     from .Views.main_views import home_bp
     from .Views.auth_views import auth_bp
     from .Views.user_views import user_bp
