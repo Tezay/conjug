@@ -1,7 +1,6 @@
 from Backend import db
 
 class Leaderboard(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), unique = True, nullable=False)
     level = db.Column(db.String(length=100), nullable=False)
     xp = db.Column(db.Integer, nullable=False)

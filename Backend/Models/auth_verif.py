@@ -1,7 +1,6 @@
 from Backend import db
 
 class AuthV(db.Model):
-    id=db.Column(db.Integer, primary_key=True)
     user_id=db.Column(db.Integer, db.ForeignKey('user.id'), unique=True, nullable=False)
     verif = db.Column(db.Boolean, nullable=False)
     token = db.Column(db.String(length=24))
