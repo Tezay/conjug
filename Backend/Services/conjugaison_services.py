@@ -10,6 +10,11 @@ SESSION_KEY_PREFIX = "it_"
 def _session_key(name):
     return SESSION_KEY_PREFIX + name
 
+def set_default():
+    session.setdefault(_session_key("current_time"), "temps")
+    session.setdefault(_session_key("current_pronoun"), "pronoms")
+    session.setdefault(_session_key("current_verb"), "verbe")
+
 def init_active_times(form_data):
     selected = form_data.getlist("temps")
     session[_session_key("active_times")] = selected
@@ -93,6 +98,7 @@ def select_new_verb():
 
 def apply_error_repetition():
     counter = session.get(_session_key("counter"), 0)
+    reset_error()
     if counter >= 2:
         session[_session_key("current_time")] = session[_session_key("error_times")].pop(0)
         session[_session_key("current_pronoun")] = session[_session_key("error_pronouns")].pop(0)
@@ -104,3 +110,9 @@ def apply_error_repetition():
     session[_session_key("current_pronoun")] = rd.choice(PRONOUNS_LIST)
     session[_session_key("counter")] = counter + 1 # if session.get(_session_key("is_correct")) else 0
     return ""
+
+def reset_error():
+    if session.get(_session_key("error_times")) and len(session[_session_key("error_times")])>= 5:
+        session.pop(_session_key("error_times"), None)
+        session.pop(_session_key("error_pronouns"), None)
+        session.pop(_session_key("error_verbs"), None)
