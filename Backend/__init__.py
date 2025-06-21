@@ -23,11 +23,13 @@ def create_app():
     from .Views.auth_views import auth_bp
     from .Views.user_views import user_bp
     from .Views.leaderboard_views import leaderboard_bp
+    from .Views.conjugaison_views import conjugaison_bp
 
     app.register_blueprint(home_bp)
     app.register_blueprint(auth_bp)
     app.register_blueprint(user_bp)
     app.register_blueprint(leaderboard_bp)
+    app.register_blueprint(conjugaison_bp)
 
     @app.before_request
     def before_every_request():
