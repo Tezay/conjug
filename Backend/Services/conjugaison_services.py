@@ -28,19 +28,17 @@ def init_verb_type(form_data):
     session[_session_key("checked_regulier")] = (session[_session_key("verb_type")] == "regulier")
     session[_session_key("checked_irregulier")] = (session[_session_key("verb_type")] == "irregulier")
     session[_session_key("checked_tous")] = (session[_session_key("verb_type")] == "tous")
-    if session[_session_key("checked_tous")]:
-        session[_session_key("verb_type")] = "irregulier" if rd.random() < 0.5 else "regulier"
 
 def handle_user_response(form_data):
     answer = form_data.get("reponse", "").strip().lower().replace(" ", "")
     session[_session_key("user_answer")] = answer
 
-    verb = session.get(_session_key("current_verb"), "")
+    verb, verb_type = session.get(_session_key("current_verb&current_type"), ("", ""))
     tense = session[_session_key("current_time")]
     pronoun = session[_session_key("current_pronoun")]
 
 
-    if session.get(_session_key("verb_type")) == "irregulier":
+    if verb_type == "irregulier":
         expected = correspondance_time_irregular_italian[tense]()[PRONOUNS_LIST.index(pronoun)][
             correspondance_verb_italian.index(verb)
         ]
@@ -72,46 +70,37 @@ def evaluate_regular(verb, tense, pronoun):
         stem_correction = correspondance_time_italian[tense]()[PRONOUNS_LIST.index(pronoun)][idx]
 
     base = verb[:-3]
-    user_ans = session[_session_key("user_answer")]
 
-    if user_ans == base + stem_correction:
-        verify_answer(base + stem_correction, xp=1)
-    elif verb.endswith("c") and user_ans == base + "h" + stem_correction:
-        verify_answer(base + "h" + stem_correction, xp=1)
-    else:
-        correct_full = base + ("h" if verb.endswith("c") else "") + stem_correction
-        session[_session_key("correct_answer")] = correct_full
-        session[_session_key("is_correct")] = False
-        record_error()
+    correct_full = base + ("h" if verb.endswith("c") else "") + stem_correction
+    verify_answer(correct_full, xp=1)
 
 def record_error():
     session.setdefault(_session_key("error_times"), []).append(session[_session_key("current_time")])
     session.setdefault(_session_key("error_pronouns"), []).append(session[_session_key("current_pronoun")])
-    session.setdefault(_session_key("error_verbs"), []).append(session[_session_key("current_verb")])
+    session.setdefault(_session_key("error_verbs"), []).append(session[_session_key("current_verb&current_type")])
 
 def select_new_verb():
     vtype = session.get(_session_key("verb_type"))
     if vtype == "tous":
         choice_ir = rd.choice([True, False])
-        session[_session_key("verb_type")] = "irregulier" if choice_ir else "regulier"
+        vtype = "irregulier" if choice_ir else "regulier"
 
-    if session[_session_key("verb_type")] == "irregulier" or vtype == "irregulier":
-        session[_session_key("current_verb")] = csv_reader_irregular_italian.verb_choice()
+    if vtype == "irregulier":
+        session[_session_key("current_verb&current_type")] = (csv_reader_irregular_italian.verb_choice(), "irregulier")
 
     else:
-        session[_session_key("current_verb")] = csv_reader_italian.verb_choice()
+        session[_session_key("current_verb&current_type")] = (csv_reader_italian.verb_choice(), "regulier")
 
 def apply_error_repetition():
     counter = session.get(_session_key("counter"), 0)
     if counter >= 2:
         session[_session_key("current_time")] = session[_session_key("error_times")].pop(0)
         session[_session_key("current_pronoun")] = session[_session_key("error_pronouns")].pop(0)
-        session[_session_key("current_verb")] = session[_session_key("error_verbs")].pop(0)
-        # il manque si c'est un ragulier ou un irrégulier
+        session[_session_key("current_verb&current_type")] = session[_session_key("error_verbs")].pop(0)
         session.pop(_session_key("counter"), None)
         return "Tu as fait une erreur récemment sur ce verbe, conjugue-le à nouveau !"
 
     session[_session_key("current_time")] = rd.choice(session[_session_key("active_times")])
     session[_session_key("current_pronoun")] = rd.choice(PRONOUNS_LIST)
-    session[_session_key("counter")] = counter + 1 if session.get(_session_key("is_correct")) else 0
+    session[_session_key("counter")] = counter + 1 # if session.get(_session_key("is_correct")) else 0
     return ""
