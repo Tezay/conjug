@@ -1,6 +1,7 @@
 from Backend import db
 
 class Conjugaison_irregulier(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
     language = db.Column(db.String(length=3), unique = True, nullable=False)
     infinitif = db.Column(db.String(length=100), nullable=False)
     tense = db.Column(db.String(length=100), nullable=False)

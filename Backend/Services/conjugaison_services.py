@@ -1,16 +1,14 @@
 import random as rd
-from flask import session
+from flask import session, request
 from flask_login import current_user
 
 from Backend.Services.leaderboard_services import add_xp
-from Backend.Models import Conjugaison_regulier, Conjugaison_irregulier
-
-language_dict = {"it": 0, "es": 1}
-
-SESSION_KEY_PREFIX = "it_"
+from Backend.Models import Conjugaison_regulier, Conjugaison_irregulier, Conjugaison_verbe
 
 def _session_key(name):
-    return SESSION_KEY_PREFIX + name
+    endpoint = request.endpoint or ""
+    prefix = endpoint.split('.')[-1]   # 'it' ou 'es'
+    return f"{prefix}_{name}"
 
 def set_default():
     session.setdefault(_session_key("current_time"), "temps")
@@ -46,13 +44,13 @@ def handle_user_response(form_data, pronouns_dict, language):
 
 
     if verb_type == "irregulier":
-        expected = irregulier_correct(tense, pronoun, pronouns_dict, verb, language)
+        expected = irregulier_expected(tense, pronoun, pronouns_dict, verb, language)
         verify_answer(expected, xp=2)
     else:
         if language == "it":
             it_evaluate_regular(verb, tense, pronoun, pronouns_dict)
         elif language == "es":
-            es_evaluate_regular(verb, pronoun, pronouns_dict)
+            es_evaluate_regular(verb, tense, pronoun, pronouns_dict)
 
 
 def verify_answer(expected, xp):
@@ -103,11 +101,10 @@ def select_new_verb(language):
         choice_ir = rd.choice([True, False])
         vtype = "irregulier" if choice_ir else "regulier"
 
-    if vtype == "irregulier":
-        session[_session_key("current_verb&current_type")] = (csv_reader_irregular_italian.verb_choice(), "irregulier")
+    verb = verb_choice(vtype, language)
 
-    else:
-        session[_session_key("current_verb&current_type")] = (csv_reader_italian.verb_choice(), "regulier")
+    session[_session_key("current_verb&current_type")] = (verb, vtype)
+
 
 def apply_error_repetition(pronouns_dict):
     counter = session.get(_session_key("counter"), 0)
@@ -131,17 +128,19 @@ def reset_error():
         session.pop(_session_key("error_verbs"), None)
 
 def inflection_ending(tense, pronoun, pronouns_dict, language):
-    language_id = language_dict[language]
 
-    tense_inflection = Conjugaison_regulier.query.filter_by(language=language_id, tense=tense).first()
+    tense_inflection = Conjugaison_regulier.query.filter_by(language=language, tense=tense).first()
     name_pronoun = pronouns_dict[pronoun]
 
     return getattr(tense_inflection, name_pronoun, None)
 
-def irregulier_correct(tense, pronoun, pronouns_dict, infinitif, language):
-    language_id = language_dict[language]
+def irregulier_expected(tense, pronoun, pronouns_dict, infinitif, language):
 
-    tense_inflection = Conjugaison_irregulier.query.filter_by(language=language_id, tense=tense, infinitif=infinitif).first()
+    tense_inflection = Conjugaison_irregulier.query.filter_by(language=language, tense=tense, infinitif=infinitif).first()
     name_pronoun = pronouns_dict[pronoun]
 
     return getattr(tense_inflection, name_pronoun, None)
+
+def verb_choice(verb_type, language):
+    verbs = Conjugaison_verbe.query.filter_by(language=language, verb_type=verb_type).all()
+    return rd.choice(verbs).verbs

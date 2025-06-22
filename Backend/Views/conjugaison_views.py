@@ -3,7 +3,7 @@ from flask import Blueprint, session, request
 from Backend.Services.conjugaison_services import (init_active_times, sync_time_checkboxes, init_verb_type, handle_user_response,
                                                    select_new_verb, apply_error_repetition, set_default)
 
-conjugaison_bp = Blueprint('auth', __name__)
+conjugaison_bp = Blueprint('conjugaison', __name__)
 
 it_time_keys = ["present", "futur", "conditionnel", "imparfait", "passe_simple"]
 it_pronouns_dict = {"io": "prem_pers_sing", "tu": "deux_pers_sing", "lui": "trois_pers_sing",
@@ -32,7 +32,7 @@ def it():
         handle_user_response(request.form, it_pronouns_dict, "it")
 
     if "continue" in request.form or "verb_type" in request.form:
-        select_new_verb()
+        select_new_verb("it")
         message = apply_error_repetition(it_pronouns_dict)
     else:
         message = ""
@@ -45,5 +45,35 @@ def it():
         "correct_answer": session.get("it_correct_answer", ""),
         "checked_times": {t: session[f"it_checked_{t}"] for t in it_time_keys},
         "verb_type": session["it_verb_type"],
+        "message": message,
+    }
+
+@conjugaison_bp.route('/es', methods=['GET', 'POST'])
+def es():
+
+    set_default()
+
+    if "temps" in request.form:
+        init_active_times(request.form, es_pronouns_dict)
+        sync_time_checkboxes(es_time_keys)
+        init_verb_type(request.form)
+
+    if "reponse" in request.form:
+        handle_user_response(request.form, it_pronouns_dict, "es")
+
+    if "continue" in request.form or "verb_type" in request.form:
+        select_new_verb("es")
+        message = apply_error_repetition(it_pronouns_dict)
+    else:
+        message = ""
+
+    return {
+        "time": session["es_current_time"],
+        "pronouns": session["es_current_pronoun"],
+        "verb": session["es_current_verb&current_type"][0], #ne chosis que le verbe, pas son type
+        "is_correct": session["es_is_correct"],
+        "correct_answer": session.get("es_correct_answer", ""),
+        "checked_times": {t: session[f"es_checked_{t}"] for t in es_time_keys},
+        "verb_type": session["es_verb_type"],
         "message": message,
     }
