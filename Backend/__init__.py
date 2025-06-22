@@ -29,6 +29,9 @@ def create_app():
     app.register_blueprint(leaderboard_bp)
     app.register_blueprint(conjugaison_bp)
 
+    with app.app_context():
+        db.create_all()
+
     # @app.before_request
     # def before_every_request():
     #     session.setdefault('langue', 'fr')

@@ -37,7 +37,7 @@ def it():
 
     return {
         "time": session.get("it_current_time", "temps"),
-        "pronouns": session.get("it_current_pronoun", "pronoms"),
+        "pronouns": session.get("it_current_pronoun", "pronom"),
         "verb": session.get("it_current_verb&current_type", ("verbe",))[0], #ne chosis que le verbe et pas son type
         "is_correct": session.get("it_is_correct", None),
         "correct_answer": session.get("it_correct_answer", None),
@@ -48,8 +48,6 @@ def it():
 
 @conjugaison_bp.route('/es', methods=['GET', 'POST'])
 def es():
-
-    set_default()
 
     if "temps" in request.form:
         init_active_times(request.form, es_pronouns_dict)
