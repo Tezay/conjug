@@ -6,6 +6,18 @@ from Backend.Utils.helpers import utilisateurs
 main_bp = Blueprint('main', __name__,)
 
 
+@main_bp.route('/status', methods=['GET'])
+def auth_status():
+    if current_user.is_authenticated:
+        return {
+            "status": "connected",
+            "username": current_user.username
+        }
+    else:
+        return {
+            "status": "connexion"
+        }
+
 @main_bp.route("/home", methods=['GET', 'POST'])
 def home():
 
@@ -18,14 +30,4 @@ def search():
         "utilisateurs": utilisateurs(),
     }
 
-@main_bp.route('/status', methods=['GET'])
-def auth_status():
-    if current_user.is_authenticated:
-        return {
-            "status": "connected",
-            "username": current_user.username
-        }
-    else:
-        return {
-            "status": "connexion"
-        }
+

@@ -5,6 +5,7 @@ from Backend.Services.conjugaison_services import (init_active_times, sync_time_
 
 conjugaison_bp = Blueprint('conjugaison', __name__)
 
+
 it_time_keys = ["present", "futur", "conditionnel", "imparfait", "passe_simple"]
 it_pronouns_dict = {"io": "prem_pers_sing", "tu": "deux_pers_sing", "lui": "trois_pers_sing",
                     "noi": "prem_pers_plur", "voi": "deux_pers_plur", "loro": "trois_pers_plur"}

@@ -8,6 +8,7 @@ from Backend.Services.auth_services import create_user, verify_signup, verify_lo
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
+
 ### Connexion ###
 
 @login_manager.user_loader
@@ -44,6 +45,8 @@ def signup():
             "retour": res
         }
 
+    return{}
+
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -66,6 +69,8 @@ def login():
         return {
             "retour": "falseAuth"
         }
+
+    return {}
 
 @auth_bp.route('/logout')
 @login_required
@@ -97,6 +102,7 @@ def verify_user(username, mail_token):
         return {
             "retour": "false"
         }
+
 
 @auth_bp.route('/forget_password/<username>/<mail_token>', methods=['GET', 'POST'])
 def forget_password(username, mail_token):
@@ -133,4 +139,5 @@ def send_mail_password():
 
         mail(email, "mail_forget_password.html", user.first_name, user.last_name, user.username, mail_token)
 
+    return {}
 
