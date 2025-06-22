@@ -10,11 +10,6 @@ def _session_key(name):
     prefix = endpoint.split('.')[-1]   # 'it' ou 'es'
     return f"{prefix}_{name}"
 
-def set_default():
-    session.setdefault(_session_key("current_time"), "temps")
-    session.setdefault(_session_key("current_pronoun"), "pronoms")
-    session.setdefault(_session_key("current_verb"), "verbe")
-
 def init_active_times(form_data, pronouns_dict):
     selected = form_data.getlist("temps")
     session[_session_key("active_times")] = selected
@@ -119,7 +114,7 @@ def apply_error_repetition(pronouns_dict):
     session[_session_key("current_time")] = rd.choice(session[_session_key("active_times")])
     session[_session_key("current_pronoun")] = rd.choice(list(pronouns_dict.keys()))
     session[_session_key("counter")] = counter + 1 # if session.get(_session_key("is_correct")) else 0
-    return ""
+    return None
 
 def reset_error():
     if session.get(_session_key("error_times")) and len(session[_session_key("error_times")])>= 5:
