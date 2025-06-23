@@ -6,8 +6,8 @@ from Backend.Services.leaderboard_services import add_xp
 from Backend.Models import Conjugaison_regulier, Conjugaison_irregulier, Conjugaison_verbe
 
 def _session_key(name):
-    prefix = prefix()
-    return f"{prefix}_{name}"
+    language = prefix()
+    return f"{language}_{name}"
 
 def prefix():
     endpoint = request.endpoint or ""
