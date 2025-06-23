@@ -24,7 +24,8 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/leaderboard" element={<LeaderboardPage />} />
-            <Route path="/conjugaison" element={<ConjugaisonPage />} />
+            <Route path="/it" element={<ConjugaisonPage key="it" />} />
+            <Route path="/es" element={<ConjugaisonPage key="es" />} />
           </Routes>
         </main>
         <Footer />

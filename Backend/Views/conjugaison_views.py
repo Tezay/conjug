@@ -14,6 +14,12 @@ es_time_keys = ["present_ind", "futur", "conditionnel", "present_subj", "imparfa
 es_pronouns_dict = {"yo": "prem_pers_sing", "tú": "deux_pers_sing", "él": "trois_pers_sing",
                     "nosotros": "prem_pers_plur", "vosotros": "deux_pers_plur", "ellos": "trois_pers_plur"}
 
+def clear_answer_session(lang_prefix):
+    """Clears session keys related to the previous answer."""
+    session.pop(f"{lang_prefix}_is_correct", None)
+    session.pop(f"{lang_prefix}_correct_answer", None)
+    session.pop(f"{lang_prefix}_user_answer", None)
+
 @conjugaison_bp.route('/de', methods=['GET', 'POST'])
 def de():
 
@@ -21,56 +27,100 @@ def de():
 
 @conjugaison_bp.route('/it', methods=['GET', 'POST'])
 def it():
+    if request.method == 'GET':
+        return {"time_keys": it_time_keys}
 
+    message = None
     if "temps" in request.form:
+        clear_answer_session("it")
         init_active_times(request.form, it_pronouns_dict)
         sync_time_checkboxes(it_time_keys)
         init_verb_type(request.form)
+        try:
+            select_new_verb("it")
+            message = apply_error_repetition(it_pronouns_dict)
+        except IndexError:
+            return {
+                "verb": None,
+                "message": "Aucun verbe disponible pour ces paramètres. Veuillez modifier votre sélection.",
+                "checked_times": {t: session.get(f"it_checked_{t}", False) for t in it_time_keys},
+                "verb_type": session.get("it_verb_type", "all"),
+            }
 
-    if "reponse" in request.form:
+    elif "reponse" in request.form:
         handle_user_response(request.form, it_pronouns_dict, "it")
 
-    if "continue" in request.form or "verb_type" in request.form:
-        select_new_verb("it")
-        message = apply_error_repetition(it_pronouns_dict)
-    else:
-        message = None
+    elif "continue" in request.form:
+        clear_answer_session("it")
+        try:
+            select_new_verb("it")
+            message = apply_error_repetition(it_pronouns_dict)
+        except IndexError:
+            return {
+                "verb": None,
+                "message": "Aucun verbe disponible pour ces paramètres. Veuillez modifier votre sélection.",
+                "checked_times": {t: session.get(f"it_checked_{t}", False) for t in it_time_keys},
+                "verb_type": session.get("it_verb_type", "all"),
+            }
 
     return {
-        "time": session.get("it_current_time", "temps"),
-        "pronouns": session.get("it_current_pronoun", "pronom"),
-        "verb": session.get("it_current_verb&current_type", ("verbe",))[0], #ne chosis que le verbe et pas son type
+        "time": session.get("it_current_time"),
+        "pronouns": session.get("it_current_pronoun"),
+        "verb": session.get("it_current_verb&current_type", ("",))[0],
         "is_correct": session.get("it_is_correct", None),
         "correct_answer": session.get("it_correct_answer", None),
-        "checked_times": {t: session.get(f"it_checked_{t}", None) for t in it_time_keys},
-        "verb_type": session.get("it_verb_type", None),
+        "user_answer": session.get("it_user_answer", ""),
+        "checked_times": {t: session.get(f"it_checked_{t}", False) for t in it_time_keys},
+        "verb_type": session.get("it_verb_type", "all"),
         "message": message,
     }
 
 @conjugaison_bp.route('/es', methods=['GET', 'POST'])
 def es():
+    if request.method == 'GET':
+        return {"time_keys": es_time_keys}
 
+    message = None
     if "temps" in request.form:
+        clear_answer_session("es")
         init_active_times(request.form, es_pronouns_dict)
         sync_time_checkboxes(es_time_keys)
         init_verb_type(request.form)
+        try:
+            select_new_verb("es")
+            message = apply_error_repetition(es_pronouns_dict)
+        except IndexError:
+            return {
+                "verb": None,
+                "message": "Aucun verbe disponible pour ces paramètres. Veuillez modifier votre sélection.",
+                "checked_times": {t: session.get(f"es_checked_{t}", False) for t in es_time_keys},
+                "verb_type": session.get("es_verb_type", "all"),
+            }
 
-    if "reponse" in request.form:
+    elif "reponse" in request.form:
         handle_user_response(request.form, es_pronouns_dict, "es")
 
-    if "continue" in request.form or "verb_type" in request.form:
-        select_new_verb("es")
-        message = apply_error_repetition(es_pronouns_dict)
-    else:
-        message = None
+    elif "continue" in request.form:
+        clear_answer_session("es")
+        try:
+            select_new_verb("es")
+            message = apply_error_repetition(es_pronouns_dict)
+        except IndexError:
+            return {
+                "verb": None,
+                "message": "Aucun verbe disponible pour ces paramètres. Veuillez modifier votre sélection.",
+                "checked_times": {t: session.get(f"es_checked_{t}", False) for t in es_time_keys},
+                "verb_type": session.get("es_verb_type", "all"),
+            }
 
     return {
-        "time": session.get("es_current_time", "temps"),
-        "pronouns": session.get("es_current_pronoun", "pronoms"),
-        "verb": session.get("es_current_verb&current_type", ("verbe",))[0], #ne chosis que le verbe et pas son type
+        "time": session.get("es_current_time"),
+        "pronouns": session.get("es_current_pronoun"),
+        "verb": session.get("es_current_verb&current_type", ("",))[0],
         "is_correct": session.get("es_is_correct", None),
         "correct_answer": session.get("es_correct_answer", None),
-        "checked_times": {t: session.get(f"es_checked_{t}", None) for t in es_time_keys},
-        "verb_type": session.get("es_verb_type", None),
+        "user_answer": session.get("es_user_answer", ""),
+        "checked_times": {t: session.get(f"es_checked_{t}", False) for t in es_time_keys},
+        "verb_type": session.get("es_verb_type", "all"),
         "message": message,
     }
