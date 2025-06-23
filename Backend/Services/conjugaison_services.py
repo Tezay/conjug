@@ -171,9 +171,9 @@ def apply_error_repetition(pronouns_dict):
 
 def reset_error():
     if session.get(_session_key("error_times")) and len(session[_session_key("error_times")])>= 5:
-        session[_session_key("error_times")] = session[_session_key("error_times")][-1]
-        session[_session_key("error_pronouns")] = session[_session_key("error_pronouns")][-1]
-        session[_session_key("error_verbs")] = session[_session_key("error_verbs")][-1]
+        session[_session_key("error_times")] = list(session[_session_key("error_times")][-1])
+        session[_session_key("error_pronouns")] = list(session[_session_key("error_pronouns")][-1])
+        session[_session_key("error_verbs")] = list(session[_session_key("error_verbs")][-1])
 
 def inflection_ending(tense, pronoun, pronouns_dict, language, verb_group):
     #print(f"DEBUG: Querying with - Language: {language}, Tense: {tense}, Verb Group: {verb_group}")
@@ -193,6 +193,7 @@ def irregulier_expected(tense, pronoun, pronouns_dict, infinitif, language):
 
 def verb_choice(verb_type, language):
     verbs = Conjugaison_verbe.query.filter_by(language=language, verb_type=verb_type).all()
+
     return rd.choice(verbs).verb
 
 def clear_answer_session():

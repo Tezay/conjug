@@ -38,7 +38,7 @@ def it():
                 "verb": None,
                 "message": "Aucun verbe disponible pour ces paramètres. Veuillez modifier votre sélection.",
                 "checked_times": {t: session.get(f"it_checked_{t}", False) for t in it_time_keys},
-                "verb_type": session.get("it_verb_type", "all"),
+                "verb_type": session.get("it_verb_type", "regulier"),
             }
 
     elif "reponse" in request.form:
@@ -54,7 +54,7 @@ def it():
                 "verb": None,
                 "message": "Aucun verbe disponible pour ces paramètres. Veuillez modifier votre sélection.",
                 "checked_times": {t: session.get(f"it_checked_{t}", False) for t in it_time_keys},
-                "verb_type": session.get("it_verb_type", "all"),
+                "verb_type": session.get("it_verb_type", "regulier"),
             }
 
     return {
@@ -65,7 +65,7 @@ def it():
         "correct_answer": session.get("it_correct_answer", None),
         "user_answer": session.get("it_user_answer", ""),
         "checked_times": {t: session.get(f"it_checked_{t}", False) for t in it_time_keys},
-        "verb_type": session.get("it_verb_type", "all"),
+        "verb_type": session.get("it_verb_type", "regulier"),
         "message": message,
     }
 
@@ -88,7 +88,7 @@ def es():
                 "verb": None,
                 "message": "Aucun verbe disponible pour ces paramètres. Veuillez modifier votre sélection.",
                 "checked_times": {t: session.get(f"es_checked_{t}", False) for t in es_time_keys},
-                "verb_type": session.get("es_verb_type", "all"),
+                "verb_type": session.get("es_verb_type", "regulier"),
             }
 
     elif "reponse" in request.form:
@@ -104,7 +104,7 @@ def es():
                 "verb": None,
                 "message": "Aucun verbe disponible pour ces paramètres. Veuillez modifier votre sélection.",
                 "checked_times": {t: session.get(f"es_checked_{t}", False) for t in es_time_keys},
-                "verb_type": session.get("es_verb_type", "tous"),
+                "verb_type": session.get("es_verb_type", "regulier"),
             }
 
     return {
@@ -115,6 +115,6 @@ def es():
         "correct_answer": session.get("es_correct_answer", None),
         "user_answer": session.get("es_user_answer", ""),
         "checked_times": {t: session.get(f"es_checked_{t}", False) for t in es_time_keys},
-        "verb_type": session.get("es_verb_type", "tous"),
+        "verb_type": session.get("es_verb_type", "regulier"),
         "message": message,
     }
