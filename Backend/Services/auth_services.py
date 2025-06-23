@@ -87,7 +87,7 @@ def mail(email, type, object1, object2, object3, object4):
     msg['From'] = "contact@conjug.fr"
     msg['To'] = email
 
-    with codecs.open('conjugFR/templates/' + type, 'r', encoding='utf-8') as f:
+    with codecs.open('...' + type, 'r', encoding='utf-8') as f:
         mail = f.read()
         mail = mail.format(prenom=object1, nom=object2, username=object3, token=object4)
 
