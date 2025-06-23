@@ -3,7 +3,7 @@ from flask import Blueprint
 from Backend.Services.leaderboard_services import classement_joueur
 from Backend.Models import User
 
-user_bp = Blueprint('user', __name__, url_prefix='/user')
+user_bp = Blueprint('user', __name__)
 
 
 @user_bp.route("/connexion", methods=['GET', 'POST'])
