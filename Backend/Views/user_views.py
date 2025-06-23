@@ -28,7 +28,6 @@ def profile(username):
             "xp": visite_user.xp,
             "rank": visite_user.rank,
             "classement_joueur": classement_joueur(),
-
         }
 
     return "User Not Found"
