@@ -1,3 +1,13 @@
+:root {
+  --primary-color: #f97316;
+  --secondary-color: #fb923c;
+  --background-color: #f8f9fa;
+  --text-color: #212529;
+  --card-bg-color: #ffffff;
+  --border-radius: 18px;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,6 +15,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 code {

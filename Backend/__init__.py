@@ -20,6 +20,8 @@ def create_app():
 
     login_manager.login_view = '/home'
 
+    from .Models.conjugaison_verbe import Conjugaison_verbe
+    from .Models.conjugaison_regulier import Conjugaison_regulier
     from .Views.main_views import main_bp
     from .Views.auth_views import auth_bp
     from .Views.user_views import user_bp

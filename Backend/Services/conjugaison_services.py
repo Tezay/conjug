@@ -11,7 +11,28 @@ def _session_key(name):
     return f"{prefix}_{name}"
 
 def init_active_times(form_data, pronouns_dict):
-    selected = form_data.getlist("temps")
+    # Initialise les temps actifs en fonction des données du formulaire
+    selected = []
+    
+    # Vérif les cases à cocher spécifiques pour les temps
+    for key, value in form_data.items():
+        if key in ["present_ind", "futur", "conditionnel", "present_subj", "imparfait_ind", "imparfait_subj", "passe_simple"]:
+            if value == 'on' or value == True:
+                selected.append(key)
+    
+    # Si aucun temps sélectionné : vérif si "temps" est dans données du formulaire
+    if not selected and "temps" in form_data:
+        general_temps = form_data.get("temps")
+        if general_temps == "true":
+            # Défini present_ind par défaut
+            selected = ["present_ind"]
+    
+    # Si rien de select utilise present_ind par défaut
+    if not selected:
+        selected = ["present_ind"]
+    
+    #print(f"DEBUG: Selected times: {selected}")
+    
     session[_session_key("active_times")] = selected
     session[_session_key("current_time")] = rd.choice(selected)
     session[_session_key("current_pronoun")] = rd.choice(list(pronouns_dict.keys()))
@@ -63,22 +84,42 @@ def verify_answer(expected, xp):
         record_error()
 
 def it_evaluate_regular(verb, tense, pronoun, pronouns_dict):
-    term = verb[-3:]
-    global_inflection = inflection_ending(tense, pronoun, pronouns_dict, "it")
-
-    if term == "rre":
-        inflection = "c" + global_inflection
-    else:
-        inflection = global_inflection
-
+    verb_group = verb[-3:]  # 'are', 'ere', 'ire'
     stem = verb[:-3]
 
-    correct_full = stem + ("h" if verb.endswith("c") else "") + inflection
+    # Récup le bon groupe de terminaison
+    global_inflection = inflection_ending(tense, pronoun, pronouns_dict, "it", verb_group)
+
+    # Si terminaison pas trouvée
+    if global_inflection is None:
+        session[_session_key("is_correct")] = False
+        session[_session_key("correct_answer")] = "Erreur: Terminaison non trouvée pour ce verbe/temps."
+        return
+
+    # Règle orthographique pour les verbes en -care / -gare
+    # pour maintenir le son dur 'c' ou 'g' (ex: cerco -> cerchi)
+    if verb_group == 'are' and (verb.endswith('care') or verb.endswith('gare')):
+        if global_inflection.startswith('e') or global_inflection.startswith('i'):
+            stem += 'h'
+
+    correct_full = stem + global_inflection
     verify_answer(correct_full, xp=1)
 
 def es_evaluate_regular(verb, tense, pronoun, pronouns_dict):
-    global_inflection = inflection_ending(tense, pronoun, pronouns_dict, "es")
+    verb_group = verb[-2:]  # 'ar', 'er', 'ir'
 
+    #print(f"DEBUG: Looking for - Language: es, Tense: {tense}, Verb Group: {verb_group}")
+    
+    # Récup le bon groupe de terminaison
+    global_inflection = inflection_ending(tense, pronoun, pronouns_dict, "es", verb_group)
+
+    # Si terminaison pas trouvée
+    if global_inflection is None:
+        session[_session_key("is_correct")] = False
+        session[_session_key("correct_answer")] = "Erreur: Terminaison non trouvée pour ce verbe/temps."
+        return
+
+    # Règle orthographique pour les verbes en -car / -gar
     if tense in ["futur", "conditionnel"]:
         correct_full = verb + global_inflection
     else:
@@ -104,13 +145,28 @@ def select_new_verb(language):
 def apply_error_repetition(pronouns_dict):
     counter = session.get(_session_key("counter"), 0)
     reset_error()
-    if counter >= 2:
-        session[_session_key("current_time")] = session[_session_key("error_times")].pop(0)
-        session[_session_key("current_pronoun")] = session[_session_key("error_pronouns")].pop(0)
-        session[_session_key("current_verb&current_type")] = session[_session_key("error_verbs")].pop(0)
+    
+    # Vérif si il y a des erreurs à répéter
+    error_times = session.get(_session_key("error_times"), [])
+    error_pronouns = session.get(_session_key("error_pronouns"), [])
+    error_verbs = session.get(_session_key("error_verbs"), [])
+    
+    # Si erreurs et compteur >= 2 : répète erreur
+    if counter >= 2 and error_times and error_pronouns and error_verbs:
+        session[_session_key("current_time")] = error_times.pop(0)
+        session[_session_key("current_pronoun")] = error_pronouns.pop(0)
+        session[_session_key("current_verb&current_type")] = error_verbs.pop(0)
+        
+        # Update session avec erreurs restantes
+        session[_session_key("error_times")] = error_times
+        session[_session_key("error_pronouns")] = error_pronouns
+        session[_session_key("error_verbs")] = error_verbs
+        
+        # Réinitialise compteur
         session.pop(_session_key("counter"), None)
         return "Tu as fait une erreur récemment sur ce verbe, conjugue-le à nouveau !"
 
+    # Sinon : sélectionne un nouveau verbe
     session[_session_key("current_time")] = rd.choice(session[_session_key("active_times")])
     session[_session_key("current_pronoun")] = rd.choice(list(pronouns_dict.keys()))
     session[_session_key("counter")] = counter + 1 # if session.get(_session_key("is_correct")) else 0
@@ -122,12 +178,32 @@ def reset_error():
         session.pop(_session_key("error_pronouns"), None)
         session.pop(_session_key("error_verbs"), None)
 
-def inflection_ending(tense, pronoun, pronouns_dict, language):
-
-    tense_inflection = Conjugaison_regulier.query.filter_by(language=language, tense=tense).first()
+def inflection_ending(tense, pronoun, pronouns_dict, language, verb_group=None):
+    if verb_group:
+        #print(f"DEBUG: Querying with - Language: {language}, Tense: {tense}, Verb Group: {verb_group}")
+        tense_inflection = Conjugaison_regulier.query.filter_by(language=language, tense=tense, verb_group=verb_group).first()
+        
+        if not tense_inflection:
+            #print(f"DEBUG: No result found for query")
+            # Essaye de trouver terminaison générique pour le temps
+            fallback = Conjugaison_regulier.query.filter_by(language=language, tense=tense).first()
+            if fallback:
+                #print(f"DEBUG: Found fallback with group: {fallback.verb_group}")
+                pass
+            return None
+        else:
+            #print(f"DEBUG: Found termination record")
+            pass
+    else:
+        tense_inflection = Conjugaison_regulier.query.filter_by(language=language, tense=tense).first()
+    
+    if not tense_inflection:
+        return None
+        
     name_pronoun = pronouns_dict[pronoun]
-
-    return getattr(tense_inflection, name_pronoun, None)
+    result = getattr(tense_inflection, name_pronoun, None)
+    #print(f"DEBUG: Final result for {name_pronoun}: {result}")
+    return result
 
 def irregulier_expected(tense, pronoun, pronouns_dict, infinitif, language):
 
@@ -138,4 +214,4 @@ def irregulier_expected(tense, pronoun, pronouns_dict, infinitif, language):
 
 def verb_choice(verb_type, language):
     verbs = Conjugaison_verbe.query.filter_by(language=language, verb_type=verb_type).all()
-    return rd.choice(verbs).verbs
+    return rd.choice(verbs).verb

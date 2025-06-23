@@ -2,15 +2,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #333;
-  padding: 0 20px;
-  height: 60px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  padding: 0 2rem;
+  height: 70px;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .nav-logo {
   color: white;
   text-decoration: none;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: bold;
 }
 
 .nav-links {
@@ -27,8 +30,10 @@
 .nav-links a {
   color: white;
   text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.3s ease;
 }
 
 .nav-links a:hover {
-  color: #ddd;
+  opacity: 0.8;
 }
