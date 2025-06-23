@@ -3,7 +3,7 @@ from flask_login import login_user, logout_user, login_required
 
 from Backend import login_manager, hashing
 from Backend.Models import User
-from Backend.Services.auth_services import create_user, verify_signup, verify_login, verify_email, change_password, \
+from Backend.Services.auth_services import create_user, verify_register, verify_login, verify_email, change_password, \
     add_token, mail
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
@@ -15,8 +15,8 @@ auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 def load_user(user_id):
     return User.query.get(user_id)
 
-@auth_bp.route('/signup', methods=['GET', 'POST'])
-def signup():
+@auth_bp.route('/register', methods=['GET', 'POST'])
+def register():
     if request.method == 'POST':
         email = request.form['email']
         first_name = request.form['first_name']
@@ -32,7 +32,7 @@ def signup():
                 institution: institution,
                 password: hashing.hash_value(password, salt='abcd')}
 
-        verif, res = verify_signup(informations)
+        verif, res = verify_register(informations)
 
         if verif:
             user = create_user(informations)

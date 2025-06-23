@@ -18,7 +18,7 @@ def create_user(informations):
     db.session.commit()
     return new_user
 
-def verify_signup(informations):
+def verify_register(informations):
     username_verif = ""
     for chr in informations['username']:
         if chr != " " and (
