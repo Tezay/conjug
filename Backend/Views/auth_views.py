@@ -6,7 +6,7 @@ from Backend.Models import User
 from Backend.Services.auth_services import create_user, verify_register, verify_login, verify_email, change_password, \
     add_token, mail
 
-auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
+auth_bp = Blueprint('auth', __name__)
 
 
 ### Connexion ###
