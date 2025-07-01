@@ -14,18 +14,18 @@ def prefix():
     prefix = endpoint.split('.')[-1]   # 'it' ou 'es'
     return prefix
 
-def init_active_times(form_data, pronouns_dict):
+def init_active_times(form_data, pronouns_dict, time_keys):
     # Initialise les temps actifs en fonction des données du formulaire
     selected = []
     
     # Vérif les cases à cocher spécifiques pour les temps
     for key, value in form_data.items():
-        if key in ["present_ind", "futur", "conditionnel", "present_subj", "imparfait_ind", "imparfait_subj", "passe_simple"]:
+        if key in time_keys:
             if value == 'on' or value == True:
                 selected.append(key)
 
     if not selected:
-        selected = ["present_ind"]
+        selected = time_keys[0]
     
     #print(f"DEBUG: Selected times: {selected}")
     

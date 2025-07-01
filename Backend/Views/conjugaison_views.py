@@ -6,7 +6,7 @@ from Backend.Services.conjugaison_services import (init_active_times, sync_time_
 conjugaison_bp = Blueprint('conjugaison', __name__)
 
 
-it_time_keys = ["present", "futur", "conditionnel", "imparfait", "passe_simple"]
+it_time_keys = ["present_ind", "futur", "conditionnel", "imparfait_ind", "passe_simple"]
 it_pronouns_dict = {"io": "prem_pers_sing", "tu": "deux_pers_sing", "lui": "trois_pers_sing",
                     "noi": "prem_pers_plur", "voi": "deux_pers_plur", "loro": "trois_pers_plur"}
 
@@ -28,7 +28,7 @@ def it():
         message = None
         if "temps" in request.form:
             clear_answer_session()
-            init_active_times(request.form, it_pronouns_dict)
+            init_active_times(request.form, it_pronouns_dict, it_time_keys)
             sync_time_checkboxes(it_time_keys)
             init_verb_type(request.form)
             try:
@@ -79,7 +79,7 @@ def es():
         message = None
         if "temps" in request.form:
             clear_answer_session()
-            init_active_times(request.form, es_pronouns_dict)
+            init_active_times(request.form, es_pronouns_dict, es_time_keys)
             sync_time_checkboxes(es_time_keys)
             init_verb_type(request.form)
             try:

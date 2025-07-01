@@ -38,9 +38,9 @@ const SettingsModal = ({ availableTimes, currentSettings, onConfirm, onCancel, i
           <div className="setting-group">
             <h4>Type de verbes</h4>
             <div className="radio-group">
-              <label><input type="radio" name="verb_type" value="all" checked={settings.verb_type === 'all'} onChange={handleVerbTypeChange} /> Tous</label>
-              <label><input type="radio" name="verb_type" value="regular" checked={settings.verb_type === 'regular'} onChange={handleVerbTypeChange} /> Réguliers</label>
-              <label><input type="radio" name="verb_type" value="irregular" checked={settings.verb_type === 'irregular'} onChange={handleVerbTypeChange} /> Irréguliers</label>
+              <label><input type="radio" name="verb_type" value="tous" checked={settings.verb_type === 'tous'} onChange={handleVerbTypeChange} /> Tous</label>
+              <label><input type="radio" name="verb_type" value="regulier" checked={settings.verb_type === 'regulier'} onChange={handleVerbTypeChange} /> Réguliers</label>
+              <label><input type="radio" name="verb_type" value="irregulier" checked={settings.verb_type === 'irregulier'} onChange={handleVerbTypeChange} /> Irréguliers</label>
             </div>
           </div>
           <div className="setting-group">

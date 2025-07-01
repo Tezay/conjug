@@ -1,16 +1,16 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import './assets/styles/App.css';
+import './styles/App.css';
 
-import Navbar from './components/Navbar/Navbar';
-import Footer from './components/Footer/Footer';
+import Navbar from './GlobalComponents/Navbar/Navbar';
+import Footer from './GlobalComponents/Footer/Footer';
 
-import HomePage from './pages/HomePage/HomePage';
-import LoginPage from './pages/LoginPage/LoginPage';
-import RegisterPage from './pages/RegisterPage/RegisterPage';
-import ProfilePage from './pages/ProfilePage/ProfilePage';
-import LeaderboardPage from './pages/LeaderboardPage/LeaderboardPage';
-import ConjugaisonPage from './pages/ConjugaisonPage/ConjugaisonPage';
+import HomePage from './Pages/HomePage/HomePage';
+import LoginPage from './Pages/LoginPage/LoginPage';
+import RegisterPage from './Pages/RegisterPage/RegisterPage';
+import ProfilePage from './Pages/ProfilePage/ProfilePage';
+import LeaderboardPage from './Pages/LeaderboardPage/LeaderboardPage';
+import ConjugaisonPage from './Pages/ConjugaisonPage/ConjugaisonPage';
 
 function App() {
   return (
