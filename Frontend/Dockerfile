@@ -1,28 +1,46 @@
-#FROM ubuntu:latest
-#LABEL authors="soyer"
-#
-#ENTRYPOINT ["top", "-b"]
+FROM node:18-alpine
 
-# Build stage
-FROM node:20-alpine AS build
+# Définir le répertoire de travail
+WORKDIR /app
 
-WORKDIR /conjug
-
-COPY package.json package-lock.json ./
+# Copier package.json et package-lock.json et installer les dépendances
+COPY Frontend/package*.json ./
 RUN npm install
 
-COPY ./src ./src
-COPY ./public ./public
+# Copier le contenu complet du dossier Frontend
+COPY Frontend ./
 
-RUN npm run build
+# Exposer le port d’écoute (ici 3000 par défaut)
+EXPOSE 3000
 
-# Production stage
-FROM nginx:alpine
+# Lancer l’application (la commande peut varier selon votre configuration)
+CMD ["npm", "start"]
 
-# Copier le build React dans le dossier nginx pour servir les fichiers statiques
-COPY --from=build /conjug/build /usr/share/nginx/html
 
-# Expose le port 80
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+## Use official Node.js LTS image
+#FROM node:18-alpine
+#
+## Set work directory
+#WORKDIR /usr/src/app
+#
+## Copy dependency definitions
+#COPY Frontend/package.json Frontend/package-lock.json ./
+#
+## Install dependencies
+#RUN npm ci
+#
+## Copy source files
+#COPY Frontend/src ./src
+#COPY Frontend/public ./public
+#
+## Build the React app
+#RUN npm run build
+#
+## Serve the build using a simple static server
+#RUN npm install -g serve
+#
+## Expose the port
+#EXPOSE 3000
+#
+## Start the server
+#CMD ["serve", "-s", "build", "-l", "3000"]

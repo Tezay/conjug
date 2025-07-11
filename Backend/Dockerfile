@@ -1,25 +1,30 @@
-#FROM ubuntu:latest
-#LABEL authors="soyer"
-#
-#ENTRYPOINT ["top", "-b"]
-
 FROM python:3.13-slim
 
-WORKDIR /conjug
+# Définir le répertoire de travail à la racine de l’application
+WORKDIR /app
 
-# Copier le dossier Backend dans /app/Backend (dans le container)
-COPY . /conjug/Backend
+# Optimisations pour Python
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
-# Installer gcc, pkg-config, mariadb-client, dev libs, puis les packages Python
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    gcc \
-    pkg-config \
-    mariadb-client \
-    default-libmysqlclient-dev \
-    && rm -rf /var/lib/apt/lists/* \
-    && pip install --no-cache-dir -r /conjug/Backend/requirements.txt
+# Installation d'éventuelles dépendances système (build tools, client MariaDB et netcat-openbsd)
+RUN apt-get update && apt-get install -y build-essential \
+    gcc pkg-config mariadb-client default-libmysqlclient-dev netcat-openbsd \
+    && rm -rf /var/lib/apt/lists/*
 
+# Copier le fichier des dépendances et installer les packages Python
+COPY Backend/requirements.txt ./Backend/requirements.txt
+RUN pip install --upgrade pip && pip install -r ./Backend/requirements.txt
+
+# Copier l'intégralité du dossier Backend dans /app/Backend
+COPY Backend ./Backend
+
+# Copier le script wait-for-it.sh depuis le répertoire parent (vérifiez le chemin si nécessaire)
+COPY ../wait-for-it.sh /wait-for-it.sh
+RUN chmod +x /wait-for-it.sh
+
+# Exposer le port utilisé par l’application Flask
 EXPOSE 5000
 
-CMD ["python", "-m", "Backend.app"]
-
+# Lancer l’application via wait-for-it.sh pour attendre que MariaDB soit prêt
+CMD ["/wait-for-it.sh", "mariadb:3306", "--", "python", "-m", "Backend.app"]
