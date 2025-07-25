@@ -1,0 +1,118 @@
+#=======================
+# Personal Project .gitignore
+#=======================
+backend/config.py
+backend/remplir_db.py
+
+# =======================
+# Python / Flask
+# =======================
+
+# Byte-compiled / optimized / DLL files
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Flask instance folder (config, db, etc)
+instance/
+
+# Environments
+.env
+.env.*
+
+# Pytest cache
+.pytest_cache/
+
+# mypy
+.mypy_cache/
+
+# VSCode Python settings
+.vscode/
+
+# SQLite database file (si utilisé)
+*.sqlite3
+
+# =======================
+# Node / React / Vite
+# =======================
+
+# Node modules
+node_modules/
+
+# Build output
+dist/
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Vite cache
+.vite/
+
+# =======================
+# TailwindCSS (DaisyUI)
+# =======================
+# Pas d’artefacts spécifiques à ignorer, car Tailwind est un framework CSS généré dans dist/
+
+# =======================
+# Docker
+# =======================
+
+# Docker files / logs
+docker-compose.override.yml
+*.log
+
+# Docker volumes
+docker-volume/
+
+# Docker env files
+.env
+
+# =======================
+# System / IDE / Misc
+# =======================
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# =======================
+# Others
+# =======================
+
+# Coverage reports
+htmlcov/
+.coverage
+
+# pytest cache
+.pytest_cache/
+
+# Pipenv
+Pipfile.lock
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
