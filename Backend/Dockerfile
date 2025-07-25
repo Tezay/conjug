@@ -20,11 +20,12 @@ RUN pip install --upgrade pip && pip install -r ./Backend/requirements.txt
 COPY Backend ./Backend
 
 # Copier le script wait-for-it.sh depuis le répertoire parent (vérifiez le chemin si nécessaire)
-COPY ../wait-for-it.sh /wait-for-it.sh
-RUN chmod +x /wait-for-it.sh
+COPY Backend/entrypoint.sh Backend/entrypoint.sh
+RUN chmod +x Backend/entrypoint.sh
+ENTRYPOINT ["Backend/entrypoint.sh"]
 
 # Exposer le port utilisé par l’application Flask
 EXPOSE 5000
 
 # Lancer l’application via wait-for-it.sh pour attendre que MariaDB soit prêt
-CMD ["/wait-for-it.sh", "mariadb:3306", "--", "python", "-m", "Backend.app"]
+CMD ["python", "-m", "Backend.app"]
