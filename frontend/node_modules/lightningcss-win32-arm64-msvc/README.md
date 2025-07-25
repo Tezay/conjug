@@ -1,1 +1,0 @@
-This is the aarch64-pc-windows-msvc build of lightningcss. See https://github.com/parcel-bundler/lightningcss for details.
