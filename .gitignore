@@ -49,9 +49,9 @@ frontend/node_modules/
 frontend/dist/
 
 # Log files
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+fronted/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
 
 # Environment variables
 .env.local
@@ -60,7 +60,7 @@ yarn-error.log*
 .env.production.local
 
 # Vite cache
-.vite/
+frontend/.vite/
 
 # =======================
 # TailwindCSS (DaisyUI)
