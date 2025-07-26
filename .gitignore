@@ -1,5 +1,5 @@
 #=======================
-# Personal Project .gitignore
+# Personal Project
 #=======================
 backend/config.py
 backend/remplir_db.py
