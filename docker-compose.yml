@@ -23,6 +23,7 @@
       - "${FRONTEND_PORT:-5173}:5173"
     environment:
       - VITE_BACKEND_URL=http://localhost:5000
+      - CHOKIDAR_USEPOLLING=true
 
   mariadb:
     image: mariadb:11.8

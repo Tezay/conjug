@@ -2,8 +2,12 @@ import './ProfilePage.css';
 
 const ProfilePage = () => {
   return (
-    <div className="profile-page">
-      <h1>Page de Profil</h1>
+    <div className="hero min-h-full bg-base-100">
+      <div className="hero-content text-center">
+        <div className="max-w-md">
+          <h1 className="text-5xl font-bold">Page de Profil</h1>
+        </div>
+      </div>
     </div>
   );
 };
