@@ -16,6 +16,17 @@ def profile(username):
 
     if User.query.filter_by(username=username).first():
         visite_user = User.query.filter_by(username=username).first()
+        leaderboard_entry = visite_user.leaderboard_entry
+
+        # Valeurs par défaut si pas d'entrée leaderboard
+        level = "Débutant"
+        xp = 0
+        rank = 0
+        
+        if leaderboard_entry:
+            level = leaderboard_entry.level
+            xp = leaderboard_entry.xp
+            rank = leaderboard_entry.rank
 
         return {
             "username": visite_user.username,
@@ -24,9 +35,9 @@ def profile(username):
             "date_creation": visite_user.date_creation,
             "day_streak": visite_user.day_streak,
 
-            "level": visite_user.level,
-            "xp": visite_user.xp,
-            "rank": visite_user.rank,
+            "level": level,
+            "xp": xp,
+            "rank": rank,
             "classement_joueur": classement_joueur(),
         }
 

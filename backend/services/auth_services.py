@@ -11,9 +11,17 @@ from backend.models import User
 def create_user(informations):
     date_creation = datetime.now().strftime('%d/%m/%Y')
     logo = "/static/media/mexicain.a7c4569edfe66c602692.png"
-    new_user = User(email=informations['email'], first_name=informations['first_name'], last_name=informations['last_name'],
-                    username=informations['username'], institution=informations['institution'], date_creation=date_creation,
-                    logo=logo, password=informations['password'], day_streak=informations['day_streak'])
+    new_user = User(
+        email=informations['email'], 
+        first_name=informations['first_name'], 
+        last_name=informations['last_name'],
+        username=informations['username'], 
+        institution=informations['institution'], 
+        date_creation=date_creation,
+        logo=logo, 
+        password=informations['password'], 
+        day_streak=0  # Ajout de day_streak manquant
+    )
     db.session.add(new_user)
     db.session.commit()
     return new_user

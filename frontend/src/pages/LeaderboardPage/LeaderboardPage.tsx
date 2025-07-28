@@ -1,5 +1,3 @@
-import './LeaderboardPage.css';
-
 const LeaderboardPage = () => {
   return (
     <div className="hero min-h-full bg-base-100">

@@ -25,12 +25,14 @@ def register():
         institution = request.form['institution']
         password = request.form['password']
 
-        informations = {email: email,
-                first_name: first_name,
-                last_name: last_name,
-                username: username,
-                institution: institution,
-                password: hashing.hash_value(password, salt='abcd')}
+        informations = {
+            'email': email,
+            'first_name': first_name,
+            'last_name': last_name,
+            'username': username,
+            'institution': institution,
+            'password': hashing.hash_value(password, salt='abcd')
+        }
 
         verif, res = verify_register(informations)
 
