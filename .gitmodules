@@ -1,0 +1,4 @@
+[submodule "admin"]
+	path = admin
+	url = git@github.com:conjug/conjug-admin.git
+	branch = main
