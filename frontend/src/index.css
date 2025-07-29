@@ -1,7 +1,5 @@
 @import "tailwindcss";
-@plugin "daisyui"{
-    themes: forest --default;
-}
+@plugin "daisyui";
 
 @plugin "daisyui/theme" {
   name: "conjug-light";
@@ -49,10 +47,10 @@
   --color-base-content: oklch(97.807% 0.029 256.847);
   --color-primary: oklch(75% 0.183 55.934);
   --color-primary-content: oklch(98% 0.002 247.839);
-  --color-secondary: oklch(60% 0.25 292.717);
-  --color-secondary-content: oklch(90% 0.063 306.703);
-  --color-accent: oklch(90% 0.076 70.697);
-  --color-accent-content: oklch(47% 0.157 37.304);
+  --color-secondary: oklch(90% 0.076 70.697);
+  --color-secondary-content: oklch(47% 0.157 37.304);
+  --color-accent: oklch(60% 0.25 292.717);
+  --color-accent-content: oklch(90% 0.063 306.703);
   --color-neutral: oklch(27% 0.006 286.033);
   --color-neutral-content: oklch(92% 0.004 286.32);
   --color-info: oklch(68% 0.169 237.323);
