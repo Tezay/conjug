@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 
 const Navbar = () => {
+  const { user, isLoading, isAuthenticated } = useAuth();
+
   return (
     <div className="drawer">
       <input id="mobile-drawer" type="checkbox" className="drawer-toggle" />
@@ -16,13 +19,36 @@ const Navbar = () => {
           
           {/* Menu desktop - caché sur mobile */}
           <div className="navbar-end hidden lg:flex">
-            <ul className="menu menu-horizontal px-1 gap-1 xl:gap-4">
+            <ul className="menu menu-horizontal px-1 gap-1 xl:gap-4 items-center">
               <li><Link to="/it" className="text-white font-medium hover:opacity-80 transition-opacity text-sm xl:text-base px-2 xl:px-3">Italien</Link></li>
               <li><Link to="/es" className="text-white font-medium hover:opacity-80 transition-opacity text-sm xl:text-base px-2 xl:px-3">Espagnol</Link></li>
               <li><Link to="/leaderboard" className="text-white font-medium hover:opacity-80 transition-opacity text-sm xl:text-base px-2 xl:px-3">Classement</Link></li>
-              <li><Link to="/login" className="text-white font-medium hover:opacity-80 transition-opacity text-sm xl:text-base px-2 xl:px-3">Connexion</Link></li>
-              <li><Link to="/register" className="text-white font-medium hover:opacity-80 transition-opacity text-sm xl:text-base px-2 xl:px-3">Inscription</Link></li>
-              <li><Link to="/profile" className="text-white font-medium hover:opacity-80 transition-opacity text-sm xl:text-base px-2 xl:px-3">Profil</Link></li>
+              
+              {isLoading ? (
+                <li>
+                  <div className="loading loading-spinner loading-sm text-white"></div>
+                </li>
+              ) : isAuthenticated && user ? (
+                <li>
+                  <Link to="/profile" className="flex items-center gap-2 text-white font-medium hover:opacity-80 transition-opacity text-sm xl:text-base px-2 xl:px-3">
+                    <div className="avatar">
+                      <div className="w-6 h-6 rounded-full">
+                        <img 
+                          src={user.logo || '/default-avatar.png'} 
+                          alt={`Avatar de ${user.username}`}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    </div>
+                    <span>{user.username}</span>
+                  </Link>
+                </li>
+              ) : (
+                <>
+                  <li><Link to="/login" className="text-white font-medium hover:opacity-80 transition-opacity text-sm xl:text-base px-2 xl:px-3">Connexion</Link></li>
+                  <li><Link to="/register" className="text-white font-medium hover:opacity-80 transition-opacity text-sm xl:text-base px-2 xl:px-3">Inscription</Link></li>
+                </>
+              )}
             </ul>
           </div>
           

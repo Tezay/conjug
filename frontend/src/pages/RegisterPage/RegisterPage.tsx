@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 import axios from '../../api/axiosInstance';
 
 const RegisterPage = () => {
@@ -16,6 +17,7 @@ const RegisterPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const navigate = useNavigate();
+  const { refreshAuth } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -98,7 +100,8 @@ const RegisterPage = () => {
       const response = await axios.post('/register', new URLSearchParams(registerData));
       
       if (response.data.retour === 'trueCreation') {
-        // Inscription réussie
+        // Inscription réussie - rafraîchir le statut d'authentification
+        await refreshAuth();
         navigate('/');
       } else {
         // Gestion des erreurs spécifiques du backend

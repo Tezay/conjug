@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 import axios from '../../api/axiosInstance';
   
 
@@ -12,6 +13,7 @@ const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const navigate = useNavigate();
+  const { refreshAuth } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -61,7 +63,8 @@ const LoginPage = () => {
       const response = await axios.post('/login', new URLSearchParams(formData));
       
       if (response.data.retour === 'trueAuth') {
-        // Connexion réussie
+        // Connexion réussie - rafraîchir le statut d'authentification
+        await refreshAuth();
         navigate('/');
       } else {
         setSubmitError('Email ou mot de passe incorrect');

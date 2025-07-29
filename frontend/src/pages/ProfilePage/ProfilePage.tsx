@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 import axios from '../../api/axiosInstance';
 
 const ProfilePage = () => {
@@ -8,6 +9,7 @@ const ProfilePage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -43,7 +45,7 @@ const ProfilePage = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.get('/logout');
+      await logout();
       navigate('/');
     } catch (err) {
       console.error('Erreur lors de la déconnexion:', err);
