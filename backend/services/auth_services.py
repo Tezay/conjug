@@ -5,6 +5,7 @@ from email.message import EmailMessage
 
 from backend import db
 from backend.models import User
+from backend.services.leaderboard_services import add_xp
 
 ### Connexion ###
 
@@ -20,10 +21,15 @@ def create_user(informations):
         date_creation=date_creation,
         logo=logo, 
         password=informations['password'], 
-        day_streak=0  # Ajout de day_streak manquant
+        day_streak=0 
     )
     db.session.add(new_user)
     db.session.commit()
+    add_xp({
+        'username': informations['username'],
+        'xp': 0
+    })
+    
     return new_user
 
 def verify_register(informations):

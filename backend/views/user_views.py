@@ -1,6 +1,6 @@
 from flask import Blueprint
 
-from backend.services.leaderboard_services import classement_joueur
+from backend.services.leaderboard_services import classement_joueur, add_xp
 from backend.models import User
 
 user_bp = Blueprint('user', __name__)
@@ -17,16 +17,10 @@ def profile(username):
     if User.query.filter_by(username=username).first():
         visite_user = User.query.filter_by(username=username).first()
         leaderboard_entry = visite_user.leaderboard_entry
-
-        # Valeurs par défaut si pas d'entrée leaderboard
-        level = "Débutant"
-        xp = 0
-        rank = 0
         
-        if leaderboard_entry:
-            level = leaderboard_entry.level
-            xp = leaderboard_entry.xp
-            rank = leaderboard_entry.rank
+        if not leaderboard_entry:
+            add_xp({'username': visite_user.username, 'xp': 0})
+            leaderboard_entry = visite_user.leaderboard_entry
 
         return {
             "username": visite_user.username,
@@ -35,9 +29,9 @@ def profile(username):
             "date_creation": visite_user.date_creation,
             "day_streak": visite_user.day_streak,
 
-            "level": level,
-            "xp": xp,
-            "rank": rank,
+            "level": leaderboard_entry.level,
+            "xp": leaderboard_entry.xp ,
+            "rank": leaderboard_entry.rank,
             "classement_joueur": classement_joueur(),
         }
 

@@ -9,9 +9,9 @@ def add_xp(informations):
         leaderboard_entry = Leaderboard(
             user_id=user.id,
             level="Débutant",
-            xp=1,
-            xp_week=1,
-            xp_month=1,
+            xp=informations['xp'],
+            xp_week=informations['xp'],
+            xp_month=informations['xp'],
             classement=0
         )
         db.session.add(leaderboard_entry)
