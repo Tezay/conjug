@@ -21,9 +21,9 @@ def add_xp(informations):
         leaderboard_entry.xp_month += informations['xp']
 
     db.session.commit()
-    classement_joueur()
-    classement_semaine()
-    classement_mois()
+    #classement_joueur()
+    #classement_semaine()
+    #classement_mois()
 
 def classement_joueur():
     leaderboard_entries = Leaderboard.query.filter(Leaderboard.xp>0).order_by(Leaderboard.xp.desc()).all()
