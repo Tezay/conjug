@@ -1,0 +1,67 @@
+services:
+  user-backend:
+    build: ./backend
+    volumes:
+      - ./backend:/app/backend
+    ports:
+      - "${BACKEND_PORT:-5000}:5000"
+    environment:
+      #      - DATABASE_HOST=mariadb
+      - DATABASE_PORT=${DB_PORT:-3306}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-example_password}
+      - MYSQL_DATABASE=${MYSQL_DATABASE:-name_db}
+      - MYSQL_USER=${MYSQL_USER:-user}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-user_password}
+      - SECRET_KEY=${SECRET_KEY}
+
+  user-frontend:
+    build: ./frontend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "${FRONTEND_PORT:-5173}:5173"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      
+    
+  admin-backend:
+    build: ./admin/backend
+    volumes:
+      - ./admin/backend:/app/backend
+    ports:
+      - "${BACKEND_ADMIN_PORT:-5001}:5001"
+    environment:
+      #      - DATABASE_HOST=mariadb
+      - DATABASE_PORT=${DB_PORT:-3306}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-example_password}
+      - MYSQL_DATABASE=${MYSQL_DATABASE:-name_db}
+      - MYSQL_USER=${MYSQL_USER:-user}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-user_password}
+      - SECRET_KEY=${SECRET_KEY}
+
+  admin-frontend:
+    build: ./admin/frontend
+    volumes:
+      - ./admin/frontend:/app
+      - /app/node_modules
+    ports:
+      - "${FRONTEND_ADMIN_PORT:-5174}:5174"
+    environment:
+      - CHOKIDAR_USEPOLLING=true 
+        
+
+  mariadb:
+    image: mariadb:11.8
+    ports:
+      - "${DB_PORT:-3306}:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-example_password}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-name_db}
+      MYSQL_USER: ${MYSQL_USER:-user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-user_password}
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+volumes:
+  mariadb_data:
