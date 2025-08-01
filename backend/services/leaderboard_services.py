@@ -25,7 +25,7 @@ def add_xp(informations):
 
 def update_leaderboard():
     # On récupère tous les utilisateurs triés par xp décroissant
-    leaderboard_entries = Leaderboard.query.order_by(Leaderboard.xp.desc()).all()
+    leaderboard_entries = Leaderboard.query.filter(Leaderboard.xp>0).order_by(Leaderboard.xp.desc()).all()
 
     # On parcourt et on assigne le classement
     for rank, entry in enumerate(leaderboard_entries, start=1):
