@@ -1,6 +1,6 @@
 from backend import db
 
-class ConjugaisonRegulier(db.Model):
+class ConjugaisonRegular(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     language = db.Column(db.String(length=3), nullable=False)
     tense = db.Column(db.String(length=100), nullable=False)
