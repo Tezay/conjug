@@ -12,7 +12,7 @@ def add_xp(informations):
             xp=informations['xp'],
             xp_week=informations['xp'],
             xp_month=informations['xp'],
-            classement=0
+            rank=0
         )
         db.session.add(leaderboard_entry)
     else:
