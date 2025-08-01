@@ -2,8 +2,9 @@ import secrets
 import codecs
 from datetime import datetime, timedelta
 from email.message import EmailMessage
+from flask import current_app
 
-from backend import db
+from backend import db, hashing
 from backend.models import User
 from backend.services.leaderboard_services import add_xp
 
@@ -49,7 +50,10 @@ def verify_register(informations):
 
 def verify_login(informations):
     user = User.query.filter_by(email=informations['email']).first()
-    if user and user.password == informations['password']:
+    if user and (hashing.check_value(user.password, informations['password'], salt=current_app.config["SECRET_KEY"]) or hashing.chack_value(user.password, informations['password'], salt='abcd')):
+        if user.password == informations['password_old']:
+            user.password = informations['password']
+            db.session.commit()
         return True, user
 
     return False, None

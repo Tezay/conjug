@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, current_app
 from flask_login import login_user, logout_user, login_required
 
 from backend import login_manager, hashing
@@ -31,7 +31,7 @@ def register():
             'last_name': last_name,
             'username': username,
             'institution': institution,
-            'password': hashing.hash_value(password, salt='abcd')
+            'password': hashing.hash_value(password, salt=current_app.config["SECRET_KEY"])
         }
 
         verif, res = verify_register(informations)
@@ -57,7 +57,7 @@ def login():
 
         informations = {
             'email': email,
-            'password': hashing.hash_value(password, salt='abcd')
+            'password': password
         }
 
         verif, user = verify_login(informations)
@@ -108,8 +108,8 @@ def verify_user(username, mail_token):
 
 @auth_bp.route('/forget_password/<username>/<mail_token>', methods=['GET', 'POST'])
 def forget_password(username, mail_token):
-    if request.method == 'GET':
-        password = hashing.hash_value(request.form['password'], salt='abcd')
+    if request.method == 'POST':
+        password = hashing.hash_value(request.form['password'], salt=current_app.config["SECRET_KEY"])
 
         informations = {
             'username': username,
@@ -127,6 +127,8 @@ def forget_password(username, mail_token):
         return {
             "retour": "false"
         }
+    
+    return {}
 
 @auth_bp.route('/forget_password', methods=['GET', 'POST'])
 def send_mail_password():
