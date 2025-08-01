@@ -196,15 +196,29 @@ const RegisterPage = () => {
               <label className="label">
                 <span className="label-text font-medium">Adresse email *</span>
               </label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="votre@email.com"
-                className={`input input-bordered w-full ${errors.email ? 'input-error' : ''}`}
-                disabled={isLoading}
-              />
+              <label className={`input input-bordered validator w-full ${errors.email ? 'input-error' : ''}`}>
+                <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <g
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                    strokeWidth="2.5"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                  </g>
+                </svg>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="votre@email.com"
+                  required
+                  disabled={isLoading}
+                />
+              </label>
               {errors.email && (
                 <label className="label">
                   <span className="label-text-alt text-error">{errors.email}</span>
@@ -217,25 +231,42 @@ const RegisterPage = () => {
               <label className="label">
                 <span className="label-text font-medium">Nom d'utilisateur *</span>
               </label>
-              <input
-                type="text"
-                name="username"
-                value={formData.username}
-                onChange={handleChange}
-                placeholder="nom_utilisateur"
-                className={`input input-bordered w-full ${errors.username ? 'input-error' : ''}`}
-                disabled={isLoading}
-              />
+              <label className={`input input-bordered validator w-full ${errors.username ? 'input-error' : ''}`}>
+                <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <g
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                    strokeWidth="2.5"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </g>
+                </svg>
+                <input
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  placeholder="nom_utilisateur"
+                  required
+                  pattern="[a-zA-Z0-9._-]+"
+                  minLength="3"
+                  maxLength="30"
+                  title="Lettres, chiffres, points, tirets et underscores uniquement"
+                  disabled={isLoading}
+                />
+              </label>
               {errors.username && (
                 <label className="label">
                   <span className="label-text-alt text-error">{errors.username}</span>
                 </label>
               )}
-              <label className="label">
-                <span className="label-text-alt text-base-content/60">
-                  Lettres, chiffres, points, tirets et underscores uniquement
-                </span>
-              </label>
+              <p className="validator-hint text-sm text-base-content/60 mt-1">
+                Doit contenir entre 3 et 30 caractères
+                <br />Lettres, chiffres, points, tirets et underscores uniquement
+              </p>
             </div>
 
             {/* Établissement */}
@@ -261,15 +292,32 @@ const RegisterPage = () => {
                 <label className="label">
                   <span className="label-text font-medium">Mot de passe *</span>
                 </label>
-                <input
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  placeholder="••••••••"
-                  className={`input input-bordered w-full ${errors.password ? 'input-error' : ''}`}
-                  disabled={isLoading}
-                />
+                <label className={`input input-bordered validator w-full ${errors.password ? 'input-error' : ''}`}>
+                  <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g
+                      strokeLinejoin="round"
+                      strokeLinecap="round"
+                      strokeWidth="2.5"
+                      fill="none"
+                      stroke="currentColor"
+                    >
+                      <path
+                        d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"
+                      ></path>
+                      <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
+                    </g>
+                  </svg>
+                  <input
+                    type="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    placeholder="••••••••"
+                    required
+                    minLength="6"
+                    disabled={isLoading}
+                  />
+                </label>
                 {errors.password && (
                   <label className="label">
                     <span className="label-text-alt text-error">{errors.password}</span>
@@ -281,15 +329,32 @@ const RegisterPage = () => {
                 <label className="label">
                   <span className="label-text font-medium">Confirmer le mot de passe *</span>
                 </label>
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  placeholder="••••••••"
-                  className={`input input-bordered w-full ${errors.confirmPassword ? 'input-error' : ''}`}
-                  disabled={isLoading}
-                />
+                <label className={`input input-bordered validator w-full ${errors.confirmPassword ? 'input-error' : ''}`}>
+                  <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g
+                      strokeLinejoin="round"
+                      strokeLinecap="round"
+                      strokeWidth="2.5"
+                      fill="none"
+                      stroke="currentColor"
+                    >
+                      <path
+                        d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"
+                      ></path>
+                      <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
+                    </g>
+                  </svg>
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    placeholder="••••••••"
+                    required
+                    minLength="6"
+                    disabled={isLoading}
+                  />
+                </label>
                 {errors.confirmPassword && (
                   <label className="label">
                     <span className="label-text-alt text-error">{errors.confirmPassword}</span>
