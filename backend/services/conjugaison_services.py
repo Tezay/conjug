@@ -184,7 +184,7 @@ def reset_error():
 
 def inflection_ending(tense, pronoun, pronouns_dict, language, verb_group):
     #print(f"DEBUG: Querying with - Language: {language}, Tense: {tense}, Verb Group: {verb_group}")
-    tense_inflection = ConjugaisonReguliar.query.filter_by(language=language, tense=tense, verb_group=verb_group).first()
+    tense_inflection = ConjugaisonRegular.query.filter_by(language=language, tense=tense, verb_group=verb_group).first()
 
     name_pronoun = pronouns_dict[pronoun]
     result = getattr(tense_inflection, name_pronoun, None)
