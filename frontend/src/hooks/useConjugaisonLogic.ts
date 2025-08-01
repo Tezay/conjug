@@ -9,7 +9,7 @@ const useConjugaisonLogic = () => {
   const [isStarted, setIsStarted] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(true);
   const [availableTimes, setAvailableTimes] = useState([]);
-  const [settings, setSettings] = useState({ verb_type: "tous", checked_times: {} });
+  const [settings, setSettings] = useState({ verb_type: "all", checked_times: {} });
   const [exerciseData, setExerciseData] = useState(null);
   const [userResponse, setUserResponse] = useState("");
   const [isLoading, setIsLoading] = useState(true);

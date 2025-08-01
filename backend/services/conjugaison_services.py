@@ -3,7 +3,7 @@ from flask import session, request
 from flask_login import current_user
 
 from backend.services.leaderboard_services import add_xp
-from backend.models import ConjugaisonRegulier, ConjugaisonIrregulier, ConjugaisonVerbe
+from backend.models import ConjugaisonRegular, ConjugaisonIrregular, ConjugaisonVerbe
 
 def _session_key(name):
     language = prefix()
@@ -40,11 +40,18 @@ def sync_time_checkboxes(time_keys):
 
 def init_verb_type(form_data):
     choice = form_data.get("verb_type")
-    session[_session_key("verb_type")] = choice or session.get(_session_key("verb_type"), "regulier")
+    if choice  == "regulier":
+        choice = "regular"
+    elif choice == "irregulier":
+        choice = "irregular"
+    else:
+        choice = "all"
+        
+    session[_session_key("verb_type")] = choice or session.get(_session_key("verb_type"), "regular")
 
-    session[_session_key("checked_regulier")] = (session[_session_key("verb_type")] == "regulier")
-    session[_session_key("checked_irregulier")] = (session[_session_key("verb_type")] == "irregulier")
-    session[_session_key("checked_tous")] = (session[_session_key("verb_type")] == "tous")
+    session[_session_key("checked_regular")] = (session[_session_key("verb_type")] == "regular")
+    session[_session_key("checked_irregular")] = (session[_session_key("verb_type")] == "irregular")
+    session[_session_key("checked_all")] = (session[_session_key("verb_type")] == "all")
 
 def handle_user_response(form_data, pronouns_dict, ):
     language = prefix()
@@ -56,8 +63,8 @@ def handle_user_response(form_data, pronouns_dict, ):
     pronoun = session[_session_key("current_pronoun")]
 
 
-    if verb_type == "irregulier":
-        expected = irregulier_expected(tense, pronoun, pronouns_dict, verb, language)
+    if verb_type == "irregular":
+        expected = irregular_expected(tense, pronoun, pronouns_dict, verb, language)
         verify_answer(expected, xp=2)
     else:
         if language == "it":
@@ -130,9 +137,9 @@ def record_error():
 def select_new_verb():
     language = prefix()
     vtype = session.get(_session_key("verb_type"))
-    if vtype == "tous":
+    if vtype == "all":
         choice_ir = rd.choice([True, False])
-        vtype = "irregulier" if choice_ir else "regulier"
+        vtype = "irregular" if choice_ir else "regular"
 
     verb = verb_choice(vtype, language)
 
@@ -177,16 +184,16 @@ def reset_error():
 
 def inflection_ending(tense, pronoun, pronouns_dict, language, verb_group):
     #print(f"DEBUG: Querying with - Language: {language}, Tense: {tense}, Verb Group: {verb_group}")
-    tense_inflection = ConjugaisonRegulier.query.filter_by(language=language, tense=tense, verb_group=verb_group).first()
+    tense_inflection = ConjugaisonReguliar.query.filter_by(language=language, tense=tense, verb_group=verb_group).first()
 
     name_pronoun = pronouns_dict[pronoun]
     result = getattr(tense_inflection, name_pronoun, None)
     #print(f"DEBUG: Final result for {name_pronoun}: {result}")
     return result
 
-def irregulier_expected(tense, pronoun, pronouns_dict, infinitif, language):
+def irregular_expected(tense, pronoun, pronouns_dict, infinitif, language):
 
-    tense_inflection = ConjugaisonIrregulier.query.filter_by(language=language, tense=tense, infinitif=infinitif).first()
+    tense_inflection = ConjugaisonIrregular.query.filter_by(language=language, tense=tense, infinitif=infinitif).first()
     name_pronoun = pronouns_dict[pronoun]
 
     return getattr(tense_inflection, name_pronoun, None)

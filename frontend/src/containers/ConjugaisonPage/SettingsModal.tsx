@@ -55,7 +55,7 @@ const SettingsModal = ({ availableTimes, currentSettings, onConfirm, onCancel, i
                   type="radio" 
                   name="verb_type" 
                   value="tous" 
-                  checked={settings.verb_type === 'tous'} 
+                  checked={settings.verb_type === 'all'} 
                   onChange={handleVerbTypeChange}
                   className="radio radio-primary"
                 /> 
@@ -66,7 +66,7 @@ const SettingsModal = ({ availableTimes, currentSettings, onConfirm, onCancel, i
                   type="radio" 
                   name="verb_type" 
                   value="regulier" 
-                  checked={settings.verb_type === 'regulier'} 
+                  checked={settings.verb_type === 'regular'} 
                   onChange={handleVerbTypeChange}
                   className="radio radio-primary"
                 /> 
@@ -77,7 +77,7 @@ const SettingsModal = ({ availableTimes, currentSettings, onConfirm, onCancel, i
                   type="radio" 
                   name="verb_type" 
                   value="irregulier" 
-                  checked={settings.verb_type === 'irregulier'} 
+                  checked={settings.verb_type === 'irreguliar'} 
                   onChange={handleVerbTypeChange}
                   className="radio radio-primary"
                 /> 
