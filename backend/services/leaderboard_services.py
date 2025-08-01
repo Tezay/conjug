@@ -21,18 +21,9 @@ def add_xp(informations):
         leaderboard_entry.xp_month += informations['xp']
 
     db.session.commit()
-    update_leaderboard()
-
-def update_leaderboard():
-    # On récupère tous les utilisateurs triés par xp décroissant
-    leaderboard_entries = Leaderboard.query.filter(Leaderboard.xp>0).order_by(Leaderboard.xp.desc()).all()
-
-    # On parcourt et on assigne le classement
-    for rank, entry in enumerate(leaderboard_entries, start=1):
-        entry.rank = rank
-
-    db.session.commit()
-
+    classement_joueur()
+    classement_semaine()
+    classement_mois()
 
 def classement_joueur():
     leaderboard_entries = Leaderboard.query.filter(Leaderboard.xp>0).order_by(Leaderboard.xp.desc()).all()
@@ -40,6 +31,7 @@ def classement_joueur():
     classement_joueur = {}
 
     for rank, entry  in enumerate(leaderboard_entries, start=1):
+        entry.rank = rank
         classement_joueur[entry.user.username] = rank
 
     return classement_joueur
@@ -50,6 +42,7 @@ def classement_semaine():
     classement_semaine = {}
 
     for rank, entry  in enumerate(leaderboard_entries, start=1):
+        entry.rank = rank
         classement_semaine[entry.user.username] = rank
 
     return classement_semaine
@@ -60,6 +53,7 @@ def classement_mois():
     classement_mois = {}
 
     for rank, entry  in enumerate(leaderboard_entries, start=1):
+        entry.rank = rank
         classement_mois[entry.user.username] = rank
 
     return classement_mois
