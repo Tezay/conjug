@@ -64,7 +64,7 @@ def verify_login(informations):
 ### Verification de l'utilisateur ###
 
 def add_token(informations):
-    user = User.query.filter_by(email=informations['email']).fisrt()
+    user = User.query.filter_by(email=informations['email']).first()
     authv_entry = user.authv_entry
     token = secrets.token_hex(12)
 
@@ -79,7 +79,6 @@ def add_token(informations):
     else:
         authv_entry.token = token
         authv_entry.token_created_at = datetime.now()
-
 
     db.session.commit()
 
