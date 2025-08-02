@@ -5,7 +5,7 @@ from email.message import EmailMessage
 from flask import current_app
 
 from backend import db, hashing
-from backend.models import User
+from backend.models import User, AuthV
 from backend.services.leaderboard_services import add_xp
 
 ### Connexion ###
@@ -26,10 +26,12 @@ def create_user(informations):
     )
     db.session.add(new_user)
     db.session.commit()
+    
     add_xp({
         'username': informations['username'],
         'xp': 0
     })
+    add_token({'email': informations['email']})
     
     return new_user
 
@@ -64,10 +66,20 @@ def verify_login(informations):
 def add_token(informations):
     user = User.query.filter_by(email=informations['email']).fisrt()
     authv_entry = user.authv_entry
-
     token = secrets.token_hex(12)
-    authv_entry.token = token
-    authv_entry.token_created_at = datetime.now()
+
+    if not authv_entry:
+        authv_entry = AuthV(
+            user_id=user.id,
+            verif=False,
+            token=token,
+            token_created_at=datetime.now(),
+        )
+        db.session.add(authv_entry)
+    else:
+        authv_entry.token = token
+        authv_entry.token_created_at = datetime.now()
+
 
     db.session.commit()
 

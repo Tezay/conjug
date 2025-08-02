@@ -7,4 +7,4 @@ class AuthV(db.Model):
     token = db.Column(db.String(length=24))
     token_created_at = db.Column(db.DateTime)
 
-    user = db.relationship('User', backref=db.backref('authv_entry', uselist=False))
+    user = db.relationship('User', backref=db.backref('authv_entry', uselist=False, cascade='all, delete-orphan'))

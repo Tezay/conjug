@@ -9,4 +9,4 @@ class Leaderboard(db.Model):
     xp_month = db.Column(db.Integer, nullable=False)
     rank = db.Column(db.Integer, nullable=False)
 
-    user = db.relationship('User', backref=db.backref('leaderboard_entry', uselist=False))
+    user = db.relationship('User', backref=db.backref('leaderboard_entry', uselist=False, cascade='all, delete-orphan'))
