@@ -138,6 +138,25 @@ const Navbar = () => {
                 Classement
               </Link>
             </li>
+            {/* Liens légaux */}
+            <li className="menu-title mt-4">
+              <span>Légal</span>
+            </li>
+            <li>
+              <Link to="/mentions-legales" className="text-lg py-3" onClick={handleLinkClick}>
+                Mentions légales
+              </Link>
+            </li>
+            <li>
+              <Link to="/politique-de-confidentialite" className="text-lg py-3" onClick={handleLinkClick}>
+                Politique de confidentialité
+              </Link>
+            </li>
+            <li>
+              <Link to="/conditions-generales" className="text-lg py-3" onClick={handleLinkClick}>
+                Conditions générales
+              </Link>
+            </li>
           </ul>
         </aside>
       </div>

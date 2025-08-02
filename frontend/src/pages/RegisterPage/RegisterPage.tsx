@@ -11,7 +11,9 @@ const RegisterPage = () => {
     username: '',
     institution: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    acceptTerms: false,
+    acceptPrivacy: false
   });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -20,10 +22,10 @@ const RegisterPage = () => {
   const { refreshAuth } = useAuth();
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: type === 'checkbox' ? checked : value
     }));
     
     // Clear error when user starts typing
@@ -71,6 +73,14 @@ const RegisterPage = () => {
       newErrors.confirmPassword = 'Veuillez confirmer votre mot de passe';
     } else if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = 'Les mots de passe ne correspondent pas';
+    }
+    
+    if (!formData.acceptTerms) {
+      newErrors.acceptTerms = 'Vous devez accepter les conditions d\'utilisation';
+    }
+    
+    if (!formData.acceptPrivacy) {
+      newErrors.acceptPrivacy = 'Vous devez accepter la politique de confidentialité';
     }
     
     setErrors(newErrors);
@@ -360,6 +370,72 @@ const RegisterPage = () => {
                     <span className="label-text-alt text-error">{errors.confirmPassword}</span>
                   </label>
                 )}
+              </div>
+            </div>
+
+            {/* Acceptation des conditions - après les mots de passe */}
+            <div className="space-y-4 mt-6">
+              <div className="form-control">
+                <label className="label cursor-pointer justify-start gap-3">
+                  <input
+                    type="checkbox"
+                    name="acceptTerms"
+                    checked={formData.acceptTerms}
+                    onChange={handleChange}
+                    className={`checkbox checkbox-primary ${errors.acceptTerms ? 'checkbox-error' : ''}`}
+                    disabled={isLoading}
+                  />
+                  <span className="label-text text-sm">
+                    J'accepte les{' '}
+                    <Link to="/terms" className="link link-primary" target="_blank" rel="noopener noreferrer">
+                      conditions d'utilisation
+                    </Link>
+                    {' '}*
+                  </span>
+                </label>
+                {errors.acceptTerms && (
+                  <label className="label">
+                    <span className="label-text-alt text-error">{errors.acceptTerms}</span>
+                  </label>
+                )}
+              </div>
+
+              <div className="form-control">
+                <label className="label cursor-pointer justify-start gap-3">
+                  <input
+                    type="checkbox"
+                    name="acceptPrivacy"
+                    checked={formData.acceptPrivacy}
+                    onChange={handleChange}
+                    className={`checkbox checkbox-primary ${errors.acceptPrivacy ? 'checkbox-error' : ''}`}
+                    disabled={isLoading}
+                  />
+                  <span className="label-text text-sm">
+                    J'accepte la{' '}
+                    <Link to="/privacy" className="link link-primary" target="_blank" rel="noopener noreferrer">
+                      politique de confidentialité
+                    </Link>
+                    {' '}*
+                  </span>
+                </label>
+                {errors.acceptPrivacy && (
+                  <label className="label">
+                    <span className="label-text-alt text-error">{errors.acceptPrivacy}</span>
+                  </label>
+                )}
+              </div>
+
+              <div className="alert alert-info">
+                <svg className="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <div>
+                  <h3 className="font-bold text-sm">Protection de vos données</h3>
+                  <p className="text-xs">
+                    Vos données sont protégées conformément au RGPD. Vous pouvez les consulter, 
+                    modifier ou supprimer à tout moment depuis votre profil.
+                  </p>
+                </div>
               </div>
             </div>
 

@@ -30,4 +30,12 @@ def search():
         "utilisateurs": utilisateurs(),
     }
 
+@main_bp.route("/terms", methods=['GET'])
+def terms():
+    return {"message": "Terms of Service page"}
+
+@main_bp.route("/privacy", methods=['GET']) 
+def privacy():
+    return {"message": "Privacy Policy page"}
+
 

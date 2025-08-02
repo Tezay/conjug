@@ -1,5 +1,5 @@
 ﻿import { useRoutes, Link } from "react-router-dom"
-import routes from "./routes"
+import routes from "./routes/index"
 import { useAuth } from "./hooks/useAuth"
 import { useRef } from "react";
 
@@ -115,6 +115,23 @@ export default function App() {
                             </>
                         )}
                     </ul>
+
+                    {/* Footer légal dans le drawer mobile */}
+                    <div className="mt-auto p-4 border-t border-base-300">
+                        <div className="text-center space-y-2">
+                            <div className="flex flex-wrap justify-center gap-4 text-xs">
+                                <Link to="/terms" className="link link-neutral" onClick={handleLinkClick}>
+                                    Conditions d'utilisation
+                                </Link>
+                                <Link to="/privacy" className="link link-neutral" onClick={handleLinkClick}>
+                                    Politique de confidentialité
+                                </Link>
+                            </div>
+                            <p className="text-xs text-base-content/50">
+                                © 2025 Conjug.fr - Tous droits réservés.
+                            </p>
+                        </div>
+                    </div>
                 </aside>
             </div>
         </div>
