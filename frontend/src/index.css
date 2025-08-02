@@ -70,3 +70,108 @@
   --depth: 1;
   --noise: 0;
 }
+
+/* Styles pour les illustrations pixel art */
+.pixel-art {
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-crisp-edges;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* Bulle de dialogue style Duolingo */
+.speech-bubble-container {
+  position: relative;
+}
+
+.speech-bubble {
+  background: #ffffff;
+  border: 2px solid #e5e7eb;
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.speech-bubble:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  transform: translateY(-1px);
+}
+
+/* Triangle pointer de la bulle */
+.speech-bubble::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-right: 16px solid #ffffff;
+  filter: drop-shadow(-2px 0 0 #e5e7eb);
+  z-index: 10;
+}
+
+/* Responsive pour mobile */
+@media (max-width: 768px) {
+  .speech-bubble {
+    border-radius: 1rem;
+    padding: 1rem;
+  }
+  
+  .speech-bubble::before {
+    left: -12px;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 12px solid #ffffff;
+    filter: drop-shadow(-2px 0 0 #e5e7eb);
+  }
+}
+
+@media (max-width: 480px) {
+  .speech-bubble {
+    border-radius: 0.75rem;
+    padding: 0.75rem;
+  }
+  
+  .speech-bubble::before {
+    left: -10px;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 10px solid #ffffff;
+    filter: drop-shadow(-2px 0 0 #e5e7eb);
+  }
+}
+
+/* Améliorations pour l'input style Duolingo */
+.duolingo-input {
+  background: #ffffff;
+  border: 2px solid #e5e7eb;
+  border-radius: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease;
+}
+
+.duolingo-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  outline: none;
+}
+
+/* Animation de chargement pour les lamas */
+@keyframes llamaFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.llama-enter {
+  animation: llamaFadeIn 0.3s ease-out;
+}
