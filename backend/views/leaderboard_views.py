@@ -1,6 +1,6 @@
 from flask import Blueprint
 
-from backend.services.leaderboard_services import classement_joueur, classement_semaine, classement_mois
+from backend.services.leaderboard_services import classement_joueur, classement_semaine, classement_mois, get_users_xp_data
 from backend.utils.helpers import utilisateurs
 
 leaderboard_bp = Blueprint('leaderboard', __name__)
@@ -14,4 +14,5 @@ def leaderboard():
         "classement_tout": classement_joueur(),
         "classement_semaine": classement_semaine(),
         "classement_mois": classement_mois(),
+        "users_xp": get_users_xp_data(),
     }

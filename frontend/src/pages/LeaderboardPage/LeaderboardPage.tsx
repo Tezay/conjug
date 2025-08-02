@@ -6,6 +6,7 @@ interface LeaderboardData {
   classement_tout: { [username: string]: number };
   classement_semaine: { [username: string]: number };
   utilisateurs: { [username: string]: any };
+  users_xp: { [username: string]: { xp: number; xp_week: number; xp_month: number } };
 }
 
 interface UserEntry {
@@ -123,88 +124,106 @@ const LeaderboardPage = () => {
     );
   }
 
-  const LeaderboardCard = ({ title, users, page, setPage, canLoadMore }: {
+  const LeaderboardCard = ({ title, users, page, setPage, canLoadMore, isWeekly = false }: {
     title: string | React.ReactNode;
     users: UserEntry[];
     page: number;
     setPage: (page: number) => void;
     canLoadMore: boolean;
+    isWeekly?: boolean;
   }) => (
     <div className="card bg-base-200 shadow-xl">
-      <div className="card-body">
+      <div className="card-body lg:p-6 p-3">
         <h2 className="card-title text-2xl mb-4 text-center">
           {title}
         </h2>
         
-        <div className="space-y-3 max-h-96 overflow-y-auto">
+        <div className="space-y-3">
           {users.length === 0 ? (
             <div className="text-center py-8 text-base-content/70">
               {searchQuery ? 'Aucun utilisateur trouvé' : 'Aucun utilisateur dans ce classement'}
             </div>
           ) : (
-            users.map((user, index) => (
-              <Link
-                key={user.username}
-                to={`/profile/${user.username}`}
-                className="block group"
-              >
-                <div className={`card bg-base-100 hover:bg-base-300 transition-colors duration-200 ${
-                  user.rank === 1 ? 'border-2 border-yellow-400' :
-                  user.rank === 2 ? 'border-2 border-gray-400' :
-                  user.rank === 3 ? 'border-2 border-orange-500' :
-                  'border border-base-300'
-                }`}>
-                  <div className="card-body p-4">
-                    <div className="flex items-center gap-4">
-                      {/* Badge de rang */}
-                      <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center">
-                        {user.rank <= 3 ? (
-                          <div className="text-3xl leading-none">
-                            {user.rank === 1 ? '🥇' : 
-                             user.rank === 2 ? '🥈' : 
-                             '🥉'}
+            users.map((user, index) => {
+              const userXpData = leaderboardData?.users_xp?.[user.username];
+              const displayXp = isWeekly ? userXpData?.xp_week : userXpData?.xp;
+              
+              return (
+                <Link
+                  key={user.username}
+                  to={`/profile/${user.username}`}
+                  className="block group"
+                >
+                  <div className={`card bg-base-100 hover:bg-base-300 transition-colors duration-200 ${
+                    user.rank === 1 ? 'border-2 border-yellow-400' :
+                    user.rank === 2 ? 'border-2 border-gray-400' :
+                    user.rank === 3 ? 'border-2 border-orange-500' :
+                    'border border-base-300'
+                  }`}>
+                    <div className="card-body lg:p-4 p-3">
+                      <div className="flex items-center lg:gap-4 gap-2">
+                        {/* Badge de rang */}
+                        <div className="flex-shrink-0 lg:w-12 lg:h-12 w-10 h-10 flex items-center justify-center">
+                          {user.rank <= 3 ? (
+                            <div className="lg:text-3xl text-2xl leading-none">
+                              {user.rank === 1 ? '🥇' : 
+                               user.rank === 2 ? '🥈' : 
+                               '🥉'}
+                            </div>
+                          ) : (
+                            <div className="badge badge-primary badge-lg font-bold text-sm min-w-[2.5rem] lg:h-10 h-8 rounded-full">
+                              #{user.rank}
+                            </div>
+                          )}
+                        </div>
+                        
+                        {/* Avatar */}
+                        <div className="avatar">
+                          <div className="lg:w-12 lg:h-12 w-10 h-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                            <img 
+                              src={user.userData?.logo || '/default-avatar.png'} 
+                              alt={`Avatar de ${user.username}`}
+                              className="w-full h-full object-cover"
+                            />
                           </div>
-                        ) : (
-                          <div className="badge badge-primary badge-lg font-bold text-sm min-w-[2.5rem] h-10 rounded-full">
-                            #{user.rank}
+                        </div>
+                        
+                        {/* Informations utilisateur */}
+                        <div className="flex-1 min-w-0">
+                          <div className="font-bold text-base-content group-hover:text-primary transition-colors truncate lg:text-base text-sm">
+                            {user.username}
+                          </div>
+                          {user.userData?.institution && (
+                            <div className="lg:text-sm text-xs text-base-content/70 truncate">
+                              {user.userData.institution}
+                            </div>
+                          )}
+                        </div>
+                        
+                        {/* XP */}
+                        {displayXp !== undefined && (
+                          <div className="flex-shrink-0 flex items-center lg:gap-2 gap-1 bg-gradient-to-r from-warning/40 to-warning/30 lg:px-4 lg:py-2 px-2 py-1 rounded-full border-2 border-warning/60 shadow-md backdrop-blur-sm">
+                            <svg className="lg:w-5 lg:h-5 w-4 h-4 text-warning drop-shadow-md" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M14.5 2L8 10h4.5L11 22l6.5-8H13l1.5-12z" stroke="currentColor" strokeWidth="0.5" strokeLinejoin="round"/>
+                            </svg>
+                            <span className="lg:text-sm text-xs font-black text-warning drop-shadow-md">
+                              {displayXp.toLocaleString()}
+                            </span>
                           </div>
                         )}
-                      </div>
-                      
-                      {/* Avatar */}
-                      <div className="avatar">
-                        <div className="w-12 h-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                          <img 
-                            src={user.userData?.logo || '/default-avatar.png'} 
-                            alt={`Avatar de ${user.username}`}
-                            className="w-full h-full object-cover"
-                          />
+                        
+                        {/* Flèche */}
+                        <div className="flex-shrink-0">
+                          <svg className="w-5 h-5 text-base-content/50 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
                         </div>
-                      </div>
-                      
-                      {/* Informations utilisateur */}
-                      <div className="flex-1 min-w-0">
-                        <div className="font-bold text-base-content group-hover:text-primary transition-colors truncate">
-                          {user.username}
-                        </div>
-                        {user.userData?.institution && (
-                          <div className="text-sm text-base-content/70 truncate">
-                            {user.userData.institution}
-                          </div>
-                        )}
-                      </div>
-                      
-                      {/* Flèche */}
-                      <div className="flex-shrink-0">
-                        <svg className="w-5 h-5 text-base-content/50 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
                       </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            ))
+                </Link>
+              );
+            })
           )}
         </div>
         
@@ -223,11 +242,11 @@ const LeaderboardPage = () => {
   );
 
   return (
-    <div className="min-h-full bg-base-100 py-8 px-4">
+    <div className="min-h-full bg-base-100 py-8 lg:px-4 px-2">
       <div className="max-w-7xl mx-auto">
         {/* Header + Barre de recherche */}
         <div className="card bg-base-200 shadow-xl mb-6 max-w-6xl mx-auto">
-          <div className="card-body">
+          <div className="card-body lg:p-6 p-4">
             {/* Header */}
             <div className="text-center mb-6">
               <h1 className="text-4xl font-bold text-primary mb-2">Classements</h1>
@@ -270,7 +289,7 @@ const LeaderboardPage = () => {
         {/* Slider mobile */}
         <div className="lg:hidden mb-6">
           <div className="card bg-base-200 shadow-xl">
-            <div className="card-body p-4">
+            <div className="card-body p-3">
               <div className="flex bg-base-300 rounded-full p-1 gap-1">
                 <button 
                   className={`flex-1 py-3 px-4 rounded-full transition-all duration-200 flex items-center justify-center gap-2 font-medium ${
@@ -320,6 +339,7 @@ const LeaderboardPage = () => {
               page={generalPage}
               setPage={setGeneralPage}
               canLoadMore={canLoadMoreGeneral}
+              isWeekly={false}
             />
           </div>
           
@@ -337,6 +357,7 @@ const LeaderboardPage = () => {
               page={weeklyPage}
               setPage={setWeeklyPage}
               canLoadMore={canLoadMoreWeekly}
+              isWeekly={true}
             />
           </div>
 
@@ -349,6 +370,7 @@ const LeaderboardPage = () => {
                 page={generalPage}
                 setPage={setGeneralPage}
                 canLoadMore={canLoadMoreGeneral}
+                isWeekly={false}
               />
             ) : (
               <LeaderboardCard
@@ -357,6 +379,7 @@ const LeaderboardPage = () => {
                 page={weeklyPage}
                 setPage={setWeeklyPage}
                 canLoadMore={canLoadMoreWeekly}
+                isWeekly={true}
               />
             )}
           </div>

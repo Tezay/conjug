@@ -58,5 +58,19 @@ def classement_mois():
 
     return classement_mois
 
+def get_users_xp_data():
+    """Récupère les données XP de tous les utilisateurs avec leaderboard"""
+    leaderboard_entries = Leaderboard.query.filter(Leaderboard.xp > 0).all()
+    
+    users_xp = {}
+    for entry in leaderboard_entries:
+        users_xp[entry.user.username] = {
+            'xp': entry.xp,
+            'xp_week': entry.xp_week,
+            'xp_month': entry.xp_month
+        }
+    
+    return users_xp
+
 
 
