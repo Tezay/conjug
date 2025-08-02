@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { useRef } from 'react';
+import FlagIcon from '../../components/common/FlagIcon';
 
 const Navbar = () => {
   const { user, isLoading, isAuthenticated } = useAuth();
@@ -29,9 +30,26 @@ const Navbar = () => {
           {/* Menu desktop - caché sur mobile */}
           <div className="navbar-end hidden lg:flex">
             <ul className="menu menu-horizontal px-1 gap-1 xl:gap-4 items-center">
-              <li><Link to="/it" className="text-white font-medium hover:opacity-80 transition-opacity text-sm xl:text-base px-2 xl:px-3">Italien</Link></li>
-              <li><Link to="/es" className="text-white font-medium hover:opacity-80 transition-opacity text-sm xl:text-base px-2 xl:px-3">Espagnol</Link></li>
-              <li><Link to="/leaderboard" className="text-white font-medium hover:opacity-80 transition-opacity text-sm xl:text-base px-2 xl:px-3">Classement</Link></li>
+              <li>
+                <Link to="/it" className="text-white font-medium hover:opacity-80 transition-opacity text-sm xl:text-base px-2 xl:px-3 flex items-center gap-2">
+                  <FlagIcon langCode="it" size="sm" />
+                  <span>Italien</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/es" className="text-white font-medium hover:opacity-80 transition-opacity text-sm xl:text-base px-2 xl:px-3 flex items-center gap-2">
+                  <FlagIcon langCode="es" size="sm" />
+                  <span>Espagnol</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/leaderboard" className="text-white font-medium hover:opacity-80 transition-opacity text-sm xl:text-base px-2 xl:px-3 flex items-center gap-2">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                  <span>Classement</span>
+                </Link>
+              </li>
               
               {isLoading ? (
                 <li>
@@ -54,8 +72,22 @@ const Navbar = () => {
                 </li>
               ) : (
                 <>
-                  <li><Link to="/login" className="text-white font-medium hover:opacity-80 transition-opacity text-sm xl:text-base px-2 xl:px-3">Connexion</Link></li>
-                  <li><Link to="/register" className="text-white font-medium hover:opacity-80 transition-opacity text-sm xl:text-base px-2 xl:px-3">Inscription</Link></li>
+                  <li>
+                    <Link to="/login" className="text-white font-medium hover:opacity-80 transition-opacity text-sm xl:text-base px-2 xl:px-3 flex items-center gap-2">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                      </svg>
+                      <span>Connexion</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/register" className="text-white font-medium hover:opacity-80 transition-opacity text-sm xl:text-base px-2 xl:px-3 flex items-center gap-2">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                      </svg>
+                      <span>Inscription</span>
+                    </Link>
+                  </li>
                 </>
               )}
             </ul>
@@ -91,13 +123,15 @@ const Navbar = () => {
           {/* Menu mobile */}
           <ul className="menu p-4 w-full text-base-content">
             <li>
-              <Link to="/it" className="text-lg py-3" onClick={handleLinkClick}>
-                <span>🇮🇹</span> Italien
+              <Link to="/it" className="text-lg py-3 flex items-center gap-3" onClick={handleLinkClick}>
+                <FlagIcon langCode="it" size="md" />
+                <span>Italien</span>
               </Link>
             </li>
             <li>
-              <Link to="/es" className="text-lg py-3" onClick={handleLinkClick}>
-                <span>🇪🇸</span> Espagnol
+              <Link to="/es" className="text-lg py-3 flex items-center gap-3" onClick={handleLinkClick}>
+                <FlagIcon langCode="es" size="md" />
+                <span>Espagnol</span>
               </Link>
             </li>
             <li className="menu-title mt-4">

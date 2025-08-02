@@ -11,9 +11,7 @@ const RegisterPage = () => {
     username: '',
     institution: '',
     password: '',
-    confirmPassword: '',
-    acceptTerms: false,
-    acceptPrivacy: false
+    confirmPassword: ''
   });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -73,14 +71,6 @@ const RegisterPage = () => {
       newErrors.confirmPassword = 'Veuillez confirmer votre mot de passe';
     } else if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = 'Les mots de passe ne correspondent pas';
-    }
-    
-    if (!formData.acceptTerms) {
-      newErrors.acceptTerms = 'Vous devez accepter les conditions d\'utilisation';
-    }
-    
-    if (!formData.acceptPrivacy) {
-      newErrors.acceptPrivacy = 'Vous devez accepter la politique de confidentialité';
     }
     
     setErrors(newErrors);
@@ -373,68 +363,31 @@ const RegisterPage = () => {
               </div>
             </div>
 
-            {/* Acceptation des conditions - après les mots de passe */}
-            <div className="space-y-4 mt-6">
-              <div className="form-control">
-                <label className="label cursor-pointer justify-start gap-3">
-                  <input
-                    type="checkbox"
-                    name="acceptTerms"
-                    checked={formData.acceptTerms}
-                    onChange={handleChange}
-                    className={`checkbox checkbox-primary ${errors.acceptTerms ? 'checkbox-error' : ''}`}
-                    disabled={isLoading}
-                  />
-                  <span className="label-text text-sm">
-                    J'accepte les{' '}
-                    <Link to="/terms" className="link link-primary" target="_blank" rel="noopener noreferrer">
-                      conditions d'utilisation
-                    </Link>
-                    {' '}*
-                  </span>
-                </label>
-                {errors.acceptTerms && (
-                  <label className="label">
-                    <span className="label-text-alt text-error">{errors.acceptTerms}</span>
-                  </label>
-                )}
-              </div>
-
-              <div className="form-control">
-                <label className="label cursor-pointer justify-start gap-3">
-                  <input
-                    type="checkbox"
-                    name="acceptPrivacy"
-                    checked={formData.acceptPrivacy}
-                    onChange={handleChange}
-                    className={`checkbox checkbox-primary ${errors.acceptPrivacy ? 'checkbox-error' : ''}`}
-                    disabled={isLoading}
-                  />
-                  <span className="label-text text-sm">
-                    J'accepte la{' '}
-                    <Link to="/privacy" className="link link-primary" target="_blank" rel="noopener noreferrer">
-                      politique de confidentialité
-                    </Link>
-                    {' '}*
-                  </span>
-                </label>
-                {errors.acceptPrivacy && (
-                  <label className="label">
-                    <span className="label-text-alt text-error">{errors.acceptPrivacy}</span>
-                  </label>
-                )}
-              </div>
-
-              <div className="alert alert-info">
-                <svg className="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <div>
-                  <h3 className="font-bold text-sm">Protection de vos données</h3>
-                  <p className="text-xs">
-                    Vos données sont protégées conformément au RGPD. Vous pouvez les consulter, 
-                    modifier ou supprimer à tout moment depuis votre profil.
-                  </p>
+            {/* Disclaimer légal au-dessus du bouton */}
+            <div className="mt-6 mb-4">
+              <div className="bg-base-300 p-4 rounded-lg border-l-4 border-primary">
+                <div className="flex items-start gap-3">
+                  <svg className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <div className="text-sm text-base-content">
+                    <p className="mb-2">
+                      En créant un compte, vous acceptez automatiquement nos{' '}
+                      <Link to="/terms" className="link link-primary font-medium" target="_blank" rel="noopener noreferrer">
+                        conditions d'utilisation
+                      </Link>
+                      {' '}et notre{' '}
+                      <Link to="/privacy" className="link link-primary font-medium" target="_blank" rel="noopener noreferrer">
+                        politique de confidentialité
+                      </Link>.
+                    </p>
+                    <p className="text-xs text-base-content/70">
+                      <svg className="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                      </svg>
+                      Vos données sont protégées conformément au RGPD et peuvent être modifiées à tout moment.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -442,7 +395,7 @@ const RegisterPage = () => {
             {/* Bouton de création */}
             <button
               type="submit"
-              className={`btn btn-primary w-full mt-6 ${isLoading ? 'loading' : ''}`}
+              className={`btn btn-primary w-full ${isLoading ? 'loading' : ''}`}
               disabled={isLoading}
             >
               {isLoading ? (

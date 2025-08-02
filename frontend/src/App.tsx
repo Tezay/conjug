@@ -2,6 +2,7 @@
 import routes from "./routes/index"
 import { useAuth } from "./hooks/useAuth"
 import { useRef } from "react";
+import FlagIcon from "./components/common/FlagIcon";
 
 import Navbar from "./layouts/Navbar/Navbar";
 
@@ -50,13 +51,15 @@ export default function App() {
                     {/* Menu mobile */}
                     <ul className="menu p-4 w-full text-base-content">
                         <li>
-                            <Link to="/it" className="text-lg py-3" onClick={handleLinkClick}>
-                                <span>🇮🇹</span> Italien
+                            <Link to="/it" className="text-lg py-3 flex items-center gap-3" onClick={handleLinkClick}>
+                                <FlagIcon langCode="it" size="md" />
+                                <span>Italien</span>
                             </Link>
                         </li>
                         <li>
-                            <Link to="/es" className="text-lg py-3" onClick={handleLinkClick}>
-                                <span>🇪🇸</span> Espagnol
+                            <Link to="/es" className="text-lg py-3 flex items-center gap-3" onClick={handleLinkClick}>
+                                <FlagIcon langCode="es" size="md" />
+                                <span>Espagnol</span>
                             </Link>
                         </li>
                         <li>
