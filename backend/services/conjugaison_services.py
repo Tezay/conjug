@@ -27,8 +27,6 @@ def init_active_times(form_data, pronouns_dict, time_keys):
     if not selected:
         selected = time_keys[0]
     
-    #print(f"DEBUG: Selected times: {selected}")
-    
     session[_session_key("active_times")] = selected
     session[_session_key("current_time")] = rd.choice(selected)
     session[_session_key("current_pronoun")] = rd.choice(list(pronouns_dict.keys()))
@@ -40,12 +38,6 @@ def sync_time_checkboxes(time_keys):
 
 def init_verb_type(form_data):
     choice = form_data.get("verb_type")
-    if choice  == "regulier":
-        choice = "regular"
-    elif choice == "irregulier":
-        choice = "irregular"
-    else:
-        choice = "all"
         
     session[_session_key("verb_type")] = choice or session.get(_session_key("verb_type"), "regular")
 
@@ -111,8 +103,6 @@ def it_evaluate_regular(verb, tense, pronoun, pronouns_dict):
 
 def es_evaluate_regular(verb, tense, pronoun, pronouns_dict):
     verb_group = verb[-2:]  # 'ar', 'er', 'ir'
-
-    #print(f"DEBUG: Looking for - Language: es, Tense: {tense}, Verb Group: {verb_group}")
     
     # Récup le bon groupe de terminaison
     global_inflection = inflection_ending(tense, pronoun, pronouns_dict, "es", verb_group)
@@ -183,12 +173,10 @@ def reset_error():
         session[_session_key("error_verbs")] = list(session[_session_key("error_verbs")][-1])
 
 def inflection_ending(tense, pronoun, pronouns_dict, language, verb_group):
-    #print(f"DEBUG: Querying with - Language: {language}, Tense: {tense}, Verb Group: {verb_group}")
     tense_inflection = ConjugaisonRegular.query.filter_by(language=language, tense=tense, verb_group=verb_group).first()
 
     name_pronoun = pronouns_dict[pronoun]
     result = getattr(tense_inflection, name_pronoun, None)
-    #print(f"DEBUG: Final result for {name_pronoun}: {result}")
     return result
 
 def irregular_expected(tense, pronoun, pronouns_dict, infinitif, language):
