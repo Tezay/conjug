@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ActionBar from "./ActionBar";
+import LlamaIllustration from "../../components/common/LlamaIllustration";
 
 const ExerciseView = ({
   exerciseData,
@@ -99,21 +100,23 @@ const ExerciseView = ({
       </button>
 
       {/* Main Exercise Area */}
-      <main className="flex-1 flex flex-col justify-center items-center p-8 relative lg:ml-0">
+      <main className="flex-1 flex flex-col justify-center items-center p-4 md:p-8 relative lg:ml-0">
         <div className="w-full h-full flex flex-col justify-center items-center pb-24">
-          <div className="text-center mb-8">
-            <p className="text-6xl font-bold text-primary m-0">
-              {exerciseData.verb}
-            </p>
-            <p className="text-2xl text-base-content/60 mt-2 capitalize">
-              {exerciseData.pronouns} ({exerciseData.time})
-            </p>
+          
+          {/* Section Question avec Lama et Bulle de dialogue */}
+          <div className="mb-8 w-full flex justify-center">
+            <LlamaIllustration 
+              size="lg"
+              className="transition-all duration-300"
+              exerciseData={exerciseData}
+            />
           </div>
 
-          <div className="w-full max-w-lg h-15 flex justify-center items-center">
+          {/* Zone de réponse */}
+          <div className="w-full max-w-lg h-15 flex justify-center items-center px-4">
             <input
               type="text"
-              className="input input-bordered w-full text-xl text-center h-15 rounded-3xl focus:border-primary transition-colors"
+              className="input input-bordered w-full text-xl text-center h-15 rounded-3xl focus:border-primary transition-colors shadow-lg border-2 border-gray-200"
               value={isResultView ? (exerciseData.user_answer || "") : userResponse}
               onChange={(e) => setUserResponse(e.target.value)}
               onKeyPress={(e) => e.key === "Enter" && !isResultView && handleConfirm()}
@@ -125,7 +128,7 @@ const ExerciseView = ({
           </div>
 
           {isResultView && (
-            <div className={`alert mt-4 w-full max-w-lg text-center rounded-3xl ${
+            <div className={`alert mt-4 w-full max-w-lg text-center rounded-3xl shadow-lg ${
               exerciseData.is_correct ? 'alert-success' : 'alert-error'
             }`}>
               {exerciseData.is_correct
@@ -140,6 +143,7 @@ const ExerciseView = ({
             </p>
           )}
         </div>
+        
         <ActionBar
           onSkip={handleSkip}
           onConfirm={handleConfirm}

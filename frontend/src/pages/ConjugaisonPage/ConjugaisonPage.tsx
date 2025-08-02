@@ -40,6 +40,7 @@ const ConjugaisonPage = () => {
           isSubmitting={logic.isSubmitting}
           isResultView={isResultView}
           setIsSettingsOpen={logic.setIsSettingsOpen}
+          questionId={logic.questionId}
         />
       )}
     </div>
