@@ -55,7 +55,7 @@ const ExerciseView = ({
               </p>
               <span className="capitalize font-normal">{exerciseData.verb_type}</span>
             </div>
-            <div className="mb-4">
+            <div className="mb-6">
               <p className="font-bold text-base-content/70 mb-2">
                 <strong>Temps :</strong>
               </p>
@@ -72,15 +72,16 @@ const ExerciseView = ({
                   ))}
               </ul>
             </div>
-          </div>
-          
-          <div className="mt-auto pt-4">
-            <button 
-              onClick={() => setIsSettingsOpen(true)} 
-              className="btn btn-secondary w-full"
-            >
-              Modifier
-            </button>
+            
+            {/* Bouton Modifier maintenant dans le contenu principal */}
+            <div className="mt-16">
+              <button 
+                onClick={() => setIsSettingsOpen(true)} 
+                className="btn btn-secondary w-full"
+              >
+                Modifier
+              </button>
+            </div>
           </div>
         </div>
       </div>
