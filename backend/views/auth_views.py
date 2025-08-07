@@ -18,7 +18,7 @@ def load_user(user_id):
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        email = request.form['email']
+        email = request.form['email'].lower()
         first_name = request.form['first_name']
         last_name = request.form['last_name']
         username = request.form['username'].lower()
