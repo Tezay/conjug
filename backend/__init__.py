@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -12,7 +13,9 @@ def create_app():
     app = Flask(__name__)
     app.config.from_pyfile('config.py')
 
-    CORS(app, supports_credentials=True, origins=["http://localhost:5173"])
+    frontend_port = os.getenv('FRONTEND_PORT', '5173')
+    CORS(app, supports_credentials=True, origins=[f"http://localhost:{frontend_port}",
+                                                  f"http://user-frontend:{frontend_port}"])
 
     db.init_app(app)
     login_manager.init_app(app)
@@ -32,7 +35,10 @@ def create_app():
     app.register_blueprint(leaderboard_bp)
     app.register_blueprint(conjugaison_bp)
 
-    with app.app_context():
-        db.create_all()
+    try:
+        with app.app_context():
+            db.create_all()
+    except Exception as e:
+        pass
 
     return app

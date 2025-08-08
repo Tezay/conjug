@@ -8,12 +8,11 @@ export default defineConfig({
     tailwindcss(),
   ],
   server: {
-    host: '0.0.0.0',
-    port: 5173,
-    strictPort: true,
+    host: "0.0.0.0",
     watch: {
       usePolling: true,
-      interval: 100,
     },
+    port: parseInt(process.env.FRONTEND_PORT || '5173', 10),
+    strictPort: true,
   }
 })
