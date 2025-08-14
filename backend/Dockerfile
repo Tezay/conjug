@@ -28,7 +28,7 @@ ENTRYPOINT ["/entrypoint.sh"]
 
 EXPOSE 5000
 
-CMD ["gunicorn", "--bind", "0.0.0.0:5001", "--workers", "4", "--threads", "4", "backend.wsgi:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "4", "--threads", "4", "backend.wsgi:app"]
 
 
 # ─── Stage 2: Development ────────────────────────────────────────────────────
