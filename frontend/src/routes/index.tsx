@@ -7,12 +7,13 @@ import RegisterPage from '../pages/RegisterPage/RegisterPage';
 import ProfilePage from '../pages/ProfilePage/ProfilePage';
 import LeaderboardPage from '../pages/LeaderboardPage/LeaderboardPage';
 import ConjugaisonPage from '../pages/ConjugaisonPage/ConjugaisonPage';
+import Landing from "../pages/Landing";
 
 const TermsPage = lazy(() => import("../pages/TermsPage/TermsPage"));
 const PrivacyPage = lazy(() => import("../pages/PrivacyPage/PrivacyPage"));
 
 const routes: RouteObject[] = [
-    { path: "/", element: <HomePage /> },
+    { path: "/", element: <Landing /> },
     { path: "/login", element: <LoginPage /> },
     { path: "/register", element: <RegisterPage /> },
     { path: "/profile", element: <ProfilePage /> },
