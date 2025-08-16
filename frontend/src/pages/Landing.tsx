@@ -84,7 +84,7 @@ export default function Landing() {
                             <div className="card-body items-center text-center">
                                 <div className="avatar">
                                     <div className="w-24 rounded-full hover:scale-110 transition-transform duration-300">
-                                        <img src="https://www.gravatar.com/avatar/cedric?s=200&d=identicon" alt="Cédric" />
+                                        <img src="https://gravatar.com/avatar/dbcea079dab478e5cb50bb7272bea83fc0a83f6e725b2d9d07ce99a54d66c35f?s=200&d=identicon" alt="Cédric" />
                                     </div>
                                 </div>
                                 <h3 className="card-title text-2xl">Cédric</h3>
