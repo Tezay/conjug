@@ -1,5 +1,5 @@
 ﻿services:
-  backend:
+  user-backend:
     build:
       context: ./backend
       target: ${BACKEND_TARGET:-dev}
@@ -13,12 +13,12 @@
       - MYSQL_DATABASE=${MYSQL_DATABASE:-name_db}
       - MYSQL_USER=${MYSQL_USER:-user}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD:-user_password}
-      - SECRET_KEY=${SECRET_KEY:-supersecret}
+      - SECRET_KEY=${SECRET_KEY:-dev_secret_key}
       - FRONTEND_PORT=${FRONTEND_PORT:-5173}
     depends_on:
       - mariadb
 
-  frontend:
+  user-frontend:
     build:
       context: ./frontend
       target: ${FRONTEND_TARGET:-dev}   
@@ -30,6 +30,7 @@
     environment:
       - CHOKIDAR_USEPOLLING=true
       - VITE_API_URL=${VITE_API_URL_PROD:-http://localhost:5000/}
+      - FRONTEND_PORT=${FRONTEND_PORT:-5173}
 
   mariadb:
     image: mariadb:11.8

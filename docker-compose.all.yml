@@ -1,56 +1,72 @@
 services:
   user-backend:
-    build: ./backend
+    build:
+      context: .backend
+      target: ${BACKEND_TARGET:-dev}
     volumes:
-      - ./backend:/app/backend
+      - .backend:/app/backend
     ports:
       - "${BACKEND_PORT:-5000}:5000"
     environment:
-      #      - DATABASE_HOST=mariadb
       - DATABASE_PORT=${DB_PORT:-3306}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-example_password}
       - MYSQL_DATABASE=${MYSQL_DATABASE:-name_db}
       - MYSQL_USER=${MYSQL_USER:-user}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD:-user_password}
-      - SECRET_KEY=${SECRET_KEY}
+      - SECRET_KEY=${SECRET_KEY:-dev_secret_key}
+      - FRONTEND_PORT=${FRONTEND_PORT:-5173}
+    depends_on:
+      - mariadb
 
   user-frontend:
-    build: ./frontend
+    build:
+      context: .frontend
+      target: ${FRONTEND_TARGET:-dev}
     volumes:
-      - ./frontend:/app
+      - .frontend:/app
       - /app/node_modules
     ports:
       - "${FRONTEND_PORT:-5173}:5173"
     environment:
       - CHOKIDAR_USEPOLLING=true
-      
-    
+      - VITE_API_URL=${VITE_API_URL_PROD:-http://localhost:5000/}
+      - FRONTEND_PORT=${FRONTEND_PORT:-5173}
+  
+  
   admin-backend:
-    build: ./admin/backend
+    build:
+      context: .admin/backend
+      target: ${BACKEND_ADMIN_TARGET:-dev}
     volumes:
-      - ./admin/backend:/app/backend
+      - .admin/backend:/app/backend
     ports:
       - "${BACKEND_ADMIN_PORT:-5001}:5001"
     environment:
-      #      - DATABASE_HOST=mariadb
       - DATABASE_PORT=${DB_PORT:-3306}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-example_password}
       - MYSQL_DATABASE=${MYSQL_DATABASE:-name_db}
       - MYSQL_USER=${MYSQL_USER:-user}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD:-user_password}
-      - SECRET_KEY=${SECRET_KEY}
+      - SECRET_KEY=${SECRET_KEY:-dev_secret_key}
+      - FRONTEND_ADMIN_PORT=${FRONTEND_ADMIN_PORT:-5174}
+    depends_on:
+      - mariadb
 
   admin-frontend:
-    build: ./admin/frontend
+    build:
+      context: .admin/frontend
+      target: ${FRONTEND_ADMIN_TARGET:-dev}
     volumes:
-      - ./admin/frontend:/app
+      - .admin/frontend:/app
       - /app/node_modules
     ports:
       - "${FRONTEND_ADMIN_PORT:-5174}:5174"
     environment:
-      - CHOKIDAR_USEPOLLING=true 
-        
-
+      - CHOKIDAR_USEPOLLING=true
+      - VITE_ADMIN_API_URL=${VITE_API_URL_PROD:-http://localhost:5001/api/}
+      - FRONTEND_ADMIN_PORT=${FRONTEND_ADMIN_PORT:-5174}
+  
+  
   mariadb:
     image: mariadb:11.8
     ports:
