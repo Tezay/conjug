@@ -89,7 +89,7 @@ export default function Landing() {
                                 </div>
                                 <h3 className="card-title text-2xl">Cédric</h3>
                                 <p className="text-base-content/70">Co-créateur & Développeur</p>
-                                <p>Aime un peu trop python, fanatique de maths et d'info sur les bords (et j'aime pas les documentations 😭). S'occupe du backend et de l'architecture.</p>
+                                <p>S'occupe du backend et de l'architecture.</p>
                             </div>
                         </div>
                         <div className="card bg-base-200 shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
