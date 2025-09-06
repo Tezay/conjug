@@ -6,7 +6,7 @@ from backend.utils.helpers import utilisateurs
 main_bp = Blueprint('main', __name__)
 
 
-@main_bp.route('/status', methods=['GET'])
+@main_bp.route('/api/status', methods=['GET'])
 def auth_status():
     if current_user.is_authenticated:
         return {
@@ -18,23 +18,23 @@ def auth_status():
             "status": "connexion"
         }
 
-@main_bp.route("/home", methods=['GET', 'POST'])
+@main_bp.route("/api/home", methods=['GET', 'POST'])
 def home():
 
     return {}
 
-@main_bp.route("/search", methods=['GET', 'POST'])
+@main_bp.route("/api/search", methods=['GET', 'POST'])
 def search():
 
     return {
         "utilisateurs": utilisateurs(),
     }
 
-@main_bp.route("/terms", methods=['GET'])
+@main_bp.route("/api/terms", methods=['GET'])
 def terms():
     return {"message": "Terms of Service page"}
 
-@main_bp.route("/privacy", methods=['GET']) 
+@main_bp.route("/api/privacy", methods=['GET']) 
 def privacy():
     return {"message": "Privacy Policy page"}
 

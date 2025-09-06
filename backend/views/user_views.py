@@ -6,12 +6,12 @@ from backend.models import User
 user_bp = Blueprint('user', __name__)
 
 
-@user_bp.route("/connexion", methods=['GET', 'POST'])
+@user_bp.route("/api/connexion", methods=['GET', 'POST'])
 def connexion():
 
     return {}
 
-@user_bp.route("/profile/<username>", methods=['GET', 'POST'])
+@user_bp.route("/api/profile/<username>", methods=['GET', 'POST'])
 def profile(username):
 
     if User.query.filter_by(username=username).first():

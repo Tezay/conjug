@@ -14,12 +14,12 @@ es_time_keys = ["present_ind", "futur", "conditionnel", "present_subj", "imparfa
 es_pronouns_dict = {"yo": "prem_pers_sing", "tú": "deux_pers_sing", "él": "trois_pers_sing",
                     "nosotros": "prem_pers_plur", "vosotros": "deux_pers_plur", "ellos": "trois_pers_plur"}
 
-@conjugaison_bp.route('/de', methods=['GET', 'POST'])
+@conjugaison_bp.route('/api/de', methods=['GET', 'POST'])
 def de():
 
     return {}
 
-@conjugaison_bp.route('/it', methods=['GET', 'POST'])
+@conjugaison_bp.route('/api/it', methods=['GET', 'POST'])
 def it():
     if request.method == 'GET':
         return {"time_keys": it_time_keys}
@@ -70,7 +70,7 @@ def it():
             "message": message,
         }
 
-@conjugaison_bp.route('/es', methods=['GET', 'POST'])
+@conjugaison_bp.route('/api/es', methods=['GET', 'POST'])
 def es():
     if request.method == 'GET':
         return {"time_keys": es_time_keys}

@@ -6,7 +6,7 @@ from backend.utils.helpers import utilisateurs
 leaderboard_bp = Blueprint('leaderboard', __name__)
 
 
-@leaderboard_bp.route('/leaderboard', methods=['GET', 'POST'])
+@leaderboard_bp.route('/api/leaderboard', methods=['GET', 'POST'])
 def leaderboard():
 
     return {

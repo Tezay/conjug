@@ -15,7 +15,7 @@ auth_bp = Blueprint('auth', __name__)
 def load_user(user_id):
     return User.query.get(user_id)
 
-@auth_bp.route('/register', methods=['GET', 'POST'])
+@auth_bp.route('/api/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         email = request.form['email'].lower()
@@ -49,7 +49,7 @@ def register():
 
     return{}
 
-@auth_bp.route('/login', methods=['GET', 'POST'])
+@auth_bp.route('/api/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         email = request.form['email']
@@ -74,7 +74,7 @@ def login():
 
     return {}
 
-@auth_bp.route('/logout')
+@auth_bp.route('/api/logout')
 @login_required
 def logout():
     logout_user()
@@ -86,7 +86,7 @@ def logout():
 
 ### Verification de l'utilisateur ###
 
-@auth_bp.route('/verif/<username>/<mail_token>', methods=['GET', 'POST'])
+@auth_bp.route('/api/verif/<username>/<mail_token>', methods=['GET', 'POST'])
 @login_required
 def verify_user(username, mail_token):
     if request.method == 'GET':
@@ -106,7 +106,7 @@ def verify_user(username, mail_token):
         }
 
 
-@auth_bp.route('/forget_password/<username>/<mail_token>', methods=['GET', 'POST'])
+@auth_bp.route('/api/forget_password/<username>/<mail_token>', methods=['GET', 'POST'])
 def forget_password(username, mail_token):
     if request.method == 'POST':
         password = hashing.hash_value(request.form['password'], salt=current_app.config["SECRET_KEY"])
@@ -130,7 +130,7 @@ def forget_password(username, mail_token):
     
     return {}
 
-@auth_bp.route('/forget_password', methods=['GET', 'POST'])
+@auth_bp.route('/api/forget_password', methods=['GET', 'POST'])
 def send_mail_password():
     if request.method == 'POST':
         email = request.form['email']

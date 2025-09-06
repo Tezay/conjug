@@ -13,15 +13,17 @@ def create_app():
     app = Flask(__name__)
     app.config.from_pyfile('config.py')
 
-    frontend_port = os.getenv('FRONTEND_PORT', '5173')
-    CORS(app, supports_credentials=True, origins=[f"http://localhost:{frontend_port}",
-                                                  f"http://user-frontend:{frontend_port}"])
+    if os.getenv('APP_ENV') == 'development':
+        CORS(app, supports_credentials=True, origins="*")
+    else:
+        frontend_domain = os.getenv('FRONTEND_DOMAIN', 'localhost:5173')
+        CORS(app, supports_credentials=True, origins=[f'https://{frontend_domain}'])
 
     db.init_app(app)
     login_manager.init_app(app)
     hashing.init_app(app)
 
-    login_manager.login_view = '/home'
+    login_manager.login_view = '/api/home'
 
     from .views.main_views import main_bp
     from .views.auth_views import auth_bp
