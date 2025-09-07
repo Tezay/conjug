@@ -5,104 +5,93 @@ services:
       - "--providers.docker=true"
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
-      - "--certificatesresolvers.le.acme.tlschallenge=true"
-      - "--certificatesresolvers.le.acme.storage=/letsencrypt/acme.json"
     ports:
       - "80:80"
       - "443:443"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./letsencrypt:/letsencrypt
     networks:
       - web
 
 
   user-backend:
     build:
-      context: ./conjug_user/backend
-      target: ${BACKEND_TARGET:-dev}
+      context: ./backend
+      target: builder
+    env_file:
+      - ./env/.env.backend
     volumes:
-      - ./conjug_user/backend:/app/backend
+      - ./backend:/app/backend
     environment:
-      - DATABASE_PORT=${DB_PORT:-3306}
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-example_password}
-      - MYSQL_DATABASE=${MYSQL_DATABASE:-name_db}
-      - MYSQL_USER=${MYSQL_USER:-user}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-user_password}
-      - SECRET_KEY=${SECRET_KEY:-dev_secret_key}
-      - FRONTEND_DOMAIN=${FRONTEND_DOMAIN:-localhost:5173}
       - APP_ENV=${APP_ENV:-development}
     depends_on:
       - mariadb
     networks:
       - web
     labels:
-      - "traefik.http.routers.user-backend.rule=Host(`${BACKEND_DOMAIN}`)"
-      - "traefik.http.routers.user-backend.entrypoints=web"
-      - "traefik.http.services.user-backend.loadbalancer.server.port=`${BACKEND_PORT}`"
+      - "traefik.http.routers.user-backend.rule=Host(`${BACKEND_DOMAIN}`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.user-backend.entrypoints=websecure"
+      - "traefik.http.routers.user-backend.tls=true"
+      - "traefik.http.services.user-backend.loadbalancer.server.port=${BACKEND_PORT}"
 
   user-frontend:
     build:
-      context: ./conjug_user/frontend
-      target: ${FRONTEND_TARGET:-dev}
+      context: ./frontend
+      target: prod
+    env_file:
+      - ./env/.env.frontend
     volumes:
-      - ./conjug_user/frontend:/app
+      - ./frontend:/app
       - /app/node_modules
     environment:
-      - VITE_BACKEND_URL=${VITE_BACKEND_URL:-http://localhost:5000/api}
       - APP_ENV=${APP_ENV:-development}
-      - FRONTEND_PORT=${FRONTEND_PORT:-80}
     networks:
       - web
     labels:
       - "traefik.http.routers.user-frontend.rule=Host(`${FRONTEND_DOMAIN}`)"
       - "traefik.http.routers.user-frontend.entrypoints=websecure"
       - "traefik.http.routers.user-frontend.tls=true"
-      - "traefik.http.services.user-frontend.loadbalancer.server.port=`${FRONTEND_PORT}`"
+      - "traefik.http.services.user-frontend.loadbalancer.server.port=${FRONTEND_PORT}"
 
 
   admin-backend:
     build:
-      context: ./conjug_admin/backend
-      target: ${BACKEND_ADMIN_TARGET:-dev}
+      context: ./admin/backend
+      target: builder
+    env_file:
+      - ./env/.env.backend
     volumes:
-      - ./conjug_admin/backend:/app/backend
+      - ./admin/backend:/app/backend
     environment:
-      - DATABASE_PORT=${DB_PORT:-3306}
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-example_password}
-      - MYSQL_DATABASE=${MYSQL_DATABASE:-name_db}
-      - MYSQL_USER=${MYSQL_USER:-user}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-user_password}
-      - SECRET_KEY=${SECRET_KEY:-dev_secret_key}
-      - FRONTEND_ADMIN_DOMAIN=${FRONTEND_ADMIN_DOMAIN:-localhost:5174}
       - APP_ENV=${APP_ENV:-development}
     depends_on:
       - mariadb
     networks:
       - web
     labels:
-      - "traefik.http.routers.admin-backend.rule=Host(`${BACKEND_ADMIN_DOMAIN}`)"
-      - "traefik.http.routers.admin-backend.entrypoints=web"
-      - "traefik.http.services.admin-backend.loadbalancer.server.port=`${BACKEND_ADMIN_PORT}`"
+      - "traefik.http.routers.admin-backend.rule=Host(`${BACKEND_ADMIN_DOMAIN}`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.admin-backend.entrypoints=websecure"
+      - "traefik.http.routers.admin-backend.tls=true"
+      - "traefik.http.services.admin-backend.loadbalancer.server.port=${BACKEND_ADMIN_PORT}"
 
   admin-frontend:
     build:
-      context: ./conjug_admin/frontend
-      target: ${FRONTEND_ADMIN_TARGET:-dev}
+      context: ./admin/frontend
+      target: prod
+    env_file:
+      - ./env/.env.frontend.admin
     volumes:
-      - ./conjug_admin/frontend:/app
+      - ./admin/frontend:/app
       - /app/node_modules
     environment:
-      - VITE_BACKEND_ADMIN_URL=${VITE_BACKEND_ADMIN_URL:-http://localhost:5001/api}
       - APP_ENV=${APP_ENV:-development}
-      - FRONTEND_ADMIN_PORT=${FRONTEND_ADMIN_PORT:-5174}
     networks:
       - web
     labels:
       - "traefik.http.routers.admin-frontend.rule=Host(`${FRONTEND_ADMIN_DOMAIN}`)"
       - "traefik.http.routers.admin-frontend.entrypoints=websecure"
       - "traefik.http.routers.admin-frontend.tls=true"
-      - "traefik.http.services.admin-frontend.loadbalancer.server.port=`${FRONTEND_ADMIN_PORT}`"
+      - "traefik.http.services.admin-frontend.loadbalancer.server.port=${FRONTEND_ADMIN_PORT}"
 
 
   mariadb:

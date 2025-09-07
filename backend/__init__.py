@@ -16,7 +16,7 @@ def create_app():
     if os.getenv('APP_ENV') == 'development':
         CORS(app, supports_credentials=True, origins="*")
     else:
-        frontend_domain = os.getenv('FRONTEND_DOMAIN', 'localhost:5173')
+        frontend_domain = os.getenv('FRONTEND_DOMAIN')
         CORS(app, supports_credentials=True, origins=[f'https://{frontend_domain}'])
 
     db.init_app(app)

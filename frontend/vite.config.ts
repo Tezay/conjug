@@ -13,18 +13,15 @@ export default defineConfig(({ mode }) => {
         ],
         server: {
             host: "0.0.0.0",
-            port: parseInt(process.env.FRONTEND_PORT || "5173"),
+            port: parseInt(env.FRONTEND_PORT || "5173"),
             strictPort: true,
             proxy: {
                 '/api': {
-                    target: env.VITE_BACKEND_URL || 'http://localhost:5000/api',
+                    target: env.VITE_BACKEND_URL || 'https://backend.localhost/api',
                     changeOrigin: true,
                     secure: true,
                 }
             },
         },
-        define: {
-            __APP_ENV__: env.APP_ENV
-        }
     }
 })
