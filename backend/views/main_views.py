@@ -11,11 +11,12 @@ def auth_status():
     if current_user.is_authenticated:
         return {
             "status": "connected",
-            "username": current_user.username
+            "username": current_user.username,
+            "logo": current_user.logo
         }
     else:
         return {
-            "status": "connexion"
+            "status": "not connected"
         }
 
 @main_bp.route("/api/home", methods=['GET', 'POST'])

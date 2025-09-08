@@ -52,9 +52,10 @@ def verify_register(informations):
 
 def verify_login(informations):
     user = User.query.filter_by(email=informations['email']).first()
-    if user and (hashing.check_value(user.password, informations['password'], salt=current_app.config["SECRET_KEY"]) or hashing.chack_value(user.password, informations['password'], salt='abcd')):
-        if user.password == informations['password_old']:
-            user.password = informations['password']
+    if user and (hashing.check_value(user.password, informations['password'], salt=current_app.config["SECRET_KEY"]) 
+                 or hashing.check_value(user.password, informations['password'], salt='abcd')):
+        if hashing.check_value(user.password, informations['password'], salt='abcd'):
+            user.password = hashing.hash_value(informations['password'], salt=current_app.config["SECRET_KEY"])
             db.session.commit()
         return True, user
 
