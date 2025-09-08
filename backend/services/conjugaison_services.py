@@ -122,7 +122,7 @@ def es_evaluate_regular(verb, tense, pronoun, pronouns_dict):
 def record_error():
     session.setdefault(_session_key("error_times"), []).append(session[_session_key("current_time")])
     session.setdefault(_session_key("error_pronouns"), []).append(session[_session_key("current_pronoun")])
-    session.setdefault(_session_key("error_verbs"), []).append(session[_session_key("current_verb&current_type")])
+    session.setdefault(_session_key("error_verbs_et_type"), []).append(session[_session_key("current_verb&current_type")])
 
 def select_new_verb():
     language = prefix()
@@ -133,7 +133,7 @@ def select_new_verb():
 
     verb = verb_choice(vtype, language)
 
-    session[_session_key("current_verb&current_type")] = (verb, vtype)
+    session[_session_key("current_verb&current_type")] = [verb, vtype]
 
 
 def apply_error_repetition(pronouns_dict):
@@ -143,18 +143,19 @@ def apply_error_repetition(pronouns_dict):
     # Vérif si il y a des erreurs à répéter
     error_times = session.get(_session_key("error_times"), [])
     error_pronouns = session.get(_session_key("error_pronouns"), [])
-    error_verbs = session.get(_session_key("error_verbs"), [])
+    error_verbs_et_type = session.get(_session_key("error_verbs_et_type"), [])
     
     # Si erreurs et compteur >= 2 : répète erreur
-    if counter >= 2 and error_times and error_pronouns and error_verbs:
+    if counter >= 2 and error_times and error_pronouns and error_verbs_et_type:
         session[_session_key("current_time")] = error_times.pop(0)
         session[_session_key("current_pronoun")] = error_pronouns.pop(0)
-        session[_session_key("current_verb&current_type")] = error_verbs.pop(0)
+        session[_session_key("current_verb&current_type")] = error_verbs_et_type.pop(0)
         
         # Update session avec erreurs restantes
         session[_session_key("error_times")] = error_times
         session[_session_key("error_pronouns")] = error_pronouns
-        session[_session_key("error_verbs")] = error_verbs
+        session[_session_key("error_verbs_et_type")] = error_verbs_et_type
+        print(session[_session_key("current_verb&current_type")])
         
         # Réinitialise compteur
         session.pop(_session_key("counter"), None)
@@ -163,14 +164,14 @@ def apply_error_repetition(pronouns_dict):
     # Sinon : sélectionne un nouveau verbe
     session[_session_key("current_time")] = rd.choice(session[_session_key("active_times")])
     session[_session_key("current_pronoun")] = rd.choice(list(pronouns_dict.keys()))
-    session[_session_key("counter")] = counter + 1 # if session.get(_session_key("is_correct")) else 0
+    session[_session_key("counter")] = counter + 1
     return None
 
 def reset_error():
     if session.get(_session_key("error_times")) and len(session[_session_key("error_times")])>= 5:
-        session[_session_key("error_times")] = list(session[_session_key("error_times")][-1])
-        session[_session_key("error_pronouns")] = list(session[_session_key("error_pronouns")][-1])
-        session[_session_key("error_verbs")] = list(session[_session_key("error_verbs")][-1])
+        session[_session_key("error_times")] = [ session[_session_key("error_times")][-1] ]
+        session[_session_key("error_pronouns")] = [ session[_session_key("error_pronouns")][-1] ]
+        session[_session_key("error_verbs_et_type")] = [ session[_session_key("error_verbs_et_type")][-1] ]
 
 def inflection_ending(tense, pronoun, pronouns_dict, language, verb_group):
     tense_inflection = ConjugaisonRegular.query.filter_by(language=language, tense=tense, verb_group=verb_group).first()
