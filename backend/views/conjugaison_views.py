@@ -125,8 +125,8 @@ def es():
             "message": message,
         }
 
-@conjugaison_bp.route('/api/es', methods=['GET', 'POST'])
-def es():
+@conjugaison_bp.route('/api/en', methods=['GET', 'POST'])
+def en():
     if request.method == 'GET':
         return {"time_keys": en_time_keys}
 
