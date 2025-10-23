@@ -45,7 +45,7 @@ def init_verb_type(form_data):
     session[_session_key("checked_irregular")] = (session[_session_key("verb_type")] == "irregular")
     session[_session_key("checked_all")] = (session[_session_key("verb_type")] == "all")
 
-def handle_user_response(form_data, pronouns_dict, ):
+def handle_user_response(form_data, pronouns_dict):
     language = prefix()
     answer = form_data.get("reponse", "").strip().lower().replace(" ", "")
     session[_session_key("user_answer")] = answer
